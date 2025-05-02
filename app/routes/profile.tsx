@@ -5,21 +5,15 @@ import {
   Copy,
   Mail,
   Phone,
-  User,
+  User as UserIcon,
   KeyRound,
   FileText,
   Check, // <-- add Check icon
+  RefreshCw, // import RefreshCw icon
 } from 'lucide-react'
-
-interface User {
-  id: string
-  fullName: string
-  email: string
-  phone: string
-  password: string
-  bio: string
-  profilePicture: string
-}
+import { faker } from '@faker-js/faker' // import faker
+import type { User } from '../types/User'
+import ProfileInfoCard from '../components/ProfileInfoCard'
 
 export default function Profile() {
   const [user, setUser] = useState<User | null>(null)
@@ -27,6 +21,8 @@ export default function Profile() {
   const [copiedEmail, setCopiedEmail] = useState(false) // <-- add state
   const [copiedPassword, setCopiedPassword] = useState(false)
   const [copiedPhone, setCopiedPhone] = useState(false)
+  const [imageUrl, setImageUrl] = useState(user?.profileImageUrl || '')
+  const [savingImage, setSavingImage] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -43,6 +39,7 @@ export default function Profile() {
       const currentUser = users.find((u: User) => u.email === decoded.email)
       if (!currentUser) throw new Error('User not found')
       setUser(currentUser)
+      setImageUrl(currentUser.profileImageUrl || '')
       setLoading(false)
     } catch {
       sessionStorage.removeItem('authToken')
@@ -54,6 +51,18 @@ export default function Profile() {
   const handleLogout = () => {
     localStorage.removeItem('authToken')
     navigate('/login')
+  }
+
+  const handleImageUrlSave = () => {
+    if (!user) return
+    setSavingImage(true)
+    const users = JSON.parse(localStorage.getItem('users') || '[]')
+    const updatedUsers = users.map((u: User) =>
+      u.email === user.email ? { ...u, profileImageUrl: imageUrl } : u,
+    )
+    localStorage.setItem('users', JSON.stringify(updatedUsers))
+    setUser({ ...user, profileImageUrl: imageUrl })
+    setTimeout(() => setSavingImage(false), 800)
   }
 
   if (loading) {
@@ -80,18 +89,82 @@ export default function Profile() {
         <div className='pointer-events-none absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40 opacity-30 blur-3xl'></div>
         {/* Profile Card Content */}
         <div className='relative z-10 flex flex-col items-center'>
-          <div className='mb-4 flex flex-col items-center'>
-            <div className='mb-2 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-indigo-200 via-white to-indigo-100 shadow-inner'>
-              <User size={48} strokeWidth={1.5} className='text-indigo-500' />
+          {/* Welcome Message */}
+          <h1 className='mb-6 text-2xl font-extrabold text-indigo-700 drop-shadow-sm'>
+            Welcome back, {user.fullName?.split(' ')[0] || 'User'}!
+          </h1>
+          {/* Avatar & Change Profile Picture at the top */}
+          <div className='mb-6 flex w-full flex-col items-center'>
+            <div className='relative mb-2'>
+              <div className='flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-indigo-200 via-white to-indigo-100 shadow-inner'>
+                {imageUrl ? (
+                  <img
+                    src={imageUrl}
+                    alt='Profile'
+                    className='h-28 w-28 rounded-full border border-indigo-200 object-cover'
+                    onError={(e) => (e.currentTarget.style.display = 'none')}
+                  />
+                ) : (
+                  <UserIcon
+                    size={56}
+                    strokeWidth={1.5}
+                    className='text-indigo-400'
+                  />
+                )}
+                {savingImage && (
+                  <div className='absolute inset-0 flex items-center justify-center rounded-full bg-white/60'>
+                    <span className='h-8 w-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-500'></span>
+                  </div>
+                )}
+              </div>
             </div>
-            <h1 className='text-2xl font-extrabold text-indigo-700 drop-shadow-sm'>
-              {user.fullName}
-            </h1>
-            <div className='mt-1 flex items-center gap-2 rounded-lg bg-white/70 px-3 py-1 text-slate-700 shadow-inner'>
-              <Mail size={16} className='text-indigo-400' />
-              <span className='text-sm'>{user.email}</span>
+            <span className='mb-2 text-sm font-semibold text-indigo-700'>
+              Change Profile Picture
+            </span>
+            <div className='flex w-full max-w-xs items-center gap-2'>
+              <input
+                type='url'
+                className='flex-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-sm shadow-sm focus:ring-2 focus:ring-indigo-200 focus:outline-none'
+                placeholder='Image URL (optional)'
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                style={{ minWidth: 0 }}
+              />
               <button
-                className='ml-1 text-xs text-indigo-500 hover:underline active:scale-95'
+                onClick={() => setImageUrl(faker.image.avatar())}
+                className='rounded-lg p-2 text-indigo-500 hover:bg-indigo-100 active:scale-95'
+                type='button'
+                title='Generate random image URL'
+              >
+                <RefreshCw size={18} />
+              </button>
+              <button
+                onClick={handleImageUrlSave}
+                className='rounded-lg bg-indigo-500 p-2 text-white hover:bg-indigo-600 active:scale-95 disabled:opacity-60'
+                disabled={
+                  savingImage || imageUrl === (user.profileImageUrl || '')
+                }
+                type='button'
+                title='Save image URL'
+              >
+                <Check size={18} />
+              </button>
+            </div>
+          </div>
+          {/* Info Cards: Full Name & Email (no duplicate) */}
+          <div className='mb-6 w-full space-y-4'>
+            <ProfileInfoCard
+              icon={<UserIcon size={20} className='text-indigo-400' />}
+              label='Full Name:'
+              value={user.fullName}
+            />
+            <ProfileInfoCard
+              icon={<Mail size={20} className='text-indigo-400' />}
+              label='Email:'
+              value={user.email}
+            >
+              <button
+                className='ml-2 text-xs text-indigo-500 hover:underline active:scale-95'
                 onClick={async () => {
                   await navigator.clipboard.writeText(user.email)
                   setCopiedEmail(true)
@@ -105,17 +178,18 @@ export default function Profile() {
                   <Copy size={14} />
                 )}
               </button>
-            </div>
+            </ProfileInfoCard>
           </div>
           <div className='w-full space-y-4'>
-            <div className='flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-5 py-3 shadow-inner'>
-              <KeyRound size={20} className='text-indigo-400' />
-              <span className='min-w-[120px] font-semibold text-indigo-700'>
-                Hashed Password:
-              </span>
-              <span className='text-xs break-all text-gray-500 select-all'>
-                {user.password}
-              </span>
+            <ProfileInfoCard
+              icon={<KeyRound size={20} className='text-indigo-400' />}
+              label='Hashed Password:'
+              value={
+                <span className='text-xs break-all text-gray-500 select-all'>
+                  {user.password}
+                </span>
+              }
+            >
               <button
                 className='ml-2 text-xs text-indigo-500 hover:underline active:scale-95'
                 onClick={async () => {
@@ -131,22 +205,23 @@ export default function Profile() {
                   <Copy size={14} />
                 )}
               </button>
-            </div>
-            <div className='flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-5 py-3 shadow-inner'>
-              <Phone size={20} className='text-indigo-400' />
-              <span className='min-w-[120px] font-semibold text-indigo-700'>
-                Phone:
-              </span>
-              <span className='text-gray-500'>
-                {user.phone || (
+            </ProfileInfoCard>
+            <ProfileInfoCard
+              icon={<Phone size={20} className='text-indigo-400' />}
+              label='Phone:'
+              value={
+                user.phone || (
                   <span className='text-gray-400 italic'>No phone</span>
-                )}
-              </span>
+                )
+              }
+            >
               {user.phone && (
                 <button
                   className='ml-2 text-xs text-indigo-500 hover:underline active:scale-95'
                   onClick={async () => {
-                    await navigator.clipboard.writeText(user.phone)
+                    if (user.phone) {
+                      await navigator.clipboard.writeText(user.phone)
+                    }
                     setCopiedPhone(true)
                     setTimeout(() => setCopiedPhone(false), 1000)
                   }}
@@ -159,18 +234,16 @@ export default function Profile() {
                   )}
                 </button>
               )}
-            </div>
-            <div className='flex items-start gap-3 rounded-xl border border-slate-200 bg-white/90 px-5 py-3 shadow-inner'>
-              <FileText size={20} className='mt-1 text-indigo-400' />
-              <span className='min-w-[120px] font-semibold text-indigo-700'>
-                Bio:
-              </span>
-              <span className='text-gray-500'>
-                {user.bio || (
+            </ProfileInfoCard>
+            <ProfileInfoCard
+              icon={<FileText size={20} className='mt-1 text-indigo-400' />}
+              label='Bio:'
+              value={
+                user.bio || (
                   <span className='text-gray-400 italic'>No bio provided</span>
-                )}
-              </span>
-            </div>
+                )
+              }
+            />
           </div>
           <button
             onClick={() => {

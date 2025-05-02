@@ -1,13 +1,5 @@
-import { User } from 'lucide-react'
-
-interface User {
-  id: string
-  fullName: string
-  email: string
-  password: string
-  phone?: string
-  bio?: string
-}
+import { User as UserIcon } from 'lucide-react'
+import type { User } from '../types/User'
 
 interface UserCardProps {
   user: User
@@ -21,8 +13,17 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
       <div className='pointer-events-none absolute -top-8 -left-8 h-20 w-20 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-40 blur-2xl'></div>
       <div className='pointer-events-none absolute -right-8 -bottom-8 h-16 w-16 rounded-full bg-gradient-to-br from-indigo-100 via-white to-transparent opacity-30 blur-xl'></div>
       {/* Avatar Circle */}
-      <div className='relative z-10 mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-slate-100/60 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner sm:mb-0'>
-        <User size={28} strokeWidth={1.5} className='text-indigo-500' />
+      <div className='relative z-10 mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-slate-100/60 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner sm:mb-0'>
+        {user.profileImageUrl ? (
+          <img
+            src={user.profileImageUrl}
+            alt='Profile'
+            className='h-16 w-16 rounded-full border border-indigo-200 object-cover'
+            onError={(e) => (e.currentTarget.style.display = 'none')}
+          />
+        ) : (
+          <UserIcon size={28} strokeWidth={1.5} className='text-indigo-500' />
+        )}
       </div>
       {/* User Info */}
       <div className='relative z-10 w-full flex-1 space-y-1'>
