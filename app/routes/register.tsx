@@ -7,6 +7,14 @@ import { useNavigate } from 'react-router'
 import { faker } from '@faker-js/faker'
 import { Checkbox, Radio } from '../components/CheckboxRadio'
 import Button from '../components/Button'
+import {
+  UserPlus2,
+  RefreshCw,
+  Mail,
+  Lock,
+  Phone,
+  UserCircle,
+} from 'lucide-react'
 
 export default function Register() {
   const [formData, setFormData] = useState<{
@@ -140,7 +148,7 @@ export default function Register() {
   }
 
   return (
-    <div className='flex items-center justify-center'>
+    <div className='my-8 flex items-center justify-center'>
       <Toast
         message='Registration successful!'
         show={showToast}
@@ -148,26 +156,49 @@ export default function Register() {
         duration={1500}
         variant='success'
       />
-      <div className='relative w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 bg-white/80 p-10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-md'>
-        {/* Decorative blurred shapes for skeuomorphic depth */}
-        <div className='pointer-events-none absolute -top-10 -left-10 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-60 blur-2xl'></div>
-        <div className='pointer-events-none absolute -right-10 -bottom-10 h-28 w-28 rounded-full bg-gradient-to-br from-indigo-200 via-white to-transparent opacity-40 blur-2xl'></div>
-        <div className='pointer-events-none absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40 opacity-30 blur-3xl'></div>
+      <div className='relative w-full max-w-md overflow-hidden rounded-3xl border border-white/70 bg-gradient-to-b from-white/90 to-white/80 p-8 shadow-xl backdrop-blur-md'>
+        {/* Decorative Elements */}
+        <div className='pointer-events-none absolute -top-20 -left-20 h-48 w-48 rounded-full bg-indigo-200/30 blur-3xl'></div>
+        <div className='pointer-events-none absolute -right-20 -bottom-20 h-48 w-48 rounded-full bg-indigo-300/20 blur-3xl'></div>
+
+        {/* Top Highlight - Skeuomorphic Effect */}
+        <div className='absolute top-0 right-0 left-0 h-20 rounded-t-3xl bg-gradient-to-b from-white/60 to-transparent'></div>
+
         {/* Content */}
         <div className='relative z-10 w-full'>
-          <h1 className='mb-6 text-center text-3xl font-extrabold text-slate-900 drop-shadow-sm'>
-            Register
-          </h1>
+          {/* Header Section */}
+          <div className='mb-6 flex flex-col items-center'>
+            <div className='mb-4 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-200 via-white to-indigo-100 p-4 shadow-lg backdrop-blur-sm'>
+              <div className='rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 p-3 text-white shadow-inner'>
+                <UserPlus2
+                  size={32}
+                  strokeWidth={2}
+                  className='drop-shadow-sm'
+                />
+              </div>
+            </div>
+            <h1 className='bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-center text-3xl font-extrabold text-transparent drop-shadow-sm'>
+              Create Account
+            </h1>
+            <p className='mt-2 max-w-xs text-center text-slate-600'>
+              Join our community and enjoy all features
+            </p>
+          </div>
+
+          {/* Prefill Button */}
           <Button
             type='button'
             variant='secondary'
-            className='mb-4 w-full'
+            className='mb-6 w-full justify-center'
             onClick={prefillRandomData}
             disabled={loading}
+            iconLeft={<RefreshCw size={18} />}
           >
-            Prefill Random Data
+            Fill with Demo Data
           </Button>
+
           <form onSubmit={handleSubmit} className='space-y-5'>
+            {/* Basic Information */}
             <InputField
               label='Full Name'
               name='fullName'
@@ -177,6 +208,7 @@ export default function Register() {
               onChange={handleChange}
               withAsterisk
               error={formErrors.fullName}
+              icon={<UserCircle size={18} className='text-indigo-500' />}
             />
             <InputField
               label='Email'
@@ -188,6 +220,7 @@ export default function Register() {
               withAsterisk
               autoComplete='email'
               error={formErrors.email}
+              icon={<Mail size={18} className='text-indigo-500' />}
             />
             <InputField
               label='Password'
@@ -199,6 +232,7 @@ export default function Register() {
               withAsterisk
               autoComplete='new-password'
               error={formErrors.password}
+              icon={<Lock size={18} className='text-indigo-500' />}
             />
             <InputField
               label='Confirm Password'
@@ -210,6 +244,7 @@ export default function Register() {
               withAsterisk
               autoComplete='new-password'
               error={formErrors.confirmPassword}
+              icon={<Lock size={18} className='text-indigo-500' />}
             />
             <InputField
               label='Phone Number (Optional)'
@@ -219,12 +254,15 @@ export default function Register() {
               value={formData.phone}
               onChange={handleChange}
               error={formErrors.phone}
+              icon={<Phone size={18} className='text-indigo-500' />}
             />
-            <div>
-              <label className='mb-1 block text-sm font-semibold text-slate-700 drop-shadow-sm'>
+
+            {/* Gender Selection */}
+            <div className='mt-1'>
+              <label className='mb-2 block text-sm font-medium text-slate-700 drop-shadow-sm'>
                 Gender (Optional)
               </label>
-              <div className='mt-1 flex gap-4'>
+              <div className='mt-2 flex flex-wrap gap-4'>
                 <Radio
                   label='Male'
                   name='gender'
@@ -248,11 +286,13 @@ export default function Register() {
                 />
               </div>
             </div>
-            <div>
-              <label className='mb-1 block text-sm font-semibold text-slate-700 drop-shadow-sm'>
+
+            {/* Interests */}
+            <div className='mt-1'>
+              <label className='mb-2 block text-sm font-medium text-slate-700 drop-shadow-sm'>
                 Interests (Optional)
               </label>
-              <div className='mt-1 flex gap-4'>
+              <div className='mt-2 flex flex-wrap gap-4'>
                 {['Coding', 'Music', 'Sports', 'Art'].map((interest) => (
                   <Checkbox
                     key={interest}
@@ -265,7 +305,9 @@ export default function Register() {
                 ))}
               </div>
             </div>
-            <div className='flex items-center gap-2'>
+
+            {/* Additional Options */}
+            <div className='mt-4 flex items-center gap-2'>
               <Checkbox
                 label='Receive Newsletter (Optional)'
                 name='receiveNewsletter'
@@ -289,23 +331,44 @@ export default function Register() {
                 error={formErrors.acceptTerms}
               />
             </div>
-            {/* Loading spinner above the Register button */}
+
+            {/* Loading Spinner */}
             {loading && (
               <div className='mb-2 flex items-center justify-center'>
-                <span className='mr-2 h-6 w-6 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600'></span>
-                <span className='font-semibold text-indigo-600'>
+                <div className='relative h-8 w-8'>
+                  <div className='absolute inset-0 rounded-full border-4 border-indigo-100 opacity-80'></div>
+                  <div className='absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-indigo-600'></div>
+                </div>
+                <span className='ml-3 font-medium text-indigo-700'>
                   Redirecting to login...
                 </span>
               </div>
             )}
+
+            {/* Submit Button */}
             <Button
               type='submit'
               variant='primary'
-              className='w-full'
+              className='w-full justify-center'
+              size='lg'
               disabled={loading}
+              iconLeft={<UserPlus2 size={20} />}
             >
-              Register
+              Create Account
             </Button>
+
+            {/* Login Link */}
+            <div className='text-center'>
+              <p className='text-sm text-slate-600'>
+                Already have an account?{' '}
+                <a
+                  href='/login'
+                  className='font-medium text-indigo-600 transition-colors hover:text-indigo-800'
+                >
+                  Sign in
+                </a>
+              </p>
+            </div>
           </form>
         </div>
       </div>

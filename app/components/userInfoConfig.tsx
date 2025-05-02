@@ -1,68 +1,83 @@
 import {
-  User as UserIcon,
   Mail,
   Phone,
+  UserCircle,
   FileText,
-  KeyRound,
-  AlertTriangle,
+  Calendar,
+  ToggleLeft,
+  Tag,
 } from 'lucide-react'
+import type { User } from '../types/User'
 
-export const userInfoConfig = [
+type UserInfoField = {
+  key: keyof User | string
+  label: string
+  icon: React.ReactNode
+  render?: (user: User) => React.ReactNode
+  isSpoiler?: boolean
+  spoilerLabel?: string
+}
+
+// Enhanced icons with consistent styling and sizing
+export const userInfoConfig: UserInfoField[] = [
+  {
+    key: 'id',
+    label: 'User ID',
+    icon: <Calendar size={20} className='text-indigo-600' />,
+  },
   {
     key: 'fullName',
-    label: 'Full Name:',
-    icon: <UserIcon size={20} className='text-indigo-400' />,
+    label: 'Full Name',
+    icon: <UserCircle size={20} className='text-indigo-600' />,
   },
   {
     key: 'email',
-    label: 'Email:',
-    icon: <Mail size={20} className='text-indigo-400' />,
-  },
-  {
-    key: 'password',
-    label: 'Hashed Password:',
-    icon: <KeyRound size={20} className='text-indigo-400' />,
-    isSpoiler: true,
-    spoilerLabel: 'Reveal hashed password',
-    render: (user: any) => (
-      <div className='flex flex-col gap-1'>
-        <span className='text-xs break-all text-gray-500 select-all'>
-          {user.password}
-        </span>
-        <span className='mt-1 flex items-center gap-1 text-xs text-yellow-600'>
-          <AlertTriangle size={14} className='text-yellow-500' />
-          For demo only. Never show hashed passwords in real apps.
-        </span>
-      </div>
-    ),
+    label: 'Email',
+    icon: <Mail size={20} className='text-indigo-600' />,
   },
   {
     key: 'phone',
-    label: 'Phone:',
-    icon: <Phone size={20} className='text-indigo-400' />,
-    render: (user: any) =>
-      user.phone || <span className='text-gray-400 italic'>No phone</span>,
+    label: 'Phone',
+    icon: <Phone size={20} className='text-indigo-600' />,
+    render: (user: User) =>
+      user.phone || (
+        <span className='text-slate-400 italic'>No phone specified</span>
+      ),
   },
   {
     key: 'bio',
-    label: 'Bio:',
-    icon: <FileText size={20} className='mt-1 text-indigo-400' />,
-    render: (user: any) =>
-      user.bio || <span className='text-gray-400 italic'>No bio provided</span>,
+    label: 'Bio',
+    icon: <FileText size={20} className='text-indigo-600' />,
+    render: (user: User) =>
+      user.bio || (
+        <span className='text-slate-400 italic'>No bio provided</span>
+      ),
   },
   {
     key: 'gender',
-    label: 'Gender:',
-    icon: <UserIcon size={20} className='text-indigo-400' />,
+    label: 'Gender',
+    icon: <UserCircle size={20} className='text-indigo-600' />,
   },
   {
     key: 'interests',
-    label: 'Interests:',
-    icon: <FileText size={20} className='text-indigo-400' />,
+    label: 'Interests',
+    icon: <Tag size={20} className='text-indigo-600' />,
   },
   {
     key: 'receiveNewsletter',
-    label: 'Receive Newsletter:',
-    icon: <Mail size={20} className='text-indigo-400' />,
+    label: 'Newsletter',
+    icon: <ToggleLeft size={20} className='text-indigo-600' />,
+  },
+  {
+    key: 'password',
+    label: 'Password',
+    icon: <FileText size={20} className='text-indigo-600' />,
+    isSpoiler: true,
+    spoilerLabel: 'Show password hash',
+    render: (user: User) => (
+      <code className='rounded bg-slate-100 p-1 font-mono text-xs'>
+        {user.password?.substring(0, 25)}...
+      </code>
+    ),
   },
 ]

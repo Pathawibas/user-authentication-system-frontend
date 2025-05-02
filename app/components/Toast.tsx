@@ -1,3 +1,4 @@
+// app/components/Toast.tsx
 import { useEffect } from 'react'
 import { Check, X, Info } from 'lucide-react'
 

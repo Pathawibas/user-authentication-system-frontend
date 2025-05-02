@@ -1,5 +1,7 @@
+// app/components/MobileNav.tsx
 import { useState, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router'
+import { Home, UserPlus2, LogIn, Users, Contact2, X } from 'lucide-react'
 
 export default function MobileNav({
   isLoggedIn,
@@ -64,190 +66,171 @@ export default function MobileNav({
 
   return (
     <>
-      {/* Overlay rendered at the root level, not inside any flex/grid container */}
+      {/* Overlay with blur effect */}
       {navOpen && (
         <div
-          className='fixed inset-0 z-40 bg-black/60 transition-opacity duration-200 md:hidden'
+          className='fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-sm transition-opacity duration-300 md:hidden'
           onClick={() => setNavOpen(false)}
           aria-hidden='true'
         ></div>
       )}
-      {/* Mobile Nav */}
+
+      {/* Mobile Nav with Skeuomorphic Styling */}
       {navOpen && (
-        <nav
+        <div
           ref={navRef}
-          className={`fixed top-0 right-0 z-50 flex h-full w-72 flex-col gap-2 border-l border-slate-200 bg-white/95 p-8 shadow-2xl transition-transform duration-500 focus:outline-none md:hidden ${navOpen ? 'translate-x-0' : 'translate-x-full'}`}
-          aria-label='Mobile navigation'
+          className='fixed top-0 right-0 bottom-0 z-50 w-72 overflow-y-auto focus:outline-none md:hidden'
           tabIndex={-1}
         >
-          <button
-            className='mb-6 self-end rounded-md p-2 text-slate-700 hover:bg-indigo-100/60 focus:ring-2 focus:ring-indigo-300 focus:outline-none'
-            aria-label='Close navigation menu'
-            onClick={() => setNavOpen(false)}
+          {/* Skeuomorphic Panel with Depth */}
+          <nav
+            className='h-full w-full border-l border-white/50 bg-gradient-to-br from-white/90 to-indigo-50/90 p-6 shadow-lg backdrop-blur-lg transition-transform duration-500 focus:outline-none'
+            aria-label='Mobile navigation'
           >
-            <svg width='28' height='28' fill='none' viewBox='0 0 24 24'>
-              <path
-                d='M6 6l12 12M6 18L18 6'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-              />
-            </svg>
-          </button>
-          <NavLink
-            to='/'
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-4 py-3 font-semibold ${isActive ? 'bg-indigo-200/70 text-indigo-900' : 'text-slate-700 hover:bg-indigo-100/70'}`
-            }
-            onClick={() => setNavOpen(false)}
-          >
-            <span className='text-indigo-500'>
-              <svg width='20' height='20' fill='none' viewBox='0 0 24 24'>
-                <path
-                  d='M3 12l9-9 9 9'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-                <path
-                  d='M4 10v10h16V10'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-              </svg>
-            </span>{' '}
-            Home
-          </NavLink>
-          <NavLink
-            to='/register'
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-4 py-3 font-semibold ${isActive ? 'bg-indigo-200/70 text-indigo-900' : 'text-slate-700 hover:bg-indigo-100/70'}`
-            }
-            onClick={() => setNavOpen(false)}
-          >
-            <span className='text-indigo-500'>
-              <svg width='20' height='20' fill='none' viewBox='0 0 24 24'>
-                <circle
-                  cx='12'
-                  cy='8'
-                  r='4'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-                <path
-                  d='M12 12v4m0 0h2m-2 0H10'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-              </svg>
-            </span>{' '}
-            Register
-          </NavLink>
-          <NavLink
-            to='/login'
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-4 py-3 font-semibold ${isActive ? 'bg-indigo-200/70 text-indigo-900' : 'text-slate-700 hover:bg-indigo-100/70'}`
-            }
-            onClick={() => setNavOpen(false)}
-          >
-            <span className='text-indigo-500'>
-              <svg width='20' height='20' fill='none' viewBox='0 0 24 24'>
-                <path
-                  d='M15 12H3m0 0l4-4m-4 4l4 4'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-                <rect
-                  x='9'
-                  y='4'
-                  width='12'
-                  height='16'
-                  rx='2'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-              </svg>
-            </span>{' '}
-            Login
-          </NavLink>
-          <NavLink
-            to='/users'
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-4 py-3 font-semibold ${isActive ? 'bg-indigo-200/70 text-indigo-900' : 'text-slate-700 hover:bg-indigo-100/70'}`
-            }
-            onClick={() => setNavOpen(false)}
-          >
-            <span className='text-indigo-500'>
-              <svg width='20' height='20' fill='none' viewBox='0 0 24 24'>
-                <circle
-                  cx='8'
-                  cy='8'
-                  r='4'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-                <circle
-                  cx='16'
-                  cy='8'
-                  r='4'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-                <path
-                  d='M2 20c0-2.21 3.58-4 8-4s8 1.79 8 4'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-              </svg>
-            </span>{' '}
-            Users
-          </NavLink>
-          <NavLink
-            to='/profile'
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-4 py-3 font-semibold ${isActive ? 'bg-indigo-200/70 text-indigo-900' : 'text-slate-700 hover:bg-indigo-100/70'}`
-            }
-            onClick={() => setNavOpen(false)}
-          >
-            <span className='text-indigo-500'>
-              <svg width='20' height='20' fill='none' viewBox='0 0 24 24'>
-                <circle
-                  cx='12'
-                  cy='8'
-                  r='4'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-                <path
-                  d='M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                />
-              </svg>
-            </span>{' '}
-            Profile
-          </NavLink>
-          {/* Show avatar only if logged in (mobile) */}
-          {/* {isLoggedIn && (
-            <div className='mt-8 flex items-center justify-center'>
-              <span className='flex h-12 w-12 items-center justify-center rounded-full bg-indigo-200 text-indigo-700'>
-                <svg width='28' height='28' fill='none' viewBox='0 0 24 24'>
-                  <circle
-                    cx='12'
-                    cy='8'
-                    r='4'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                  />
-                  <path
-                    d='M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                  />
-                </svg>
-              </span>
+            {/* Top Section with Close Button */}
+            <div className='mb-8 flex items-center justify-between'>
+              <div className='bg-gradient-to-b from-indigo-700 to-indigo-800 bg-clip-text text-xl font-bold text-indigo-700 text-transparent'>
+                Menu
+              </div>
+              <button
+                className='rounded-full border border-indigo-100/30 bg-white/70 p-2 shadow-sm backdrop-blur-sm transition-all hover:translate-y-[-1px] hover:bg-white/90 hover:shadow focus:ring-2 focus:ring-indigo-300 focus:outline-none active:translate-y-[1px] active:shadow-inner'
+                onClick={() => setNavOpen(false)}
+                aria-label='Close navigation menu'
+              >
+                <X size={20} className='text-indigo-700' />
+              </button>
             </div>
-          )} */}
-        </nav>
+
+            {/* Navigation Links with Skeuomorphic Style */}
+            <div className='flex flex-col gap-3'>
+              <NavLink
+                to='/'
+                className={({ isActive }) =>
+                  `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
+                      : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
+                  }`
+                }
+                onClick={() => setNavOpen(false)}
+              >
+                {/* Icon with Container */}
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full ${({
+                    isActive,
+                  }: {
+                    isActive: boolean
+                  }) =>
+                    isActive
+                      ? 'bg-white/80 text-indigo-600 shadow-inner'
+                      : 'bg-white/80 text-indigo-500 shadow-inner'}`}
+                >
+                  <Home size={20} strokeWidth={1.5} />
+                </span>
+                <span>Home</span>
+
+                {/* Subtle background blob effect */}
+                <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
+                <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
+              </NavLink>
+
+              <NavLink
+                to='/register'
+                className={({ isActive }) =>
+                  `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
+                      : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
+                  }`
+                }
+                onClick={() => setNavOpen(false)}
+              >
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
+                >
+                  <UserPlus2 size={20} strokeWidth={1.5} />
+                </span>
+                <span>Register</span>
+                <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
+                <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
+              </NavLink>
+
+              <NavLink
+                to='/login'
+                className={({ isActive }) =>
+                  `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
+                      : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
+                  }`
+                }
+                onClick={() => setNavOpen(false)}
+              >
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
+                >
+                  <LogIn size={20} strokeWidth={1.5} />
+                </span>
+                <span>Login</span>
+                <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
+                <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
+              </NavLink>
+
+              <NavLink
+                to='/users'
+                className={({ isActive }) =>
+                  `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
+                      : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
+                  }`
+                }
+                onClick={() => setNavOpen(false)}
+              >
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
+                >
+                  <Users size={20} strokeWidth={1.5} />
+                </span>
+                <span>Users</span>
+                <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
+                <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
+              </NavLink>
+
+              <NavLink
+                to='/profile'
+                className={({ isActive }) =>
+                  `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
+                      : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
+                  }`
+                }
+                onClick={() => setNavOpen(false)}
+              >
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
+                >
+                  <Contact2 size={20} strokeWidth={1.5} />
+                </span>
+                <span>Profile</span>
+                <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
+                <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
+              </NavLink>
+            </div>
+
+            {/* Decorative Elements */}
+            <div className='absolute top-[20%] right-[-50px] h-48 w-48 rounded-full bg-indigo-200/30 blur-3xl'></div>
+            <div className='absolute bottom-[30%] left-[-30px] h-40 w-40 rounded-full bg-indigo-300/20 blur-3xl'></div>
+
+            {/* Footer with Version */}
+            <div className='absolute right-0 bottom-6 left-0 text-center'>
+              <div className='text-xs font-medium text-indigo-400/70'>
+                Auth System v1.0
+              </div>
+            </div>
+          </nav>
+        </div>
       )}
     </>
   )

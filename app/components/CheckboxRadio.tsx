@@ -1,4 +1,5 @@
 import React from 'react'
+import { Check } from 'lucide-react'
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: React.ReactNode
@@ -25,38 +26,52 @@ export function Checkbox({
             error ? `${props.id || props.name}-error` : undefined
           }
         />
+
+        {/* Modern Skeuomorphic Checkbox */}
         <span
-          className={`flex h-5 w-5 items-center justify-center rounded-md border bg-white shadow-inner transition-colors duration-150 ${error ? 'border-red-400 peer-focus:ring-2 peer-focus:ring-red-300' : 'border-slate-300 peer-checked:border-indigo-500 peer-checked:bg-indigo-500 peer-focus:ring-2 peer-focus:ring-indigo-400 peer-focus:ring-offset-2'}`}
+          className={`relative flex h-5 w-5 items-center justify-center rounded-md border transition-all duration-150 ${
+            error
+              ? 'border-red-400 bg-red-50/50 peer-focus:ring-2 peer-focus:ring-red-300'
+              : `border-indigo-200 bg-white/80 shadow-inner backdrop-blur-sm peer-checked:border-indigo-500 peer-checked:bg-gradient-to-b peer-checked:from-indigo-400/90 peer-checked:to-indigo-500/90 peer-hover:border-indigo-300 peer-focus:ring-2 peer-focus:ring-indigo-300 peer-focus:ring-offset-1 peer-active:translate-y-[0.5px] peer-active:shadow-inner`
+          }`}
         >
+          {/* Top Highlight - More subtle now */}
+          <span className='pointer-events-none absolute inset-x-0 top-0 h-[35%] rounded-t-sm bg-white/30 opacity-70'></span>
+
+          {/* Checkmark with Animation */}
           {props.checked && (
-            <svg
-              width='16'
-              height='16'
-              viewBox='0 0 20 20'
-              fill='none'
-              className='text-white'
-            >
-              <path
-                d='M5 10.5L9 14.5L15 7.5'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
+            <Check
+              size={14}
+              strokeWidth={2.5}
+              className='animate-[fadeIn_0.15s_ease-in-out] text-white drop-shadow-sm'
+            />
           )}
         </span>
+
         <span
           className={`text-sm ${error ? 'text-red-600' : 'text-slate-700'}`}
         >
           {label}
         </span>
       </label>
+
+      {/* Error Message */}
       {error && (
         <span
           id={`${props.id || props.name}-error`}
-          className='mt-1 block text-xs text-red-600'
+          className='mt-2 block flex items-center text-xs text-red-600'
         >
+          <svg
+            className='mr-1 h-3 w-3'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+          >
+            <circle cx='12' cy='12' r='10'></circle>
+            <line x1='12' y1='8' x2='12' y2='12'></line>
+            <line x1='12' y1='16' x2='12.01' y2='16'></line>
+          </svg>
           {error}
         </span>
       )}
@@ -84,24 +99,48 @@ export function Radio({ label, className = '', error, ...props }: RadioProps) {
             error ? `${props.id || props.name}-error` : undefined
           }
         />
+
+        {/* Modern Skeuomorphic Radio Button */}
         <span
-          className={`flex h-5 w-5 items-center justify-center rounded-full border bg-white shadow-inner transition-colors duration-150 ${error ? 'border-red-400 peer-focus:ring-2 peer-focus:ring-red-300' : 'border-slate-300 peer-checked:border-indigo-500 peer-checked:bg-indigo-500 peer-focus:ring-2 peer-focus:ring-indigo-400 peer-focus:ring-offset-2'}`}
+          className={`relative flex h-5 w-5 items-center justify-center rounded-full border transition-all duration-150 ${
+            error
+              ? 'border-red-400 bg-red-50/50 peer-focus:ring-2 peer-focus:ring-red-300'
+              : `border-indigo-200 bg-white/80 shadow-inner backdrop-blur-sm peer-checked:border-indigo-500 peer-checked:bg-gradient-to-b peer-checked:from-indigo-400/90 peer-checked:to-indigo-500/90 peer-hover:border-indigo-300 peer-focus:ring-2 peer-focus:ring-indigo-300 peer-focus:ring-offset-1 peer-active:translate-y-[0.5px] peer-active:shadow-inner`
+          }`}
         >
+          {/* Top Highlight - More subtle now */}
+          <span className='pointer-events-none absolute inset-x-0 top-0 h-[35%] rounded-t-full bg-white/30 opacity-70'></span>
+
+          {/* Radio Indicator with Animation */}
           {props.checked && (
-            <span className='block h-2.5 w-2.5 rounded-full bg-white' />
+            <span className='block h-2.5 w-2.5 animate-[fadeIn_0.15s_ease-in-out] rounded-full bg-white shadow-sm' />
           )}
         </span>
+
         <span
           className={`text-sm ${error ? 'text-red-600' : 'text-slate-700'}`}
         >
           {label}
         </span>
       </label>
+
+      {/* Error Message */}
       {error && (
         <span
           id={`${props.id || props.name}-error`}
-          className='mt-1 block text-xs text-red-600'
+          className='mt-2 block flex items-center text-xs text-red-600'
         >
+          <svg
+            className='mr-1 h-3 w-3'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+          >
+            <circle cx='12' cy='12' r='10'></circle>
+            <line x1='12' y1='8' x2='12' y2='12'></line>
+            <line x1='12' y1='16' x2='12.01' y2='16'></line>
+          </svg>
           {error}
         </span>
       )}

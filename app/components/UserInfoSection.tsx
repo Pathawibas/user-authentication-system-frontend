@@ -1,6 +1,8 @@
+// app/components/UserInfoSection.tsx
 import { useState } from 'react'
 import ProfileInfoCard from './ProfileInfoCard'
 import { userInfoConfig } from './userInfoConfig'
+import { ChevronDown, ChevronUp, User as UserIcon } from 'lucide-react'
 
 interface UserInfoSectionProps {
   user: any
@@ -16,13 +18,12 @@ export default function UserInfoSection({
   defaultExpanded = false,
 }: UserInfoSectionProps) {
   const [expanded, setExpanded] = useState(defaultExpanded)
-  // Keys to exclude from details when expanded (shown in summary only)
-  const summaryKeys = ['fullName', 'email', 'id']
+
   return (
     <div className={`w-full space-y-4 ${className}`}>
-      {!expanded && (
+      {!expanded ? (
         <div
-          className='group flex cursor-pointer items-center justify-between rounded-xl transition-colors hover:bg-indigo-50/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400'
+          className='relative cursor-pointer overflow-hidden rounded-xl border border-white/70 bg-gradient-to-b from-white/95 to-white/85 p-5 shadow-sm backdrop-blur-sm transition-all duration-200 hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400'
           tabIndex={0}
           role='button'
           aria-pressed='false'
@@ -32,71 +33,131 @@ export default function UserInfoSection({
             if (e.key === 'Enter' || e.key === ' ') setExpanded(true)
           }}
         >
-          <div className='flex flex-col gap-1 md:flex-row md:items-center md:gap-4'>
-            <span className='font-bold text-indigo-700'>{user.fullName}</span>
-            <span className='text-xs text-slate-500 md:text-sm'>
-              {user.email}
-            </span>
-            <span className='text-xs text-slate-400'>ID: {user.id}</span>
-          </div>
-          <button
-            type='button'
-            className='ml-2 flex items-center gap-1 rounded px-2 py-1 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-100 active:scale-95'
-            onClick={(e) => {
-              e.stopPropagation()
-              setExpanded((v) => !v)
-            }}
-            aria-expanded={expanded}
-          >
-            Show Details
-            <svg
-              width='16'
-              height='16'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='transition-transform duration-200'
-            >
-              <path
-                d='M6 9l6 6 6-6'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-          </button>
-        </div>
-      )}
-      {expanded && (
-        <>
-          <div className='flex justify-end'>
+          {/* Light reflection effect at the top */}
+          <div className='pointer-events-none absolute inset-x-0 top-0 h-[30%] bg-white/30'></div>
+
+          <div className='flex items-center justify-between'>
+            {/* User Info with Profile Image */}
+            <div className='flex min-w-0 flex-grow items-center gap-4'>
+              {/* Enhanced Profile Image Container */}
+              <div className='h-12 w-12 flex-shrink-0 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 p-0.5 shadow-lg'>
+                <div className='flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white'>
+                  {user.profileImageUrl ? (
+                    <img
+                      src={user.profileImageUrl}
+                      alt={`${user.fullName}'s profile`}
+                      className='h-full w-full object-cover'
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                        e.currentTarget.parentElement?.classList.add(
+                          'bg-indigo-100/80',
+                          'shadow-inner',
+                        )
+                      }}
+                    />
+                  ) : (
+                    <div className='flex h-full w-full items-center justify-center bg-indigo-100/80 shadow-inner'>
+                      <UserIcon
+                        size={24}
+                        strokeWidth={1.5}
+                        className='text-indigo-500'
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className='flex min-w-0 flex-col overflow-hidden'>
+                <span className='truncate bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-lg font-bold text-transparent'>
+                  {user.fullName}
+                </span>
+                <span className='truncate text-sm text-slate-500'>
+                  {user.email}
+                </span>
+              </div>
+            </div>
+
+            {/* Show Details Button */}
             <button
               type='button'
-              className='mb-2 flex items-center gap-1 rounded px-2 py-1 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 active:scale-95'
+              className='group relative ml-4 flex flex-shrink-0 items-center gap-2 rounded-xl border border-indigo-300/30 bg-gradient-to-b from-indigo-400/90 to-indigo-500/90 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:translate-y-[-1px] hover:shadow focus:ring-2 focus:ring-indigo-300 focus:ring-offset-1 focus:outline-none active:translate-y-[0.5px] active:shadow-inner'
+              onClick={(e) => {
+                e.stopPropagation()
+                setExpanded(true)
+              }}
+              aria-expanded={expanded}
+            >
+              <span>View Details</span>
+              <ChevronDown
+                size={18}
+                className='transition-transform duration-200 group-hover:translate-y-[1px]'
+              />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* Header with Hide Details Button - With Profile Image */}
+          <div className='flex items-center justify-between rounded-xl border border-white/70 bg-gradient-to-b from-indigo-50/60 to-white/60 p-5 shadow-sm backdrop-blur-sm'>
+            {/* User Info with Profile Image */}
+            <div className='flex min-w-0 flex-grow items-center gap-4'>
+              {/* Enhanced Profile Image Container */}
+              <div className='h-12 w-12 flex-shrink-0 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 p-0.5 shadow-lg'>
+                <div className='flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white'>
+                  {user.profileImageUrl ? (
+                    <img
+                      src={user.profileImageUrl}
+                      alt={`${user.fullName}'s profile`}
+                      className='h-full w-full object-cover'
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                        e.currentTarget.parentElement?.classList.add(
+                          'bg-indigo-100/80',
+                          'shadow-inner',
+                        )
+                      }}
+                    />
+                  ) : (
+                    <div className='flex h-full w-full items-center justify-center bg-indigo-100/80 shadow-inner'>
+                      <UserIcon
+                        size={24}
+                        strokeWidth={1.5}
+                        className='text-indigo-500'
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className='flex min-w-0 flex-col overflow-hidden'>
+                <span className='truncate bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-lg font-bold text-transparent'>
+                  {user.fullName}
+                </span>
+                <span className='truncate text-sm text-slate-500'>
+                  {user.email}
+                </span>
+              </div>
+            </div>
+
+            {/* Hide Details Button */}
+            <button
+              type='button'
+              className='group relative ml-4 flex flex-shrink-0 items-center gap-2 rounded-xl border border-indigo-300/30 bg-gradient-to-b from-indigo-400/90 to-indigo-500/90 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:translate-y-[-1px] hover:shadow focus:ring-2 focus:ring-indigo-300 focus:ring-offset-1 focus:outline-none active:translate-y-[0.5px] active:shadow-inner'
               onClick={() => setExpanded(false)}
               aria-expanded='true'
               aria-pressed='true'
             >
-              Hide Details
-              <svg
-                width='16'
-                height='16'
-                fill='none'
-                viewBox='0 0 24 24'
-                className='rotate-180 transition-transform duration-200'
-              >
-                <path
-                  d='M6 9l6 6 6-6'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
+              <span>Hide Details</span>
+              <ChevronUp
+                size={18}
+                className='transition-transform duration-200 group-hover:translate-y-[-1px]'
+              />
             </button>
           </div>
+
+          {/* User Details with Animation */}
           <div
-            className='origin-top scale-y-100 space-y-4 opacity-100 transition-all duration-500 ease-in-out'
+            className='origin-top space-y-4 opacity-100 transition-all duration-300 ease-out'
             style={{
               transform: expanded ? 'scaleY(1)' : 'scaleY(0.95)',
               opacity: expanded ? 1 : 0,
@@ -117,7 +178,7 @@ export default function UserInfoSection({
                           user.gender.charAt(0).toUpperCase() +
                           user.gender.slice(1)
                         ) : (
-                          <span className='text-gray-400 italic'>
+                          <span className='text-slate-400 italic'>
                             No gender specified
                           </span>
                         )
@@ -134,9 +195,18 @@ export default function UserInfoSection({
                       value={
                         Array.isArray(user.interests) &&
                         user.interests.length > 0 ? (
-                          user.interests.join(', ')
+                          <div className='flex flex-wrap gap-2'>
+                            {user.interests.map((interest: string) => (
+                              <span
+                                key={interest}
+                                className='rounded-full border border-indigo-100/50 bg-indigo-50 px-3 py-1 text-xs text-indigo-600 shadow-sm'
+                              >
+                                {interest}
+                              </span>
+                            ))}
+                          </div>
                         ) : (
-                          <span className='text-gray-400 italic'>
+                          <span className='text-slate-400 italic'>
                             No interests
                           </span>
                         )
@@ -152,9 +222,13 @@ export default function UserInfoSection({
                       label={field.label}
                       value={
                         user.receiveNewsletter ? (
-                          'Yes'
+                          <span className='rounded-full border border-green-100/50 bg-green-50 px-3 py-1 text-xs text-green-600 shadow-sm'>
+                            Yes
+                          </span>
                         ) : (
-                          <span className='text-gray-400 italic'>No</span>
+                          <span className='rounded-full border border-slate-100/50 bg-slate-50 px-3 py-1 text-xs text-slate-500 shadow-sm'>
+                            No
+                          </span>
                         )
                       }
                     />

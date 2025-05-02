@@ -21,7 +21,11 @@ export default memo(function NavButton({
     <NavLink
       to={to}
       className={({ isActive }: { isActive: boolean }) =>
-        `group flex items-center rounded-xl px-2 py-2 font-semibold transition-colors ${isActive ? 'bg-indigo-200/70 text-indigo-900' : 'text-slate-700 hover:bg-indigo-100/70'}`
+        `group relative flex items-center gap-2 overflow-hidden rounded-xl px-2 py-2 font-medium transition-all duration-300 ${
+          isActive
+            ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner backdrop-blur-sm'
+            : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md hover:backdrop-blur-sm'
+        }`
       }
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -30,19 +34,38 @@ export default memo(function NavButton({
         const showLabel = hovered || isActive
         return (
           <>
-            <span className='flex h-7 w-7 items-center justify-center text-indigo-500'>
+            {/* Skeuomorphic Icon Container */}
+            <span
+              className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${
+                isActive
+                  ? 'bg-white/80 text-indigo-600 shadow-inner'
+                  : 'text-indigo-500 group-hover:bg-white/80 group-hover:shadow-inner'
+              }`}
+            >
               {icon}
             </span>
+
+            {/* Expanding Label Container */}
             <span
               className={
-                `ml-0 flex h-7 items-center overflow-hidden whitespace-nowrap transition-all duration-400 ${labelWidth} text-sm leading-7` +
-                ` ${showLabel ? 'ml-2 max-w-[120px] opacity-100' : 'max-w-0 opacity-0'} `
+                `flex h-7 items-center overflow-hidden whitespace-nowrap transition-all duration-500 ${labelWidth} text-sm` +
+                ` ${showLabel ? 'max-w-[120px] opacity-100' : 'max-w-0 opacity-0'} `
               }
               style={{
-                transition: 'max-width 0.4s, opacity 0.3s, margin 0.3s',
+                transition: 'max-width 0.4s, opacity 0.3s',
               }}
             >
               {label}
+            </span>
+
+            {/* Subtle background blob effect on hover */}
+            <span
+              className={`absolute inset-0 -z-10 rounded-xl transition-opacity duration-300 ${
+                showLabel ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
+              <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
             </span>
           </>
         )
