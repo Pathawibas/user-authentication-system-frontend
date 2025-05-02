@@ -1,3 +1,5 @@
+import { User } from 'lucide-react'
+
 interface User {
   id: string
   fullName: string
@@ -19,19 +21,8 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
       <div className='pointer-events-none absolute -top-8 -left-8 h-20 w-20 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-40 blur-2xl'></div>
       <div className='pointer-events-none absolute -right-8 -bottom-8 h-16 w-16 rounded-full bg-gradient-to-br from-indigo-100 via-white to-transparent opacity-30 blur-xl'></div>
       {/* Avatar Circle */}
-      <div className='relative z-10 mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-100/60 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner sm:mb-0'>
-        <svg
-          width='28'
-          height='28'
-          fill='none'
-          viewBox='0 0 24 24'
-          className='text-indigo-500'
-        >
-          <path
-            d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.418 0-8 2.015-8 4.5V21a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2.5c0-2.485-3.582-4.5-8-4.5Z'
-            fill='currentColor'
-          />
-        </svg>
+      <div className='relative z-10 mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-slate-100/60 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner sm:mb-0'>
+        <User size={28} strokeWidth={1.5} className='text-indigo-500' />
       </div>
       {/* User Info */}
       <div className='relative z-10 w-full flex-1 space-y-1'>

@@ -1,5 +1,6 @@
 import type { Route } from './+types/home'
 import { NavLink } from 'react-router'
+import { UserCog, Users, LogIn, UserPlus2, Contact2 } from 'lucide-react'
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -19,22 +20,14 @@ export default function Home() {
         {/* Content */}
         <div className='relative z-10 flex flex-col items-center'>
           <div className='mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-200 via-white to-indigo-100 shadow-inner'>
-            <svg
-              width='36'
-              height='36'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='text-indigo-500'
-            >
-              <path
-                d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.418 0-8 2.015-8 4.5V21a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2.5c0-2.485-3.582-4.5-8-4.5Z'
-                fill='currentColor'
-              />
-            </svg>
+            <UserCog size={48} strokeWidth={1.5} className='text-indigo-500' />
           </div>
           <h1 className='mb-2 text-center text-3xl font-extrabold text-slate-900 drop-shadow-sm'>
             User Authentication System
           </h1>
+          <p className='mb-2 text-center text-base font-semibold text-indigo-600'>
+            Modern Skeuomorphism design for a soft, tactile web experience.
+          </p>
           <p className='mb-8 text-center text-base font-medium text-slate-700'>
             Effortless and secure authentication for modern web apps.
             <br />
@@ -52,92 +45,58 @@ export default function Home() {
             View on GitHub
           </a>
           <div className='w-full space-y-3'>
-            <a
-              href='/register'
+            <NavLink
+              to='/register'
               className='block w-full rounded-xl border border-indigo-300/30 bg-indigo-500/80 px-4 py-2 text-center font-semibold text-white shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-600/90'
             >
               <span className='inline-flex items-center justify-center align-middle'>
-                <svg
-                  width='20'
-                  height='20'
-                  fill='none'
-                  viewBox='0 0 24 24'
+                <UserPlus2
+                  size={20}
+                  strokeWidth={2}
                   className='mr-1 inline-block text-white'
-                >
-                  <path
-                    d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.418 0-8 2.015-8 4.5V21a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2.5c0-2.485-3.582-4.5-8-4.5Z'
-                    fill='currentColor'
-                  />
-                </svg>
+                />
                 Register
               </span>
-            </a>
-            <a
-              href='/users'
+            </NavLink>
+            <NavLink
+              to='/users'
               className='block w-full rounded-xl border border-indigo-200/30 bg-indigo-400/80 px-4 py-2 text-center font-semibold text-white shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-500/90'
             >
               <span className='inline-flex items-center justify-center align-middle'>
-                <svg
-                  width='20'
-                  height='20'
-                  fill='none'
-                  viewBox='0 0 24 24'
+                <Users
+                  size={20}
+                  strokeWidth={2}
                   className='mr-1 inline-block text-white'
-                >
-                  <path
-                    d='M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 8 0 4 4 0 0 0-8 0ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
+                />
                 Users
               </span>
-            </a>
-            <a
-              href='/login'
+            </NavLink>
+            <NavLink
+              to='/login'
               className='block w-full rounded-xl border border-indigo-100/30 bg-indigo-300/80 px-4 py-2 text-center font-semibold text-white shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-400/90'
             >
               <span className='inline-flex items-center justify-center align-middle'>
-                <svg
-                  width='20'
-                  height='20'
-                  fill='none'
-                  viewBox='0 0 24 24'
+                <LogIn
+                  size={20}
+                  strokeWidth={2}
                   className='mr-1 inline-block text-white'
-                >
-                  <path
-                    d='M16 12a4 4 0 1 0-8 0v3a4 4 0 0 0 8 0v-3ZM12 3v2M6.34 6.34l1.42 1.42M3 12h2m12.24-4.24-1.42 1.42M21 12h-2'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
+                />
                 Login
               </span>
-            </a>
-            <a
-              href='/profile'
+            </NavLink>
+            <NavLink
+              to='/profile'
               className='block w-full rounded-xl border border-indigo-50/30 bg-indigo-200/80 px-4 py-2 text-center font-semibold text-indigo-900 shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-300/90'
             >
               <span className='inline-flex items-center justify-center align-middle'>
-                <svg
-                  width='20'
-                  height='20'
-                  fill='none'
-                  viewBox='0 0 24 24'
+                <Contact2
+                  size={20}
+                  strokeWidth={2}
                   className='mr-1 inline-block text-indigo-900'
-                >
-                  <path
-                    d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.418 0-8 2.015-8 4.5V21a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2.5c0-2.485-3.582-4.5-8-4.5Z'
-                    fill='currentColor'
-                  />
-                </svg>
+                />
                 Profile
               </span>
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

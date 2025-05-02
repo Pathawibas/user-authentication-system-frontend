@@ -10,10 +10,12 @@
     "format": "prettier --write \"app/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
+    "@faker-js/faker": "^9.7.0",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "bcryptjs": "^3.0.2",
     "isbot": "^5.1.27",
+    "lucide-react": "^0.506.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.5.3"

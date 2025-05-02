@@ -2,6 +2,9 @@ import { useState } from 'react'
 import InputField from '../components/InputField'
 import { validateRegisterForm } from '../utils/validation'
 import { hashPassword } from '../utils/hash'
+import Toast from '../components/Toast'
+import { useNavigate } from 'react-router'
+import { faker } from '@faker-js/faker'
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -14,6 +17,9 @@ export default function Register() {
   })
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+  const [showToast, setShowToast] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -51,7 +57,13 @@ export default function Register() {
     users.push(newUser)
     localStorage.setItem('users', JSON.stringify(users))
 
-    alert('✅ Registration successful!')
+    setShowToast(true)
+    setLoading(true)
+    setTimeout(() => {
+      setShowToast(false)
+      setLoading(false)
+      navigate('/login')
+    }, 1800)
 
     setFormData({
       fullName: '',
@@ -64,8 +76,28 @@ export default function Register() {
     setFormErrors({})
   }
 
+  const prefillRandomData = () => {
+    // Generate a Thai phone number: 0XXXXXXXXX
+    const thaiPhone =
+      '0' + faker.number.int({ min: 100000000, max: 999999999 }).toString()
+    setFormData({
+      fullName: faker.person.fullName(),
+      email: faker.internet.email().toLowerCase(),
+      password: '11112222',
+      confirmPassword: '11112222',
+      phone: thaiPhone,
+      bio: faker.person.bio().slice(0, 150),
+    })
+  }
+
   return (
     <div className='flex items-center justify-center'>
+      <Toast
+        message='✅ Registration successful! Please log in.'
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        duration={1500}
+      />
       <div className='relative w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 bg-white/80 p-10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-md'>
         {/* Decorative blurred shapes for skeuomorphic depth */}
         <div className='pointer-events-none absolute -top-10 -left-10 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-60 blur-2xl'></div>
@@ -76,6 +108,14 @@ export default function Register() {
           <h1 className='mb-6 text-center text-3xl font-extrabold text-slate-900 drop-shadow-sm'>
             Register
           </h1>
+          <button
+            type='button'
+            className='mb-4 w-full rounded-xl border border-indigo-300/30 bg-indigo-100 px-4 py-2 font-semibold text-indigo-700 shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-200/90'
+            onClick={prefillRandomData}
+            disabled={loading}
+          >
+            Prefill Random Data
+          </button>
           <form onSubmit={handleSubmit} className='space-y-5'>
             <InputField
               label='Full Name'
@@ -161,9 +201,19 @@ export default function Register() {
                 <p className='text-sm text-red-500'>{formErrors.bio}</p>
               )}
             </div>
+            {/* Loading spinner above the Register button */}
+            {loading && (
+              <div className='mb-2 flex items-center justify-center'>
+                <span className='mr-2 h-6 w-6 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600'></span>
+                <span className='font-semibold text-indigo-600'>
+                  Redirecting to login...
+                </span>
+              </div>
+            )}
             <button
               type='submit'
               className='w-full cursor-pointer rounded-xl border border-indigo-300/30 bg-indigo-500/80 px-4 py-2 font-bold text-white shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-600/90'
+              disabled={loading}
             >
               Register
             </button>

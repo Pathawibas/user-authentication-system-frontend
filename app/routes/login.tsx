@@ -14,6 +14,7 @@ export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,11 +23,14 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
+    setError('')
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
     const user = users.find((u) => u.email === formData.email)
 
     if (!user) {
       setError('User not found.')
+      setLoading(false)
       return
     }
 
@@ -37,6 +41,7 @@ export default function Login() {
 
     if (!isPasswordValid) {
       setError('Incorrect password.')
+      setLoading(false)
       return
     }
 
@@ -48,7 +53,10 @@ export default function Login() {
       sessionStorage.setItem('authToken', token)
     }
 
-    navigate('/profile')
+    setTimeout(() => {
+      setLoading(false)
+      navigate('/profile')
+    }, 1200)
   }
 
   return (
@@ -94,9 +102,19 @@ export default function Login() {
               </label>
             </div>
             {error && <p className='text-sm text-red-500'>{error}</p>}
+            {/* Loading spinner above the Login button */}
+            {loading && (
+              <div className='mb-2 flex items-center justify-center'>
+                <span className='mr-2 h-6 w-6 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600'></span>
+                <span className='font-semibold text-indigo-600'>
+                  Logging in...
+                </span>
+              </div>
+            )}
             <button
               type='submit'
               className='w-full cursor-pointer rounded-xl border border-indigo-300/30 bg-indigo-500/80 px-4 py-2 font-bold text-white shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-600/90'
+              disabled={loading}
             >
               Login
             </button>

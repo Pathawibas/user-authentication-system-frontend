@@ -78,6 +78,19 @@ npm run dev
 
 ---
 
+## 🎨 Modern Skeuomorphism UI
+
+This project features a **Modern Skeuomorphism** design:
+
+- Soft, rounded containers with glassy, blurred backgrounds
+- Layered gradients and floating, blurred shapes for depth
+- Subtle inner and outer shadows for a tactile, interactive feel
+- Modern, accessible color palette and smooth transitions
+
+> The UI is inspired by the latest skeuomorphic trends, blending realism and minimalism for a delightful user experience.
+
+---
+
 ## 🌐 Live Demo
 
 Check out the live demo of the project here:
