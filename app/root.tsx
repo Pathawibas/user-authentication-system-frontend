@@ -45,6 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           content='https://user-authentication-system-frontend-alpha.vercel.app/'
         />
         <meta property='og:type' content='website' />
+        <meta property='og:site_name' content='User Authentication System' />
         {/* Twitter Card Meta Tags */}
         <meta name='twitter:card' content='summary' />
         <meta name='twitter:title' content='User Authentication System' />
