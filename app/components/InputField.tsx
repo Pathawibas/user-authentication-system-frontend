@@ -22,7 +22,7 @@ export default function InputField({
   return (
     <div className='w-full'>
       <label
-        className='mb-1 block text-sm font-medium text-gray-700'
+        className='mb-1 block text-sm font-semibold text-slate-700 drop-shadow-sm'
         htmlFor={name}
       >
         {label} {withAsterisk && <span className='text-red-500'>*</span>}
@@ -32,7 +32,7 @@ export default function InputField({
         name={name}
         type={type}
         placeholder={placeholder}
-        className='block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:ring-indigo-500'
+        className='block w-full rounded-xl border border-slate-200 bg-white/70 px-4 py-2 text-slate-900 shadow-inner backdrop-blur transition-all duration-150 placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white/90 focus:ring-2 focus:ring-indigo-200/60 focus:outline-none'
         value={value}
         onChange={onChange}
         autoComplete={autoComplete}

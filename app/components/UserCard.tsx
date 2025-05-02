@@ -14,22 +14,85 @@ interface UserCardProps {
 
 export default function UserCard({ user, onDelete }: UserCardProps) {
   return (
-    <div className='relative rounded-lg border border-gray-200 bg-white p-6 shadow-md transition-shadow duration-200 hover:shadow-lg'>
-      <h2 className='text-xl font-bold text-gray-800'>{user.fullName}</h2>
-      <p className='text-sm text-gray-500'>{user.email}</p>
-      {user.phone && <p className='text-sm text-gray-500'>📞 {user.phone}</p>}
-      {user.bio && (
-        <p className='mt-2 text-sm text-gray-600 italic'>"{user.bio}"</p>
-      )}
-      <p className='mt-4 text-xs break-all text-gray-400'>
-        Hashed Password: <code>{user.password}</code>
-      </p>
-      <button
-        onClick={() => onDelete(user.id)}
-        className='absolute top-4 right-4 cursor-pointer rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white shadow-md transition-transform duration-200 hover:scale-105 hover:bg-red-600'
-      >
-        Delete
-      </button>
+    <div className='relative flex items-center gap-6 overflow-hidden rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-[0_4px_32px_0_rgba(99,102,241,0.10)] backdrop-blur-md transition-shadow duration-200 hover:shadow-[0_8px_32px_0_rgba(99,102,241,0.18)]'>
+      {/* Skeuomorphic blurred highlights */}
+      <div className='pointer-events-none absolute -top-8 -left-8 h-20 w-20 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-40 blur-2xl'></div>
+      <div className='pointer-events-none absolute -right-8 -bottom-8 h-16 w-16 rounded-full bg-gradient-to-br from-indigo-100 via-white to-transparent opacity-30 blur-xl'></div>
+      {/* Avatar Circle */}
+      <div className='relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-100/60 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner'>
+        <svg
+          width='28'
+          height='28'
+          fill='none'
+          viewBox='0 0 24 24'
+          className='text-indigo-500'
+        >
+          <path
+            d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.418 0-8 2.015-8 4.5V21a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2.5c0-2.485-3.582-4.5-8-4.5Z'
+            fill='currentColor'
+          />
+        </svg>
+      </div>
+      {/* User Info */}
+      <div className='relative z-10 flex-1 space-y-1'>
+        <div className='flex items-center justify-between'>
+          <h2 className='text-lg font-bold text-slate-900 drop-shadow-sm'>
+            {user.fullName}
+          </h2>
+          <button
+            onClick={() => onDelete(user.id)}
+            className='ml-2 flex cursor-pointer items-center gap-1 rounded-xl border border-red-200/40 bg-gradient-to-br from-red-400/80 via-red-500/80 to-red-600/80 px-4 py-2 text-xs font-semibold text-white shadow-[0_2px_8px_0_rgba(239,68,68,0.10)] backdrop-blur transition-all duration-150 hover:scale-105 hover:bg-red-600/90 focus:ring-2 focus:ring-red-300/40 focus:outline-none active:scale-100'
+            title='Delete user'
+          >
+            <svg
+              width='16'
+              height='16'
+              fill='none'
+              viewBox='0 0 24 24'
+              className='text-white'
+            >
+              <path
+                d='M6 7h12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7h12z'
+                stroke='currentColor'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+            Delete
+          </button>
+        </div>
+        <p className='text-sm leading-relaxed text-slate-500'>{user.email}</p>
+        {user.phone && (
+          <p className='flex items-center gap-1 text-sm leading-relaxed text-slate-500'>
+            <svg
+              width='16'
+              height='16'
+              fill='none'
+              viewBox='0 0 24 24'
+              className='inline-block text-indigo-400'
+            >
+              <path
+                d='M22 16.92v3a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 3.08 4.18 2 2 0 0 1 5 2h3a2 2 0 0 1 2 1.72c.13.97.37 1.91.72 2.81a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.9.35 1.84.59 2.81.72A2 2 0 0 1 22 16.92Z'
+                stroke='currentColor'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+            {user.phone}
+          </p>
+        )}
+        {user.bio && (
+          <p className='mt-2 text-sm leading-relaxed text-slate-600 italic'>
+            "{user.bio}"
+          </p>
+        )}
+        <div className='mt-3 rounded-xl bg-slate-100/60 px-3 py-2 text-xs leading-relaxed text-slate-400 shadow-inner select-all'>
+          <span className='font-semibold text-slate-400'>Hashed Password:</span>{' '}
+          <code>{user.password}</code>
+        </div>
+      </div>
     </div>
   )
 }
