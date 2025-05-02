@@ -65,7 +65,7 @@ export default function Register() {
   }
 
   return (
-    <div className='mx-auto my-10 max-w-lg rounded-lg bg-white p-8 shadow-md'>
+    <div className='mx-auto max-w-lg rounded-lg bg-white p-8 shadow-md'>
       <h1 className='mb-6 text-center text-2xl font-bold text-gray-900'>
         Register
       </h1>
@@ -91,6 +91,7 @@ export default function Register() {
           value={formData.email}
           onChange={handleChange}
           withAsterisk
+          autoComplete='email'
         />
         {formErrors.email && (
           <p className='text-sm text-red-500'>{formErrors.email}</p>
@@ -104,6 +105,7 @@ export default function Register() {
           value={formData.password}
           onChange={handleChange}
           withAsterisk
+          autoComplete='new-password'
         />
         {formErrors.password && (
           <p className='text-sm text-red-500'>{formErrors.password}</p>
@@ -117,6 +119,7 @@ export default function Register() {
           value={formData.confirmPassword}
           onChange={handleChange}
           withAsterisk
+          autoComplete='new-password'
         />
         {formErrors.confirmPassword && (
           <p className='text-sm text-red-500'>{formErrors.confirmPassword}</p>

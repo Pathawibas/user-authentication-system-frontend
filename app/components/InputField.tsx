@@ -6,6 +6,7 @@ interface InputFieldProps {
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   withAsterisk?: boolean
+  autoComplete?: string
 }
 
 export default function InputField({
@@ -16,9 +17,10 @@ export default function InputField({
   value,
   onChange,
   withAsterisk = false,
+  autoComplete,
 }: InputFieldProps) {
   return (
-    <div>
+    <div className='w-full'>
       <label
         className='mb-1 block text-sm font-medium text-gray-700'
         htmlFor={name}
@@ -33,6 +35,7 @@ export default function InputField({
         className='block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:ring-indigo-500'
         value={value}
         onChange={onChange}
+        autoComplete={autoComplete}
       />
     </div>
   )

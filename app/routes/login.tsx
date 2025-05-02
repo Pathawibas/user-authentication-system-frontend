@@ -52,7 +52,7 @@ export default function Login() {
   }
 
   return (
-    <div className='mx-auto my-10 max-w-lg rounded-lg bg-white p-8 shadow-md'>
+    <div className='mx-auto max-w-lg rounded-lg bg-white p-8 shadow-md'>
       <h1 className='mb-6 text-center text-2xl font-bold'>Login</h1>
       <form onSubmit={handleSubmit} className='space-y-5'>
         <InputField
@@ -62,6 +62,7 @@ export default function Login() {
           placeholder='your@email.com'
           value={formData.email}
           onChange={handleChange}
+          autoComplete='email'
         />
 
         <InputField
@@ -71,6 +72,7 @@ export default function Login() {
           placeholder='Password'
           value={formData.password}
           onChange={handleChange}
+          autoComplete='current-password'
         />
 
         <div className='mb-4 flex items-center'>

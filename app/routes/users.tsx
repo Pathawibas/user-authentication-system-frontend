@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import UserCard from '../components/UserCard'
+import InputField from '../components/InputField'
 
 interface User {
   id: string
@@ -49,53 +50,57 @@ export default function Users() {
     }
   }
 
+  // Updated design for the user page
   return (
-    <div className='mx-auto max-w-3xl p-6'>
-      <h1 className='mb-6 text-center text-2xl font-bold'>Users</h1>
+    <div className='mx-auto max-w-4xl rounded-lg bg-gray-50 p-8 shadow-lg'>
+      <h1 className='mb-8 text-center text-3xl font-extrabold text-indigo-600'>
+        User Management
+      </h1>
 
-      <div className='mb-4 flex space-x-2'>
-        <input
+      <div className='mb-6 flex flex-col md:flex-row md:space-x-4'>
+        <InputField
           type='text'
           placeholder='Search by name'
-          className='w-1/2 rounded border px-4 py-2'
           value={searchName}
           onChange={(e) => {
             setSearchName(e.target.value)
             setCurrentPage(1)
           }}
+          label={''}
+          name={'Search by name'}
         />
-        <input
+        <InputField
           type='text'
           placeholder='Search by email (exact)'
-          className='w-1/2 rounded border px-4 py-2'
           value={searchEmail}
           onChange={(e) => {
             setSearchEmail(e.target.value)
             setCurrentPage(1)
           }}
+          label={''}
+          name={'Search by email (exact)'}
         />
       </div>
 
-      <div className='space-y-4'>
+      <div className='space-y-6'>
         {displayedUsers.length > 0 ? (
           displayedUsers.map((user) => (
             <UserCard key={user.id} user={user} onDelete={handleDelete} />
           ))
         ) : (
-          <p className='text-gray-600'>No users found.</p>
+          <p className='text-center text-gray-500'>No users found.</p>
         )}
       </div>
 
-      {/* Pagination Controls */}
-      <div className='mt-6 flex justify-center space-x-2'>
+      <div className='mt-8 flex justify-center space-x-2'>
         {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
           <button
             key={page}
             onClick={() => handlePageChange(page)}
-            className={`cursor-pointer rounded px-3 py-1 select-none ${
+            className={`cursor-pointer rounded-lg px-4 py-2 text-sm font-medium shadow-md transition-all duration-200 select-none ${
               currentPage === page
-                ? 'bg-indigo-500 text-white'
-                : 'bg-gray-200 text-gray-700'
+                ? 'bg-indigo-600 text-white'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
             {page}
