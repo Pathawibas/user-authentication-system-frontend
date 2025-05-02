@@ -48,7 +48,7 @@ export default function Profile() {
       </p>
       <button
         onClick={handleLogout}
-        className='w-full rounded-md bg-red-500 px-4 py-2 font-bold text-white shadow-sm hover:bg-red-600'
+        className='w-full cursor-pointer rounded-md bg-red-500 px-4 py-2 font-bold text-white shadow-sm select-none hover:bg-red-600'
       >
         Logout
       </button>
