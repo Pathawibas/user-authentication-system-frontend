@@ -1,3 +1,4 @@
+import React, { memo } from 'react'
 import { NavLink } from 'react-router'
 import type { ReactNode } from 'react'
 import { useState } from 'react'
@@ -9,7 +10,7 @@ interface NavButtonProps {
   labelWidth?: string // e.g. w-[60px]
 }
 
-export default function NavButton({
+export default memo(function NavButton({
   to,
   icon,
   label,
@@ -48,4 +49,4 @@ export default function NavButton({
       }}
     </NavLink>
   )
-}
+})

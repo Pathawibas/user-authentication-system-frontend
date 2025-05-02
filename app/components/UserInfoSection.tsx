@@ -21,7 +21,17 @@ export default function UserInfoSection({
   return (
     <div className={`w-full space-y-4 ${className}`}>
       {!expanded && (
-        <div className='flex items-center justify-between'>
+        <div
+          className='group flex cursor-pointer items-center justify-between rounded-xl transition-colors hover:bg-indigo-50/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400'
+          tabIndex={0}
+          role='button'
+          aria-pressed='false'
+          aria-expanded='false'
+          onClick={() => setExpanded(true)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') setExpanded(true)
+          }}
+        >
           <div className='flex flex-col gap-1 md:flex-row md:items-center md:gap-4'>
             <span className='font-bold text-indigo-700'>{user.fullName}</span>
             <span className='text-xs text-slate-500 md:text-sm'>
@@ -32,7 +42,10 @@ export default function UserInfoSection({
           <button
             type='button'
             className='ml-2 flex items-center gap-1 rounded px-2 py-1 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-100 active:scale-95'
-            onClick={() => setExpanded((v) => !v)}
+            onClick={(e) => {
+              e.stopPropagation()
+              setExpanded((v) => !v)
+            }}
             aria-expanded={expanded}
           >
             Show Details
@@ -59,9 +72,10 @@ export default function UserInfoSection({
           <div className='flex justify-end'>
             <button
               type='button'
-              className='mb-2 flex items-center gap-1 rounded px-2 py-1 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-100 active:scale-95'
+              className='mb-2 flex items-center gap-1 rounded px-2 py-1 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 active:scale-95'
               onClick={() => setExpanded(false)}
-              aria-expanded={expanded}
+              aria-expanded='true'
+              aria-pressed='true'
             >
               Hide Details
               <svg
@@ -81,7 +95,13 @@ export default function UserInfoSection({
               </svg>
             </button>
           </div>
-          <div className='space-y-4'>
+          <div
+            className='origin-top scale-y-100 space-y-4 opacity-100 transition-all duration-500 ease-in-out'
+            style={{
+              transform: expanded ? 'scaleY(1)' : 'scaleY(0.95)',
+              opacity: expanded ? 1 : 0,
+            }}
+          >
             {userInfoConfig
               .filter((field) => field.key !== 'id')
               .map((field) => {

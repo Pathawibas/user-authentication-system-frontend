@@ -20,6 +20,12 @@ export default function RootLayout({ children }: LayoutProps) {
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-100 to-slate-300 text-gray-800'>
+      <a
+        href='#main-content'
+        className='sr-only absolute top-2 left-2 z-50 rounded bg-indigo-700 px-4 py-2 text-white focus:not-sr-only focus:ring-2 focus:ring-indigo-400 focus:outline-none'
+      >
+        Skip to main content
+      </a>
       <header className='sticky top-0 z-30 w-full border-b border-slate-200 bg-white/30 shadow-lg backdrop-blur-lg'>
         <div className='mx-auto flex max-w-6xl items-center justify-between px-4 py-3'>
           {/* Logo */}
@@ -96,28 +102,6 @@ export default function RootLayout({ children }: LayoutProps) {
               />
             </svg>
           </button>
-
-          {/* Show avatar only if logged in */}
-          {/* {isLoggedIn && (
-            <div className='ml-6 hidden items-center md:flex'>
-              <button className='relative flex h-10 w-10 items-center justify-center rounded-full bg-indigo-200 font-bold text-indigo-700 focus:ring-2 focus:ring-indigo-400'>
-                <svg width='22' height='22' fill='none' viewBox='0 0 24 24'>
-                  <circle
-                    cx='12'
-                    cy='8'
-                    r='4'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                  />
-                  <path
-                    d='M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                  />
-                </svg>
-              </button>
-            </div>
-          )} */}
         </div>
       </header>
       {/* Mobile Navigation rendered outside header for proper overlay */}
@@ -126,7 +110,7 @@ export default function RootLayout({ children }: LayoutProps) {
         navOpen={navOpen}
         setNavOpen={setNavOpen}
       />
-      <main className='mx-auto max-w-4xl px-4 py-8'>
+      <main id='main-content' className='mx-auto max-w-4xl px-4 py-8'>
         {children ?? <Outlet />}
       </main>
     </div>

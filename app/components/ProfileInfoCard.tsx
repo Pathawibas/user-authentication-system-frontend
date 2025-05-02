@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 
 interface ProfileInfoCardProps {
   icon: React.ReactNode
@@ -10,7 +10,7 @@ interface ProfileInfoCardProps {
   spoilerLabel?: string
 }
 
-export default function ProfileInfoCard({
+export default memo(function ProfileInfoCard({
   icon,
   label,
   value,
@@ -48,4 +48,4 @@ export default function ProfileInfoCard({
       {children}
     </div>
   )
-}
+})

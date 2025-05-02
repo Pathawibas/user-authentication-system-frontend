@@ -62,9 +62,6 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const errors = validateRegisterForm(formData)
-    if (!formData.acceptTerms) {
-      errors.acceptTerms = 'You must accept the terms and conditions.'
-    }
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors)
