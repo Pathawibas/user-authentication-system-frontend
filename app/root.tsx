@@ -1,5 +1,3 @@
-//app/root.tsx
-
 import {
   isRouteErrorResponse,
   Links,
@@ -11,6 +9,8 @@ import {
 
 import type { Route } from './+types/root'
 import './app.css'
+
+import RootLayout from './components/RootLayout'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -34,8 +34,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className='bg-gray-50 font-sans text-gray-900'>
+        <RootLayout>{children}</RootLayout>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -58,17 +58,17 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       error.status === 404
         ? 'The requested page could not be found.'
         : error.statusText || details
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
+  } else if (import.meta.env.DEV && error instanceof Error) {
     details = error.message
     stack = error.stack
   }
 
   return (
     <main className='container mx-auto p-4 pt-16'>
-      <h1>{message}</h1>
-      <p>{details}</p>
+      <h1 className='text-xl font-bold text-red-600'>{message}</h1>
+      <p className='text-gray-700'>{details}</p>
       {stack && (
-        <pre className='w-full overflow-x-auto p-4'>
+        <pre className='mt-4 w-full overflow-x-auto bg-gray-100 p-4 text-sm'>
           <code>{stack}</code>
         </pre>
       )}

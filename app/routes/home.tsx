@@ -3,30 +3,46 @@ import { NavLink } from 'react-router'
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'New React Router App' },
-    { name: 'description', content: 'Welcome to React Router!' },
+    { title: 'User Authentication System' },
+    { name: 'description', content: 'Simple React Vite Authentication App' },
   ]
 }
 
 export default function Home() {
   return (
-    <div className='flex min-h-screen items-center justify-center'>
-      <div>
-        <h1 className='text-3xl font-bold text-gray-900'>
-          Welcome to User Authentication System
+    <div className='flex items-center justify-center px-4'>
+      <div className='max-w-md rounded-lg bg-white p-8 text-center shadow-lg'>
+        <h1 className='mb-6 text-4xl font-extrabold text-gray-900'>
+          Welcome to{' '}
+          <span className='text-indigo-600'>User Authentication System</span>
         </h1>
-        <nav className='mt-4 space-x-4'>
-          <NavLink to='/register' className='text-blue-500 underline'>
-            Register
+        <p className='mb-6 text-gray-700'>
+          A simple and secure way to manage user authentication.
+        </p>
+        <nav className='space-y-4'>
+          <NavLink
+            to='/register'
+            className='block w-full rounded bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700'
+          >
+            ➕ Register
           </NavLink>
-          <NavLink to='/users' className='text-blue-500 underline'>
-            Users
+          <NavLink
+            to='/users'
+            className='block w-full rounded bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700'
+          >
+            👥 Users
           </NavLink>
-          <NavLink to='/login' className='text-blue-500 underline'>
-            Logins
+          <NavLink
+            to='/login'
+            className='block w-full rounded bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700'
+          >
+            🔐 Login
           </NavLink>
-          <NavLink to='/profile' className='text-blue-500 underline'>
-            Profile
+          <NavLink
+            to='/profile'
+            className='block w-full rounded bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700'
+          >
+            👤 Profile
           </NavLink>
         </nav>
       </div>
