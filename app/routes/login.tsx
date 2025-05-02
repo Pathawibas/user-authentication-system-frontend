@@ -13,6 +13,7 @@ interface User {
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +42,11 @@ export default function Login() {
 
     // Generate simple token
     const token = btoa(JSON.stringify({ id: user.id, email: user.email }))
-    localStorage.setItem('authToken', token)
+    if (rememberMe) {
+      localStorage.setItem('authToken', token)
+    } else {
+      sessionStorage.setItem('authToken', token)
+    }
 
     navigate('/profile')
   }
@@ -67,6 +72,16 @@ export default function Login() {
           value={formData.password}
           onChange={handleChange}
         />
+
+        <div className='mb-4 flex items-center'>
+          <input
+            type='checkbox'
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            className='h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
+          />
+          <label className='ml-2 text-sm text-gray-700'>Remember Me</label>
+        </div>
 
         {error && <p className='text-sm text-red-500'>{error}</p>}
 

@@ -12,7 +12,8 @@ export default function Profile() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken')
+    const token =
+      sessionStorage.getItem('authToken') || localStorage.getItem('authToken')
     if (!token) {
       navigate('/login')
       return
@@ -25,6 +26,7 @@ export default function Profile() {
       if (!currentUser) throw new Error('User not found')
       setUser(currentUser)
     } catch {
+      sessionStorage.removeItem('authToken')
       localStorage.removeItem('authToken')
       navigate('/login')
     }

@@ -78,6 +78,13 @@ npm run dev
 
 ---
 
+## 🌐 Live Demo
+
+Check out the live demo of the project here:
+[User Authentication System](https://user-authentication-system-frontend-alpha.vercel.app/)
+
+---
+
 ## ✨ Training Focus Areas
 
 * React component structure and forms
@@ -104,5 +111,5 @@ This project is used to train junior frontend developers in building real-world 
 
 ---
 
-> Built with ❤️ 
+> Built with ❤️
 
