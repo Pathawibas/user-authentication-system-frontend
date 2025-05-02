@@ -16,8 +16,8 @@ export default function Home() {
       {/* Hero Section */}
       <section className='mb-16 flex w-full max-w-3xl flex-col items-center text-center'>
         <div className='mb-6 flex items-center justify-center'>
-          <span className='rounded-2xl bg-indigo-100 p-4 shadow-inner'>
-            <UserCog size={48} className='text-indigo-500' />
+          <span className='rounded-2xl bg-gradient-to-br from-indigo-200 via-white to-indigo-100 p-4 shadow-inner'>
+            <UserCog size={48} className='text-indigo-400' />
           </span>
         </div>
         <h1 className='mb-4 text-5xl font-extrabold text-slate-900 drop-shadow-sm'>

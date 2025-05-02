@@ -1,5 +1,8 @@
 import { NavLink, Outlet } from 'react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import NavButton from './NavButton'
+import MobileNav from './MobileNav'
+import { UserPlus2, Home, LogIn, Users, Contact2 } from 'lucide-react'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -7,38 +10,84 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   const [navOpen, setNavOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const token =
+      sessionStorage.getItem('authToken') || localStorage.getItem('authToken')
+    setIsLoggedIn(!!token)
+  }, [])
+
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-100 to-slate-300 text-gray-800'>
-      <header className='sticky top-0 z-10 w-full border-b border-slate-200 bg-white/60 shadow-[0_2px_16px_0_rgba(31,38,135,0.07)] backdrop-blur-md'>
-        <div className='mx-auto flex max-w-6xl items-center justify-between px-4 py-4'>
+      <header className='sticky top-0 z-30 w-full border-b border-slate-200 bg-white/30 shadow-lg backdrop-blur-lg'>
+        <div className='mx-auto flex max-w-6xl items-center justify-between px-4 py-3'>
+          {/* Logo */}
           <NavLink
             to='/'
-            className='flex items-center gap-2 rounded-xl border border-slate-100/60 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 px-3 py-2 font-bold text-gray-800 shadow-inner transition-colors duration-150 hover:bg-indigo-50/80'
+            className='flex items-center gap-3 rounded-2xl bg-gradient-to-br from-indigo-200 via-white to-indigo-100 p-2 text-2xl font-extrabold text-indigo-700 shadow-inner transition-colors hover:bg-indigo-200/80'
           >
-            <svg
-              width='22'
-              height='22'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='text-indigo-500'
-            >
-              <path
-                d='M16 12a4 4 0 1 0-8 0v3a4 4 0 0 0 8 0v-3ZM12 3v2M6.34 6.34l1.42 1.42M3 12h2m12.24-4.24-1.42 1.42M21 12h-2'
-                stroke='currentColor'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-            <span className='hidden sm:inline'>Auth System</span>
+            <span className='flex items-center justify-center rounded-xl p-1'>
+              <svg
+                width='32'
+                height='32'
+                fill='none'
+                viewBox='0 0 24 24'
+                className='text-indigo-400'
+              >
+                <path
+                  d='M16 12a4 4 0 1 0-8 0v3a4 4 0 0 0 8 0v-3ZM12 3v2M6.34 6.34l1.42 1.42M3 12h2m12.24-4.24-1.42 1.42M21 12h-2'
+                  stroke='currentColor'
+                  strokeWidth='1.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            </span>
+            Auth System
           </NavLink>
-          {/* Mobile menu button */}
+
+          {/* Desktop Nav */}
+          <nav className='ml-8 hidden items-center gap-2 md:flex'>
+            <NavButton
+              to='/'
+              icon={<Home size={20} strokeWidth={1.5} />}
+              label='Home'
+              labelWidth='w-[60px]'
+            />
+            <NavButton
+              to='/register'
+              icon={<UserPlus2 size={20} strokeWidth={1.5} />}
+              label='Register'
+              labelWidth='w-[70px]'
+            />
+            <NavButton
+              to='/login'
+              icon={<LogIn size={20} strokeWidth={1.5} />}
+              label='Login'
+              labelWidth='w-[50px]'
+            />
+            <NavButton
+              to='/users'
+              icon={<Users size={20} strokeWidth={1.5} />}
+              label='Users'
+              labelWidth='w-[60px]'
+            />
+            <NavButton
+              to='/profile'
+              icon={<Contact2 size={20} strokeWidth={1.5} />}
+              label='Profile'
+              labelWidth='w-[65px]'
+            />
+          </nav>
+
+          {/* Hamburger button for mobile nav */}
           <button
-            className='rounded-md border border-slate-200 bg-white/70 p-2 hover:bg-indigo-100/60 focus:ring-2 focus:ring-indigo-300 focus:outline-none sm:hidden'
+            className='rounded-lg border border-slate-200 bg-white/70 p-2 hover:bg-indigo-100/60 focus:ring-2 focus:ring-indigo-300 focus:outline-none md:hidden'
             aria-label='Toggle navigation menu'
             onClick={() => setNavOpen((open) => !open)}
           >
-            <svg width='24' height='24' fill='none' viewBox='0 0 24 24'>
+            <svg width='28' height='28' fill='none' viewBox='0 0 24 24'>
               <path
                 d='M4 6h16M4 12h16M4 18h16'
                 stroke='currentColor'
@@ -47,80 +96,36 @@ export default function RootLayout({ children }: LayoutProps) {
               />
             </svg>
           </button>
-          {/* Navigation links */}
-          <nav
-            className={`fixed top-16 right-4 left-4 z-20 flex-col gap-2 rounded-xl bg-white/95 p-4 shadow-lg transition-all duration-200 sm:static sm:flex sm:flex-row sm:rounded-none sm:bg-transparent sm:p-0 sm:shadow-none ${
-              navOpen ? 'flex' : 'hidden'
-            } sm:gap-2`}
-          >
-            <NavLink
-              to='/'
-              className={({ isActive }) =>
-                `rounded-lg border border-slate-100/60 px-3 py-2 font-medium shadow-inner backdrop-blur transition-colors duration-150 ${
-                  isActive
-                    ? 'bg-indigo-200/60 text-indigo-900'
-                    : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to='/register'
-              className={({ isActive }) =>
-                `rounded-lg border border-slate-100/60 px-3 py-2 font-medium shadow-inner backdrop-blur transition-colors duration-150 ${
-                  isActive
-                    ? 'bg-indigo-200/60 text-indigo-900'
-                    : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              Register
-            </NavLink>
-            <NavLink
-              to='/login'
-              className={({ isActive }) =>
-                `rounded-lg border border-slate-100/60 px-3 py-2 font-medium shadow-inner backdrop-blur transition-colors duration-150 ${
-                  isActive
-                    ? 'bg-indigo-200/60 text-indigo-900'
-                    : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to='/users'
-              className={({ isActive }) =>
-                `rounded-lg border border-slate-100/60 px-3 py-2 font-medium shadow-inner backdrop-blur transition-colors duration-150 ${
-                  isActive
-                    ? 'bg-indigo-200/60 text-indigo-900'
-                    : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              Users
-            </NavLink>
-            <NavLink
-              to='/profile'
-              className={({ isActive }) =>
-                `rounded-lg border border-slate-100/60 px-3 py-2 font-medium shadow-inner backdrop-blur transition-colors duration-150 ${
-                  isActive
-                    ? 'bg-indigo-200/60 text-indigo-900'
-                    : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              Profile
-            </NavLink>
-          </nav>
+
+          {/* Show avatar only if logged in */}
+          {/* {isLoggedIn && (
+            <div className='ml-6 hidden items-center md:flex'>
+              <button className='relative flex h-10 w-10 items-center justify-center rounded-full bg-indigo-200 font-bold text-indigo-700 focus:ring-2 focus:ring-indigo-400'>
+                <svg width='22' height='22' fill='none' viewBox='0 0 24 24'>
+                  <circle
+                    cx='12'
+                    cy='8'
+                    r='4'
+                    stroke='currentColor'
+                    strokeWidth='1.5'
+                  />
+                  <path
+                    d='M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4'
+                    stroke='currentColor'
+                    strokeWidth='1.5'
+                  />
+                </svg>
+              </button>
+            </div>
+          )} */}
         </div>
       </header>
+      {/* Mobile Navigation rendered outside header for proper overlay */}
+      <MobileNav
+        isLoggedIn={isLoggedIn}
+        navOpen={navOpen}
+        setNavOpen={setNavOpen}
+      />
       <main className='mx-auto max-w-4xl px-4 py-8'>
         {children ?? <Outlet />}
       </main>

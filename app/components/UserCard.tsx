@@ -26,7 +26,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
       <div className='pointer-events-none absolute -top-8 -left-8 h-20 w-20 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-40 blur-2xl'></div>
       <div className='pointer-events-none absolute -right-8 -bottom-8 h-16 w-16 rounded-full bg-gradient-to-br from-indigo-100 via-white to-transparent opacity-30 blur-xl'></div>
       {/* Avatar */}
-      <div className='relative z-10 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border border-indigo-200 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner'>
+      <div className='relative z-10 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-indigo-200 via-white to-indigo-100 shadow-inner'>
         {user.profileImageUrl ? (
           <img
             src={user.profileImageUrl}
