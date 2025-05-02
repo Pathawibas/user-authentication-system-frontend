@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import UserCard from '../components/UserCard'
 import InputField from '../components/InputField'
+import Button from '../components/Button'
 
 interface User {
   id: string
@@ -157,18 +158,16 @@ export default function Users() {
             {totalPages > 1 &&
               Array.from({ length: totalPages }, (_, idx) => idx + 1).map(
                 (page) => (
-                  <button
+                  <Button
                     key={page}
                     onClick={() => handlePageChange(page)}
-                    className={`min-w-[40px] rounded-lg border px-4 py-2 text-sm font-medium shadow-inner backdrop-blur transition-all duration-200 select-none focus:ring-2 focus:ring-indigo-400/40 focus:outline-none ${
-                      currentPage === page
-                        ? 'scale-105 border-indigo-400 bg-indigo-500/90 text-white shadow-md'
-                        : 'border-indigo-200/40 bg-white/70 text-slate-700 hover:bg-indigo-100/70 hover:text-indigo-900'
-                    } `}
+                    variant={currentPage === page ? 'primary' : 'secondary'}
+                    size='sm'
+                    className={`min-w-[40px] ${currentPage === page ? 'scale-105 shadow-md' : ''}`}
                     aria-current={currentPage === page ? 'page' : undefined}
                   >
                     {page}
-                  </button>
+                  </Button>
                 ),
               )}
           </div>

@@ -6,6 +6,7 @@ import Toast from '../components/Toast'
 import { useNavigate } from 'react-router'
 import { faker } from '@faker-js/faker'
 import { Checkbox, Radio } from '../components/CheckboxRadio'
+import Button from '../components/Button'
 
 export default function Register() {
   const [formData, setFormData] = useState<{
@@ -141,10 +142,11 @@ export default function Register() {
   return (
     <div className='flex items-center justify-center'>
       <Toast
-        message='✅ Registration successful! Please log in.'
+        message='Registration successful!'
         show={showToast}
         onClose={() => setShowToast(false)}
         duration={1500}
+        variant='success'
       />
       <div className='relative w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 bg-white/80 p-10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-md'>
         {/* Decorative blurred shapes for skeuomorphic depth */}
@@ -156,14 +158,15 @@ export default function Register() {
           <h1 className='mb-6 text-center text-3xl font-extrabold text-slate-900 drop-shadow-sm'>
             Register
           </h1>
-          <button
+          <Button
             type='button'
-            className='mb-4 w-full rounded-xl border border-indigo-300/30 bg-indigo-100 px-4 py-2 font-semibold text-indigo-700 shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-200/90'
+            variant='secondary'
+            className='mb-4 w-full'
             onClick={prefillRandomData}
             disabled={loading}
           >
             Prefill Random Data
-          </button>
+          </Button>
           <form onSubmit={handleSubmit} className='space-y-5'>
             <InputField
               label='Full Name'
@@ -295,13 +298,14 @@ export default function Register() {
                 </span>
               </div>
             )}
-            <button
+            <Button
               type='submit'
-              className='w-full cursor-pointer rounded-xl border border-indigo-300/30 bg-indigo-500/80 px-4 py-2 font-bold text-white shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-600/90'
+              variant='primary'
+              className='w-full'
               disabled={loading}
             >
               Register
-            </button>
+            </Button>
           </form>
         </div>
       </div>

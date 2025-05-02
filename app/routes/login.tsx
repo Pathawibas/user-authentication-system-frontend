@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router'
 import InputField from '../components/InputField'
 import { verifyPassword } from '../utils/hash'
 import { Checkbox } from '../components/CheckboxRadio'
+import Button from '../components/Button'
 
 interface User {
   id: string
@@ -121,13 +122,14 @@ export default function Login() {
                 </span>
               </div>
             )}
-            <button
+            <Button
               type='submit'
-              className='w-full cursor-pointer rounded-xl border border-indigo-300/30 bg-indigo-500/80 px-4 py-2 font-bold text-white shadow-inner backdrop-blur transition-colors duration-150 hover:bg-indigo-600/90'
+              variant='primary'
+              className='w-full'
               disabled={loading}
             >
               Login
-            </button>
+            </Button>
           </form>
         </div>
       </div>
