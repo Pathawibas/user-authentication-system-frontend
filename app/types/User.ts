@@ -7,4 +7,7 @@ export interface User {
   bio?: string
   profilePicture?: string
   profileImageUrl?: string
+  gender?: 'male' | 'female' | 'other'
+  interests?: string[]
+  receiveNewsletter?: boolean
 }

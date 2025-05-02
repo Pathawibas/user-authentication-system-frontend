@@ -50,4 +50,19 @@ export const userInfoConfig = [
     render: (user: any) =>
       user.bio || <span className='text-gray-400 italic'>No bio provided</span>,
   },
+  {
+    key: 'gender',
+    label: 'Gender:',
+    icon: <UserIcon size={20} className='text-indigo-400' />,
+  },
+  {
+    key: 'interests',
+    label: 'Interests:',
+    icon: <FileText size={20} className='text-indigo-400' />,
+  },
+  {
+    key: 'receiveNewsletter',
+    label: 'Receive Newsletter:',
+    icon: <Mail size={20} className='text-indigo-400' />,
+  },
 ]

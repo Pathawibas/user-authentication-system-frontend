@@ -5,15 +5,29 @@ import { hashPassword } from '../utils/hash'
 import Toast from '../components/Toast'
 import { useNavigate } from 'react-router'
 import { faker } from '@faker-js/faker'
+import { Checkbox, Radio } from '../components/CheckboxRadio'
 
 export default function Register() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    fullName: string
+    email: string
+    password: string
+    confirmPassword: string
+    phone: string
+    bio: string
+    gender: string
+    interests: string[]
+    receiveNewsletter: boolean
+  }>({
     fullName: '',
     email: '',
     password: '',
     confirmPassword: '',
     phone: '',
     bio: '',
+    gender: '',
+    interests: [],
+    receiveNewsletter: false,
   })
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
@@ -24,7 +38,23 @@ export default function Register() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value, type } = e.target
+    if (type === 'checkbox' && name === 'interests') {
+      const checked = (e.target as HTMLInputElement).checked
+      setFormData((prev) => {
+        const arr = Array.isArray(prev.interests) ? prev.interests : []
+        if (checked) {
+          return { ...prev, interests: [...arr, value] }
+        } else {
+          return { ...prev, interests: arr.filter((i) => i !== value) }
+        }
+      })
+    } else if (type === 'checkbox') {
+      const checked = (e.target as HTMLInputElement).checked
+      setFormData({ ...formData, [name]: checked })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,6 +82,9 @@ export default function Register() {
       password: hashedPassword,
       phone: formData.phone,
       bio: formData.bio,
+      gender: formData.gender,
+      interests: formData.interests,
+      receiveNewsletter: formData.receiveNewsletter,
     }
 
     users.push(newUser)
@@ -72,6 +105,9 @@ export default function Register() {
       confirmPassword: '',
       phone: '',
       bio: '',
+      gender: '',
+      interests: [],
+      receiveNewsletter: false,
     })
     setFormErrors({})
   }
@@ -80,6 +116,8 @@ export default function Register() {
     // Generate a Thai phone number: 0XXXXXXXXX
     const thaiPhone =
       '0' + faker.number.int({ min: 100000000, max: 999999999 }).toString()
+    const genderOptions = ['male', 'female', 'other']
+    const interestsOptions = ['Coding', 'Music', 'Sports', 'Art']
     setFormData({
       fullName: faker.person.fullName(),
       email: faker.internet.email().toLowerCase(),
@@ -87,6 +125,12 @@ export default function Register() {
       confirmPassword: '11112222',
       phone: thaiPhone,
       bio: faker.person.bio().slice(0, 150),
+      gender: faker.helpers.arrayElement(genderOptions),
+      interests: faker.helpers.arrayElements(interestsOptions, {
+        min: 1,
+        max: 3,
+      }),
+      receiveNewsletter: faker.datatype.boolean(),
     })
   }
 
@@ -182,24 +226,58 @@ export default function Register() {
               <p className='text-sm text-red-500'>{formErrors.phone}</p>
             )}
             <div>
-              <label
-                className='mb-1 block text-sm font-semibold text-slate-700 drop-shadow-sm'
-                htmlFor='bio'
-              >
-                Bio (Optional, max 150 chars)
+              <label className='mb-1 block text-sm font-semibold text-slate-700 drop-shadow-sm'>
+                Gender (Optional)
               </label>
-              <textarea
-                id='bio'
-                name='bio'
-                placeholder='Tell us about yourself'
-                className='block w-full rounded-xl border border-slate-200 bg-white/70 px-4 py-2 text-slate-900 shadow-inner backdrop-blur transition-all duration-150 placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white/90 focus:ring-2 focus:ring-indigo-200/60 focus:outline-none'
-                maxLength={150}
-                value={formData.bio}
+              <div className='mt-1 flex gap-4'>
+                <Radio
+                  label='Male'
+                  name='gender'
+                  value='male'
+                  checked={formData.gender === 'male'}
+                  onChange={handleChange}
+                />
+                <Radio
+                  label='Female'
+                  name='gender'
+                  value='female'
+                  checked={formData.gender === 'female'}
+                  onChange={handleChange}
+                />
+                <Radio
+                  label='Other'
+                  name='gender'
+                  value='other'
+                  checked={formData.gender === 'other'}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <label className='mb-1 block text-sm font-semibold text-slate-700 drop-shadow-sm'>
+                Interests (Optional)
+              </label>
+              <div className='mt-1 flex gap-4'>
+                {['Coding', 'Music', 'Sports', 'Art'].map((interest) => (
+                  <Checkbox
+                    key={interest}
+                    label={interest}
+                    name='interests'
+                    value={interest}
+                    checked={formData.interests.includes(interest)}
+                    onChange={handleChange}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className='flex items-center gap-2'>
+              <Checkbox
+                label='Receive Newsletter (Optional)'
+                name='receiveNewsletter'
+                checked={formData.receiveNewsletter}
                 onChange={handleChange}
+                id='receiveNewsletter'
               />
-              {formErrors.bio && (
-                <p className='text-sm text-red-500'>{formErrors.bio}</p>
-              )}
             </div>
             {/* Loading spinner above the Register button */}
             {loading && (
