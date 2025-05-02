@@ -1,10 +1,12 @@
 import { NavLink, Outlet } from 'react-router'
+import { useState } from 'react'
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 export default function RootLayout({ children }: LayoutProps) {
+  const [navOpen, setNavOpen] = useState(false)
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-100 to-slate-300 text-gray-800'>
       <header className='sticky top-0 z-10 w-full border-b border-slate-200 bg-white/60 shadow-[0_2px_16px_0_rgba(31,38,135,0.07)] backdrop-blur-md'>
@@ -30,7 +32,27 @@ export default function RootLayout({ children }: LayoutProps) {
             </svg>
             <span className='hidden sm:inline'>Auth System</span>
           </NavLink>
-          <nav className='flex gap-2'>
+          {/* Mobile menu button */}
+          <button
+            className='rounded-md border border-slate-200 bg-white/70 p-2 hover:bg-indigo-100/60 focus:ring-2 focus:ring-indigo-300 focus:outline-none sm:hidden'
+            aria-label='Toggle navigation menu'
+            onClick={() => setNavOpen((open) => !open)}
+          >
+            <svg width='24' height='24' fill='none' viewBox='0 0 24 24'>
+              <path
+                d='M4 6h16M4 12h16M4 18h16'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+              />
+            </svg>
+          </button>
+          {/* Navigation links */}
+          <nav
+            className={`fixed top-16 right-4 left-4 z-20 flex-col gap-2 rounded-xl bg-white/95 p-4 shadow-lg transition-all duration-200 sm:static sm:flex sm:flex-row sm:rounded-none sm:bg-transparent sm:p-0 sm:shadow-none ${
+              navOpen ? 'flex' : 'hidden'
+            } sm:gap-2`}
+          >
             <NavLink
               to='/'
               className={({ isActive }) =>
@@ -40,6 +62,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
                 }`
               }
+              onClick={() => setNavOpen(false)}
             >
               Home
             </NavLink>
@@ -52,6 +75,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
                 }`
               }
+              onClick={() => setNavOpen(false)}
             >
               Register
             </NavLink>
@@ -64,6 +88,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
                 }`
               }
+              onClick={() => setNavOpen(false)}
             >
               Login
             </NavLink>
@@ -76,6 +101,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
                 }`
               }
+              onClick={() => setNavOpen(false)}
             >
               Users
             </NavLink>
@@ -88,6 +114,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     : 'bg-white/60 text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-900'
                 }`
               }
+              onClick={() => setNavOpen(false)}
             >
               Profile
             </NavLink>

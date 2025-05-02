@@ -65,7 +65,7 @@ export default function Register() {
   }
 
   return (
-    <div className='flex min-h-screen items-center justify-center'>
+    <div className='flex items-center justify-center'>
       <div className='relative w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 bg-white/80 p-10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-md'>
         {/* Decorative blurred shapes for skeuomorphic depth */}
         <div className='pointer-events-none absolute -top-10 -left-10 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-60 blur-2xl'></div>
