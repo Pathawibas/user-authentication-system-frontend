@@ -39,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           property='og:description'
           content='A modern, skeuomorphic user authentication system built with React, Vite, and Tailwind CSS.'
         />
-        <meta property='og:image' content='/favicon.ico' />
+        <meta property='og:image' content='/og.png' />
         <meta
           property='og:url'
           content='https://user-authentication-system-frontend-alpha.vercel.app/'
@@ -52,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           name='twitter:description'
           content='A modern, skeuomorphic user authentication system built with React, Vite, and Tailwind CSS.'
         />
-        <meta name='twitter:image' content='/favicon.ico' />
+        <meta name='twitter:image' content='/og.png' />
       </head>
       <body className='bg-gray-50 font-sans text-gray-900'>
         <RootLayout>{children}</RootLayout>
