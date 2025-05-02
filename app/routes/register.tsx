@@ -62,7 +62,7 @@ export default function Register() {
     setTimeout(() => {
       setShowToast(false)
       setLoading(false)
-      navigate('/login')
+      navigate(`/login?email=${encodeURIComponent(formData.email)}`)
     }, 1800)
 
     setFormData({

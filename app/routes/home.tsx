@@ -28,6 +28,10 @@ export default function Home() {
           <p className='mb-2 text-center text-base font-semibold text-indigo-600'>
             Modern Skeuomorphism design for a soft, tactile web experience.
           </p>
+          <p className='mb-4 text-center text-sm text-slate-500 italic'>
+            This project is for learning and demonstration purposes only. Do not
+            use real credentials.
+          </p>
           <p className='mb-8 text-center text-base font-medium text-slate-700'>
             Effortless and secure authentication for modern web apps.
             <br />
