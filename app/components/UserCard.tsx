@@ -1,5 +1,14 @@
-import { User as UserIcon } from 'lucide-react'
+import {
+  Mail,
+  Phone,
+  KeyRound,
+  FileText,
+  Trash2,
+  User as UserIcon,
+} from 'lucide-react'
+import ProfileInfoCard from './ProfileInfoCard'
 import type { User } from '../types/User'
+import { useNavigate } from 'react-router'
 
 interface UserCardProps {
   user: User
@@ -7,109 +16,80 @@ interface UserCardProps {
 }
 
 export default function UserCard({ user, onDelete }: UserCardProps) {
+  const navigate = useNavigate()
+
   return (
-    <div className='relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-slate-200 bg-white/70 p-4 shadow-[0_4px_32px_0_rgba(99,102,241,0.10)] backdrop-blur-md transition-shadow duration-200 hover:shadow-[0_8px_32px_0_rgba(99,102,241,0.18)] sm:flex-row sm:gap-6 sm:p-6'>
+    <div className='relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-[0_4px_32px_0_rgba(99,102,241,0.10)] backdrop-blur-md sm:flex-row sm:gap-8'>
       {/* Skeuomorphic blurred highlights */}
       <div className='pointer-events-none absolute -top-8 -left-8 h-20 w-20 rounded-full bg-gradient-to-br from-indigo-200 via-indigo-100 to-transparent opacity-40 blur-2xl'></div>
       <div className='pointer-events-none absolute -right-8 -bottom-8 h-16 w-16 rounded-full bg-gradient-to-br from-indigo-100 via-white to-transparent opacity-30 blur-xl'></div>
-      {/* Avatar Circle */}
-      <div className='relative z-10 mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-slate-100/60 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner sm:mb-0'>
+      {/* Avatar */}
+      <div className='relative z-10 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border border-indigo-200 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 shadow-inner'>
         {user.profileImageUrl ? (
           <img
             src={user.profileImageUrl}
             alt='Profile'
-            className='h-16 w-16 rounded-full border border-indigo-200 object-cover'
+            className='h-20 w-20 rounded-full object-cover'
             onError={(e) => (e.currentTarget.style.display = 'none')}
           />
         ) : (
-          <UserIcon size={28} strokeWidth={1.5} className='text-indigo-500' />
+          <UserIcon size={40} strokeWidth={1.5} className='text-indigo-400' />
         )}
       </div>
-      {/* User Info */}
-      <div className='relative z-10 w-full flex-1 space-y-1'>
-        <div className='flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center'>
-          <h2 className='text-lg font-bold text-slate-900 drop-shadow-sm'>
-            {user.fullName}
-          </h2>
-          {/* Delete button for desktop */}
+      {/* Info Cards */}
+      <div className='relative z-10 w-full flex-1 space-y-3'>
+        <ProfileInfoCard
+          icon={<UserIcon size={20} className='text-indigo-400' />}
+          label='Full Name:'
+          value={user.fullName}
+        />
+        <ProfileInfoCard
+          icon={<Mail size={20} className='text-indigo-400' />}
+          label='Email:'
+          value={user.email}
+        />
+        <ProfileInfoCard
+          icon={<Phone size={20} className='text-indigo-400' />}
+          label='Phone:'
+          value={
+            user.phone || <span className='text-gray-400 italic'>No phone</span>
+          }
+        />
+        <ProfileInfoCard
+          icon={<FileText size={20} className='text-indigo-400' />}
+          label='Bio:'
+          value={
+            user.bio || <span className='text-gray-400 italic'>No bio</span>
+          }
+        />
+        <ProfileInfoCard
+          icon={<KeyRound size={20} className='text-indigo-400' />}
+          label='Hashed Password:'
+          value={
+            <span className='text-xs break-all text-gray-500 select-all'>
+              {user.password}
+            </span>
+          }
+        />
+        {/* Delete button and Login as this user button */}
+        <div className='flex justify-end gap-2'>
+          <button
+            onClick={() =>
+              navigate(`/login?email=${encodeURIComponent(user.email)}`)
+            }
+            className='flex items-center gap-1 rounded-xl border border-indigo-200/40 bg-gradient-to-br from-indigo-400/80 via-indigo-500/80 to-indigo-600/80 px-4 py-2 text-xs font-semibold text-white shadow-[0_2px_8px_0_rgba(99,102,241,0.10)] backdrop-blur transition-all duration-150 hover:scale-105 hover:bg-indigo-600/90 focus:ring-2 focus:ring-indigo-300/40 focus:outline-none active:scale-100'
+            title='Login as this user'
+          >
+            <UserIcon size={16} className='text-white' /> Login as this user
+          </button>
           <button
             onClick={() => onDelete(user.id)}
-            className='ml-0 hidden cursor-pointer items-center gap-1 rounded-xl border border-red-200/40 bg-gradient-to-br from-red-400/80 via-red-500/80 to-red-600/80 px-4 py-2 text-xs font-semibold text-white shadow-[0_2px_8px_0_rgba(239,68,68,0.10)] backdrop-blur transition-all duration-150 hover:scale-105 hover:bg-red-600/90 focus:ring-2 focus:ring-red-300/40 focus:outline-none active:scale-100 sm:ml-2 sm:flex'
+            className='flex items-center gap-1 rounded-xl border border-red-200/40 bg-gradient-to-br from-red-400/80 via-red-500/80 to-red-600/80 px-4 py-2 text-xs font-semibold text-white shadow-[0_2px_8px_0_rgba(239,68,68,0.10)] backdrop-blur transition-all duration-150 hover:scale-105 hover:bg-red-600/90 focus:ring-2 focus:ring-red-300/40 focus:outline-none active:scale-100'
             title='Delete user'
           >
-            <svg
-              width='16'
-              height='16'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='text-white'
-            >
-              <path
-                d='M6 7h12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7h12z'
-                stroke='currentColor'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-            Delete
+            <Trash2 size={16} className='text-white' /> Delete
           </button>
         </div>
-        <p className='text-sm leading-relaxed break-all text-slate-500'>
-          {user.email}
-        </p>
-        {user.phone && (
-          <p className='flex items-center gap-1 text-sm leading-relaxed text-slate-500'>
-            <svg
-              width='16'
-              height='16'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='inline-block text-indigo-400'
-            >
-              <path
-                d='M22 16.92v3a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 3.08 4.18 2 2 0 0 1 5 2h3a2 2 0 0 1 2 1.72c.13.97.37 1.91.72 2.81a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.9.35 1.84.59 2.81.72A2 2 0 0 1 22 16.92Z'
-                stroke='currentColor'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-            {user.phone}
-          </p>
-        )}
-        {user.bio && (
-          <p className='mt-2 text-sm leading-relaxed text-slate-600 italic'>
-            "{user.bio}"
-          </p>
-        )}
-        <div className='mt-3 max-w-full overflow-x-auto rounded-xl bg-slate-100/60 px-3 py-2 text-xs leading-relaxed break-all text-slate-400 shadow-inner select-all'>
-          <span className='font-semibold text-slate-400'>Hashed Password:</span>{' '}
-          <code>{user.password}</code>
-        </div>
-        {/* Delete button for mobile */}
-        <button
-          onClick={() => onDelete(user.id)}
-          className='mt-4 flex w-full cursor-pointer items-center justify-center gap-1 rounded-xl border border-red-200/40 bg-gradient-to-br from-red-400/80 via-red-500/80 to-red-600/80 px-4 py-2 text-xs font-semibold text-white shadow-[0_2px_8px_0_rgba(239,68,68,0.10)] backdrop-blur transition-all duration-150 hover:scale-105 hover:bg-red-600/90 focus:ring-2 focus:ring-red-300/40 focus:outline-none active:scale-100 sm:hidden'
-          title='Delete user'
-        >
-          <svg
-            width='16'
-            height='16'
-            fill='none'
-            viewBox='0 0 24 24'
-            className='text-white'
-          >
-            <path
-              d='M6 7h12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7h12z'
-              stroke='currentColor'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
-          Delete
-        </button>
       </div>
     </div>
   )

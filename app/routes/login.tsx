@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router'
 import InputField from '../components/InputField'
 import { verifyPassword } from '../utils/hash'
 
@@ -16,6 +16,16 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const emailParam = params.get('email')
+    if (emailParam) {
+      setFormData((prev) => ({ ...prev, email: emailParam }))
+    }
+    // eslint-disable-next-line
+  }, [location.search])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
