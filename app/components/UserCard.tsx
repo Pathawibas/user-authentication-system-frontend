@@ -40,7 +40,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
       </div>
       {/* Info Cards */}
       <div className='relative z-10 w-full flex-1 space-y-3'>
-        <UserInfoSection user={user} />
+        <UserInfoSection user={user} defaultExpanded={false} />
         {/* Delete button and Login as this user button */}
         <div className='flex justify-end gap-2'>
           <button

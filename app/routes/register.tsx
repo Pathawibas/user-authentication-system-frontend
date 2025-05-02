@@ -18,6 +18,7 @@ export default function Register() {
     gender: string
     interests: string[]
     receiveNewsletter: boolean
+    acceptTerms: boolean
   }>({
     fullName: '',
     email: '',
@@ -28,6 +29,7 @@ export default function Register() {
     gender: '',
     interests: [],
     receiveNewsletter: false,
+    acceptTerms: false,
   })
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
@@ -60,6 +62,9 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const errors = validateRegisterForm(formData)
+    if (!formData.acceptTerms) {
+      errors.acceptTerms = 'You must accept the terms and conditions.'
+    }
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors)
@@ -108,6 +113,7 @@ export default function Register() {
       gender: '',
       interests: [],
       receiveNewsletter: false,
+      acceptTerms: false,
     })
     setFormErrors({})
   }
@@ -131,6 +137,7 @@ export default function Register() {
         max: 3,
       }),
       receiveNewsletter: faker.datatype.boolean(),
+      acceptTerms: true,
     })
   }
 
@@ -169,10 +176,8 @@ export default function Register() {
               value={formData.fullName}
               onChange={handleChange}
               withAsterisk
+              error={formErrors.fullName}
             />
-            {formErrors.fullName && (
-              <p className='text-sm text-red-500'>{formErrors.fullName}</p>
-            )}
             <InputField
               label='Email'
               name='email'
@@ -182,10 +187,8 @@ export default function Register() {
               onChange={handleChange}
               withAsterisk
               autoComplete='email'
+              error={formErrors.email}
             />
-            {formErrors.email && (
-              <p className='text-sm text-red-500'>{formErrors.email}</p>
-            )}
             <InputField
               label='Password'
               name='password'
@@ -195,10 +198,8 @@ export default function Register() {
               onChange={handleChange}
               withAsterisk
               autoComplete='new-password'
+              error={formErrors.password}
             />
-            {formErrors.password && (
-              <p className='text-sm text-red-500'>{formErrors.password}</p>
-            )}
             <InputField
               label='Confirm Password'
               name='confirmPassword'
@@ -208,12 +209,8 @@ export default function Register() {
               onChange={handleChange}
               withAsterisk
               autoComplete='new-password'
+              error={formErrors.confirmPassword}
             />
-            {formErrors.confirmPassword && (
-              <p className='text-sm text-red-500'>
-                {formErrors.confirmPassword}
-              </p>
-            )}
             <InputField
               label='Phone Number (Optional)'
               name='phone'
@@ -221,10 +218,8 @@ export default function Register() {
               placeholder='0XXXXXXXXX'
               value={formData.phone}
               onChange={handleChange}
+              error={formErrors.phone}
             />
-            {formErrors.phone && (
-              <p className='text-sm text-red-500'>{formErrors.phone}</p>
-            )}
             <div>
               <label className='mb-1 block text-sm font-semibold text-slate-700 drop-shadow-sm'>
                 Gender (Optional)
@@ -277,6 +272,21 @@ export default function Register() {
                 checked={formData.receiveNewsletter}
                 onChange={handleChange}
                 id='receiveNewsletter'
+              />
+            </div>
+            <div className='flex flex-col items-start gap-2'>
+              <Checkbox
+                label={
+                  <>
+                    <span>I accept the Terms and Conditions</span>{' '}
+                    <span className='text-red-500'>*</span>
+                  </>
+                }
+                name='acceptTerms'
+                checked={formData.acceptTerms}
+                onChange={handleChange}
+                id='acceptTerms'
+                error={formErrors.acceptTerms}
               />
             </div>
             {/* Loading spinner above the Register button */}

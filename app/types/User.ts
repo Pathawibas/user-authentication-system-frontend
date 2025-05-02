@@ -10,4 +10,5 @@ export interface User {
   gender?: 'male' | 'female' | 'other'
   interests?: string[]
   receiveNewsletter?: boolean
+  acceptTerms?: boolean
 }

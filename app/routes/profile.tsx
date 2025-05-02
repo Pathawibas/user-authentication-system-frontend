@@ -140,7 +140,7 @@ export default function Profile() {
             </div>
           </div>
           <div className='w-full space-y-4'>
-            <UserInfoSection user={user} />
+            <UserInfoSection user={user} defaultExpanded />
           </div>
           <button
             onClick={() => {
