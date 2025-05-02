@@ -100,14 +100,25 @@ export default function Login() {
               onChange={handleChange}
               autoComplete='current-password'
             />
-            <div className='mb-4 flex items-center'>
-              <input
-                type='checkbox'
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className='h-4 w-4 rounded border-slate-300 bg-white/70 text-indigo-600 shadow-inner transition-all duration-150 focus:border-indigo-400 focus:ring-indigo-400'
-              />
-              <label className='ml-2 text-sm font-medium text-slate-700'>
+            {/* Improved custom toggle for Remember Me */}
+            <div className='mb-4 flex items-center gap-3'>
+              <button
+                type='button'
+                aria-pressed={rememberMe}
+                onClick={() => setRememberMe((v) => !v)}
+                className={`relative h-5 w-9 flex-shrink-0 rounded-full border transition-colors duration-200 focus:ring-2 focus:ring-indigo-400/40 focus:outline-none ${rememberMe ? 'border-indigo-500 bg-indigo-500' : 'border-slate-300 bg-slate-200'}`}
+                tabIndex={0}
+              >
+                <span
+                  className={`absolute top-0 left-0 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200 ${rememberMe ? 'translate-x-4' : 'translate-x-0'}`}
+                  style={{ boxShadow: '0 1px 4px 0 rgba(99,102,241,0.10)' }}
+                />
+              </button>
+              <label
+                className='flex cursor-pointer items-center text-sm font-medium text-slate-700 select-none'
+                onClick={() => setRememberMe((v) => !v)}
+                style={{ minHeight: '20px' }}
+              >
                 Remember Me
               </label>
             </div>

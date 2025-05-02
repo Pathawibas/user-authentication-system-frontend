@@ -1,26 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import {
-  LogOut,
-  Copy,
-  Mail,
-  Phone,
-  User as UserIcon,
-  KeyRound,
-  FileText,
-  Check, // <-- add Check icon
-  RefreshCw, // import RefreshCw icon
-} from 'lucide-react'
-import { faker } from '@faker-js/faker' // import faker
+import { LogOut, User as UserIcon, Check, RefreshCw } from 'lucide-react'
+import { faker } from '@faker-js/faker'
 import type { User } from '../types/User'
-import ProfileInfoCard from '../components/ProfileInfoCard'
+import UserInfoSection from '../components/UserInfoSection'
 
 export default function Profile() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const [copiedEmail, setCopiedEmail] = useState(false) // <-- add state
-  const [copiedPassword, setCopiedPassword] = useState(false)
-  const [copiedPhone, setCopiedPhone] = useState(false)
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl || '')
   const [savingImage, setSavingImage] = useState(false)
   const navigate = useNavigate()
@@ -151,99 +138,8 @@ export default function Profile() {
               </button>
             </div>
           </div>
-          {/* Info Cards: Full Name & Email (no duplicate) */}
-          <div className='mb-6 w-full space-y-4'>
-            <ProfileInfoCard
-              icon={<UserIcon size={20} className='text-indigo-400' />}
-              label='Full Name:'
-              value={user.fullName}
-            />
-            <ProfileInfoCard
-              icon={<Mail size={20} className='text-indigo-400' />}
-              label='Email:'
-              value={user.email}
-            >
-              <button
-                className='ml-2 text-xs text-indigo-500 hover:underline active:scale-95'
-                onClick={async () => {
-                  await navigator.clipboard.writeText(user.email)
-                  setCopiedEmail(true)
-                  setTimeout(() => setCopiedEmail(false), 1000)
-                }}
-                title={copiedEmail ? 'Copied!' : 'Copy email'}
-              >
-                {copiedEmail ? (
-                  <Check size={14} className='text-green-500' />
-                ) : (
-                  <Copy size={14} />
-                )}
-              </button>
-            </ProfileInfoCard>
-          </div>
           <div className='w-full space-y-4'>
-            <ProfileInfoCard
-              icon={<KeyRound size={20} className='text-indigo-400' />}
-              label='Hashed Password:'
-              value={
-                <span className='text-xs break-all text-gray-500 select-all'>
-                  {user.password}
-                </span>
-              }
-            >
-              <button
-                className='ml-2 text-xs text-indigo-500 hover:underline active:scale-95'
-                onClick={async () => {
-                  await navigator.clipboard.writeText(user.password)
-                  setCopiedPassword(true)
-                  setTimeout(() => setCopiedPassword(false), 1000)
-                }}
-                title={copiedPassword ? 'Copied!' : 'Copy hashed password'}
-              >
-                {copiedPassword ? (
-                  <Check size={14} className='text-green-500' />
-                ) : (
-                  <Copy size={14} />
-                )}
-              </button>
-            </ProfileInfoCard>
-            <ProfileInfoCard
-              icon={<Phone size={20} className='text-indigo-400' />}
-              label='Phone:'
-              value={
-                user.phone || (
-                  <span className='text-gray-400 italic'>No phone</span>
-                )
-              }
-            >
-              {user.phone && (
-                <button
-                  className='ml-2 text-xs text-indigo-500 hover:underline active:scale-95'
-                  onClick={async () => {
-                    if (user.phone) {
-                      await navigator.clipboard.writeText(user.phone)
-                    }
-                    setCopiedPhone(true)
-                    setTimeout(() => setCopiedPhone(false), 1000)
-                  }}
-                  title={copiedPhone ? 'Copied!' : 'Copy phone number'}
-                >
-                  {copiedPhone ? (
-                    <Check size={14} className='text-green-500' />
-                  ) : (
-                    <Copy size={14} />
-                  )}
-                </button>
-              )}
-            </ProfileInfoCard>
-            <ProfileInfoCard
-              icon={<FileText size={20} className='mt-1 text-indigo-400' />}
-              label='Bio:'
-              value={
-                user.bio || (
-                  <span className='text-gray-400 italic'>No bio provided</span>
-                )
-              }
-            />
+            <UserInfoSection user={user} />
           </div>
           <button
             onClick={() => {

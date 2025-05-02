@@ -5,10 +5,12 @@ import {
   FileText,
   Trash2,
   User as UserIcon,
+  AlertTriangle,
 } from 'lucide-react'
 import ProfileInfoCard from './ProfileInfoCard'
 import type { User } from '../types/User'
 import { useNavigate } from 'react-router'
+import UserInfoSection from './UserInfoSection'
 
 interface UserCardProps {
   user: User
@@ -38,39 +40,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
       </div>
       {/* Info Cards */}
       <div className='relative z-10 w-full flex-1 space-y-3'>
-        <ProfileInfoCard
-          icon={<UserIcon size={20} className='text-indigo-400' />}
-          label='Full Name:'
-          value={user.fullName}
-        />
-        <ProfileInfoCard
-          icon={<Mail size={20} className='text-indigo-400' />}
-          label='Email:'
-          value={user.email}
-        />
-        <ProfileInfoCard
-          icon={<Phone size={20} className='text-indigo-400' />}
-          label='Phone:'
-          value={
-            user.phone || <span className='text-gray-400 italic'>No phone</span>
-          }
-        />
-        <ProfileInfoCard
-          icon={<FileText size={20} className='text-indigo-400' />}
-          label='Bio:'
-          value={
-            user.bio || <span className='text-gray-400 italic'>No bio</span>
-          }
-        />
-        <ProfileInfoCard
-          icon={<KeyRound size={20} className='text-indigo-400' />}
-          label='Hashed Password:'
-          value={
-            <span className='text-xs break-all text-gray-500 select-all'>
-              {user.password}
-            </span>
-          }
-        />
+        <UserInfoSection user={user} />
         {/* Delete button and Login as this user button */}
         <div className='flex justify-end gap-2'>
           <button
