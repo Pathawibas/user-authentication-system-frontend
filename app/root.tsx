@@ -33,6 +33,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <Meta />
         <Links />
+        {/* Open Graph Meta Tags */}
+        <meta property='og:title' content='User Authentication System' />
+        <meta
+          property='og:description'
+          content='A modern, skeuomorphic user authentication system built with React, Vite, and Tailwind CSS.'
+        />
+        <meta property='og:image' content='/favicon.ico' />
+        <meta
+          property='og:url'
+          content='https://user-authentication-system-frontend-alpha.vercel.app/'
+        />
+        <meta property='og:type' content='website' />
+        {/* Twitter Card Meta Tags */}
+        <meta name='twitter:card' content='summary' />
+        <meta name='twitter:title' content='User Authentication System' />
+        <meta
+          name='twitter:description'
+          content='A modern, skeuomorphic user authentication system built with React, Vite, and Tailwind CSS.'
+        />
+        <meta name='twitter:image' content='/favicon.ico' />
       </head>
       <body className='bg-gray-50 font-sans text-gray-900'>
         <RootLayout>{children}</RootLayout>
