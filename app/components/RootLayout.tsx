@@ -144,7 +144,7 @@ export default function RootLayout({ children }: LayoutProps) {
         </span>
         <br />
         <a
-          href='/LICENSE'
+          href='https://github.com/Pathawibas/user-authentication-system-frontend?tab=MIT-1-ov-file'
           className='ml-1 underline transition-colors hover:text-indigo-700'
           target='_blank'
           rel='noopener noreferrer'
