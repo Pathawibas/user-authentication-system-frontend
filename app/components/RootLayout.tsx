@@ -135,6 +135,23 @@ export default function RootLayout({ children }: LayoutProps) {
       >
         <div className='relative'>{children ?? <Outlet />}</div>
       </main>
+
+      {/* Footer */}
+      <footer className='relative z-10 mx-auto mt-8 max-w-6xl px-4 py-6 text-center text-sm text-indigo-500/80'>
+        <span>
+          &copy; {new Date().getFullYear()} Auth System. All rights reserved. |
+          v1.0
+        </span>
+        <br />
+        <a
+          href='/LICENSE'
+          className='ml-1 underline transition-colors hover:text-indigo-700'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          Licensed under the MIT License
+        </a>
+      </footer>
     </div>
   )
 }

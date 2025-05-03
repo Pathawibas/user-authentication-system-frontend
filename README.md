@@ -132,5 +132,11 @@ This project is used to train junior frontend developers in building real-world 
 
 ---
 
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
+
 > Built with ❤️
 
