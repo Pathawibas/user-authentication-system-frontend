@@ -6,6 +6,14 @@ This project is designed for training frontend developers to understand core aut
 
 ---
 
+## 📄 Project Reference & Task Details
+
+For the full project brief, requirements, and training task details, see the Notion page:
+
+[Trainee Frontend Web Developer Training Task — User Authentication Management System](https://clammy-mat-7f0.notion.site/Train-Frontend-Web-Developer-Training-Task-User-Authentication-Management-System-1e7fa5964bf9800cb9b4f7c17e734240)
+
+---
+
 ## 🚀 Tech Stack
 
 - **Frontend Framework**: React (with Vite + TypeScript)
