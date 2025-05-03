@@ -1,6 +1,6 @@
 // app/components/MobileNav.tsx
 import { useState, useEffect, useRef } from 'react'
-import { NavLink } from 'react-router'
+import { useNavigate } from 'react-router' // Import useNavigate instead of NavLink
 import { Home, UserPlus2, LogIn, Users, Contact2, X } from 'lucide-react'
 
 export default function MobileNav({
@@ -13,6 +13,13 @@ export default function MobileNav({
   setNavOpen: (open: boolean) => void
 }) {
   const navRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate() // Initialize the navigate function
+
+  // Navigation handler function
+  const handleNavigation = (path: string) => {
+    navigate(path)
+    setNavOpen(false)
+  }
 
   // Prevent body scroll when nav is open
   useEffect(() => {
@@ -64,6 +71,38 @@ export default function MobileNav({
     return () => document.removeEventListener('keydown', handleTab)
   }, [navOpen])
 
+  // Helper function to create nav buttons with consistent styling
+  const renderNavButton = (
+    path: string,
+    icon: React.ReactNode,
+    label: string,
+    isActive: boolean = false,
+  ) => {
+    return (
+      <button
+        onClick={() => handleNavigation(path)}
+        className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-left font-medium transition-all duration-200 ${
+          isActive
+            ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
+            : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
+        }`}
+      >
+        <span className='flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner'>
+          {icon}
+        </span>
+        <span>{label}</span>
+
+        {/* Decorative elements */}
+        <span className='pointer-events-none absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
+        <span className='pointer-events-none absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
+      </button>
+    )
+  }
+
+  // Get current path to highlight active link
+  const currentPath =
+    typeof window !== 'undefined' ? window.location.pathname : ''
+
   return (
     <>
       {/* Overlay with blur effect */}
@@ -105,122 +144,38 @@ export default function MobileNav({
             </button>
           </div>
 
-          {/* Navigation Links with Skeuomorphic Style */}
+          {/* Navigation Buttons with Skeuomorphic Style */}
           <div className='flex flex-col gap-3'>
-            <NavLink
-              to='/'
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
-                    : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              {/* Icon with Container */}
-              <span
-                className={`flex h-8 w-8 items-center justify-center rounded-full ${({
-                  isActive,
-                }: {
-                  isActive: boolean
-                }) =>
-                  isActive
-                    ? 'bg-white/80 text-indigo-600 shadow-inner'
-                    : 'bg-white/80 text-indigo-500 shadow-inner'}`}
-              >
-                <Home size={20} strokeWidth={1.5} />
-              </span>
-              <span>Home</span>
-
-              {/* Subtle background blob effect */}
-              <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
-              <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
-            </NavLink>
-
-            <NavLink
-              to='/register'
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
-                    : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              <span
-                className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
-              >
-                <UserPlus2 size={20} strokeWidth={1.5} />
-              </span>
-              <span>Register</span>
-              <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
-              <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
-            </NavLink>
-
-            <NavLink
-              to='/login'
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
-                    : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              <span
-                className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
-              >
-                <LogIn size={20} strokeWidth={1.5} />
-              </span>
-              <span>Login</span>
-              <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
-              <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
-            </NavLink>
-
-            <NavLink
-              to='/users'
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
-                    : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              <span
-                className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
-              >
-                <Users size={20} strokeWidth={1.5} />
-              </span>
-              <span>Users</span>
-              <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
-              <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
-            </NavLink>
-
-            <NavLink
-              to='/profile'
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner'
-                    : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md'
-                }`
-              }
-              onClick={() => setNavOpen(false)}
-            >
-              <span
-                className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-indigo-500 shadow-inner`}
-              >
-                <Contact2 size={20} strokeWidth={1.5} />
-              </span>
-              <span>Profile</span>
-              <span className='absolute -top-8 -right-8 h-16 w-16 rounded-full bg-indigo-200/20 blur-xl'></span>
-              <span className='absolute -bottom-8 -left-8 h-16 w-16 rounded-full bg-indigo-100/20 blur-xl'></span>
-            </NavLink>
+            {renderNavButton(
+              '/',
+              <Home size={20} strokeWidth={1.5} />,
+              'Home',
+              currentPath === '/',
+            )}
+            {renderNavButton(
+              '/register',
+              <UserPlus2 size={20} strokeWidth={1.5} />,
+              'Register',
+              currentPath === '/register',
+            )}
+            {renderNavButton(
+              '/login',
+              <LogIn size={20} strokeWidth={1.5} />,
+              'Login',
+              currentPath === '/login',
+            )}
+            {renderNavButton(
+              '/users',
+              <Users size={20} strokeWidth={1.5} />,
+              'Users',
+              currentPath === '/users',
+            )}
+            {renderNavButton(
+              '/profile',
+              <Contact2 size={20} strokeWidth={1.5} />,
+              'Profile',
+              currentPath === '/profile',
+            )}
           </div>
 
           {/* Decorative Elements */}
