@@ -208,7 +208,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
             }
             variant='secondary'
             size='sm'
-            className='text-xs'
+            className='text-xs transition-transform duration-150 hover:scale-105 hover:shadow-lg active:scale-95'
             title='Login as this user'
             iconLeft={<LogIn size={16} />}
           >
@@ -218,7 +218,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
             onClick={() => onDelete(user.id)}
             variant='danger'
             size='sm'
-            className='text-xs'
+            className='text-xs transition-transform duration-150 hover:scale-105 hover:shadow-lg active:scale-95'
             title='Delete user'
             iconLeft={<Trash2 size={16} />}
           >
