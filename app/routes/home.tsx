@@ -9,6 +9,7 @@ import {
   Shield,
   Code,
   ArrowRight,
+  Lock,
 } from 'lucide-react'
 
 export function meta({}: Route.MetaArgs) {
@@ -24,8 +25,6 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <main className='relative flex flex-col items-center justify-center overflow-hidden px-4 py-8'>
-      {/* Background Blur Elements */}
-
       {/* Hero Section - Skeuomorphic Style */}
       <section className='relative mb-16 flex w-full max-w-3xl flex-col items-center text-center'>
         <div className='mb-6 flex items-center justify-center'>
@@ -58,10 +57,12 @@ export default function Home() {
 
           <div className='relative z-10 flex h-full flex-col items-center text-center'>
             <div className='mb-6 flex items-center justify-center'>
-              <div className='rounded-full border border-indigo-100/50 bg-white/80 p-5 shadow-lg backdrop-blur-sm'>
-                <div className='rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 p-3 text-white shadow-inner'>
-                  <UserCog size={40} />
-                </div>
+              {/* UPDATED: Changed to circular icon container */}
+              <div className='rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white p-4 shadow-inner'>
+                <Lock
+                  size={40}
+                  className='text-indigo-500 transition-transform group-hover:scale-110'
+                />
               </div>
             </div>
             <h2 className='mb-3 text-3xl font-extrabold text-slate-900'>
@@ -154,7 +155,8 @@ export default function Home() {
             href='/users'
             className='flex h-full flex-col items-center justify-center p-6 text-center'
           >
-            <div className='mb-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-4 shadow-inner'>
+            {/* UPDATED: Changed to circular icon container */}
+            <div className='mb-4 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white p-4 shadow-inner'>
               <Users
                 size={32}
                 className='text-indigo-500 transition-transform group-hover:scale-110'
@@ -181,7 +183,8 @@ export default function Home() {
             href='/profile'
             className='flex h-full flex-col items-center justify-center p-6 text-center'
           >
-            <div className='mb-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-4 shadow-inner'>
+            {/* UPDATED: Changed to circular icon container */}
+            <div className='mb-4 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white p-4 shadow-inner'>
               <Contact2
                 size={32}
                 className='text-indigo-500 transition-transform group-hover:scale-110'
@@ -243,7 +246,8 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -top-12 -right-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-indigo-50/50 bg-white/80 p-4 shadow-inner'>
+              {/* UPDATED: Changed to circular icon container */}
+              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <Shield
                   size={28}
                   className='text-indigo-500 transition-transform group-hover:scale-110'
@@ -264,7 +268,8 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-indigo-50/50 bg-white/80 p-4 shadow-inner'>
+              {/* UPDATED: Changed to circular icon container */}
+              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <Code
                   size={28}
                   className='text-indigo-500 transition-transform group-hover:scale-110'
@@ -285,7 +290,8 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -top-12 -left-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-indigo-50/50 bg-white/80 p-4 shadow-inner'>
+              {/* UPDATED: Changed to circular icon container */}
+              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <UserCog
                   size={28}
                   className='text-indigo-500 transition-transform group-hover:scale-110'
@@ -306,7 +312,8 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -right-12 -bottom-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-indigo-50/50 bg-white/80 p-4 shadow-inner'>
+              {/* UPDATED: Changed to circular icon container */}
+              <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <Contact2
                   size={28}
                   className='text-indigo-500 transition-transform group-hover:scale-110'

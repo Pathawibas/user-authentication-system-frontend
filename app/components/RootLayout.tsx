@@ -49,19 +49,10 @@ export default function RootLayout({ children }: LayoutProps) {
             className='group flex items-center gap-3 rounded-2xl border border-white/70 bg-gradient-to-br from-indigo-200/90 via-white/90 to-indigo-100/90 p-2 text-2xl font-extrabold text-indigo-700 shadow-md backdrop-blur-sm transition-all hover:translate-y-[-1px] hover:shadow-lg active:translate-y-[1px] active:shadow-inner'
           >
             {/* Logo Icon with Enhanced Skeuomorphic Styling */}
-            <span className='relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl'>
-              {/* Inner Glow Effect */}
-
-              {/* Icon Container */}
-              <span className='relative flex items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 p-1.5 text-white shadow-inner'>
-                <Fingerprint
-                  size={22}
-                  strokeWidth={2}
-                  className='drop-shadow-sm'
-                />
+            <span className='relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-200 via-white to-indigo-100 p-4 shadow-lg backdrop-blur-sm'>
+              <span className='flex items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 p-3 text-white shadow-inner'>
+                <Fingerprint size={22} strokeWidth={2} />
               </span>
-
-              {/* Top Highlight */}
             </span>
 
             {/* Text with Subtle Shadow */}
