@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 
 interface InputFieldProps {
   label: string
@@ -10,7 +11,7 @@ interface InputFieldProps {
   withAsterisk?: boolean
   autoComplete?: string
   error?: string
-  icon?: React.ReactNode // New prop for icon
+  icon?: React.ReactNode
 }
 
 export default function InputField({
@@ -25,6 +26,15 @@ export default function InputField({
   error,
   icon,
 }: InputFieldProps) {
+  // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false)
+
+  // Determine the actual input type (for password fields)
+  const inputType = type === 'password' && showPassword ? 'text' : type
+
+  // Function to toggle password visibility
+  const togglePasswordVisibility = () => setShowPassword(!showPassword)
+
   return (
     <div className='w-full'>
       {/* Label - Enhanced styling */}
@@ -43,10 +53,12 @@ export default function InputField({
         <input
           id={name}
           name={name}
-          type={type}
+          type={inputType}
           placeholder={placeholder}
-          className={`block w-full rounded-xl border bg-white/80 px-4 py-3 ${
+          className={`block w-full rounded-xl border bg-white/80 py-3 ${
             icon ? 'pl-10' : 'pl-4'
+          } ${
+            type === 'password' ? 'pr-10' : 'pr-4'
           } text-slate-900 shadow-inner backdrop-blur transition-all duration-200 placeholder:text-slate-400/70 focus:outline-none ${
             error
               ? 'border-red-300 bg-red-50/40 focus:border-red-400 focus:ring-2 focus:ring-red-200'
@@ -59,9 +71,26 @@ export default function InputField({
           aria-describedby={error ? `${name}-error` : undefined}
         />
 
-        {/* Icon - Left positioned */}
+        {/* Left Icon */}
         {icon && (
           <div className='absolute top-1/2 left-3 -translate-y-1/2'>{icon}</div>
+        )}
+
+        {/* Password Toggle Icon */}
+        {type === 'password' && (
+          <button
+            type='button'
+            onClick={togglePasswordVisibility}
+            className='absolute top-1/2 right-3 -translate-y-1/2 text-indigo-500 transition-colors hover:text-indigo-700 focus:outline-none'
+            tabIndex={-1}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? (
+              <EyeOff size={18} className='opacity-70 hover:opacity-100' />
+            ) : (
+              <Eye size={18} className='opacity-70 hover:opacity-100' />
+            )}
+          </button>
         )}
 
         {/* Top inset highlight for skeuomorphic effect */}
