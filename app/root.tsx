@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router'
+import { ToastProvider } from './hooks/useToast'
 
 import type { Route } from './+types/root'
 import './app.css'
@@ -56,7 +57,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name='twitter:image' content='/og.png' />
       </head>
       <body className='bg-gray-50 font-sans text-gray-900'>
-        <RootLayout>{children}</RootLayout>
+        <ToastProvider>
+          <RootLayout>{children}</RootLayout>
+        </ToastProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

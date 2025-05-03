@@ -34,9 +34,9 @@ const positionStyles = {
   'bottom-right': 'right-6 bottom-6 left-auto top-auto translate-x-0',
   'bottom-left': 'left-6 bottom-6 right-auto top-auto translate-x-0',
   'bottom-center': 'left-1/2 bottom-6 right-auto top-auto -translate-x-1/2',
-  'top-right': 'right-6 top-6 left-auto bottom-auto translate-x-0',
-  'top-left': 'left-6 top-6 right-auto bottom-auto translate-x-0',
-  'top-center': 'left-1/2 top-6 right-auto bottom-auto -translate-x-1/2',
+  'top-right': 'right-6 top-24 left-auto bottom-auto translate-x-0',
+  'top-left': 'left-6 top-24 right-auto bottom-auto translate-x-0',
+  'top-center': 'left-1/2 top-24 right-auto bottom-auto -translate-x-1/2',
 }
 
 export default function Toast({

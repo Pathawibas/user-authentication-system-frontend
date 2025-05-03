@@ -94,107 +94,111 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
           </button>
         </div>
 
-        {/* User Details with Animation */}
-        {expanded && (
+        {/* User Details with Animation - Improved */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out ${
+            expanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
           <div
-            className='mb-6 origin-top space-y-4 opacity-100 transition-all duration-300 ease-out'
-            style={{
-              transform: expanded ? 'scaleY(1)' : 'scaleY(0.95)',
-              opacity: expanded ? 1 : 0,
-            }}
+            className={`origin-top transition-all duration-300 ease-out ${
+              expanded ? 'translate-y-0 scale-100' : 'translate-y-4 scale-95'
+            }`}
           >
             <div className='my-3 h-px w-full bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent'></div>
 
-            {userInfoConfig
-              .filter(
-                (field) => !['id', 'fullName', 'email'].includes(field.key),
-              )
-              .map((field) => {
-                // Special rendering for gender, interests, and receiveNewsletter
-                if (field.key === 'gender') {
-                  return (
-                    <ProfileInfoCard
-                      key={field.key}
-                      icon={field.icon}
-                      label={field.label}
-                      value={
-                        user.gender ? (
-                          user.gender.charAt(0).toUpperCase() +
-                          user.gender.slice(1)
-                        ) : (
-                          <span className='text-slate-400 italic'>
-                            No gender specified
-                          </span>
-                        )
-                      }
-                    />
-                  )
-                }
-                if (field.key === 'interests') {
-                  return (
-                    <ProfileInfoCard
-                      key={field.key}
-                      icon={field.icon}
-                      label={field.label}
-                      value={
-                        Array.isArray(user.interests) &&
-                        user.interests.length > 0 ? (
-                          <div className='flex flex-wrap gap-2'>
-                            {user.interests.map((interest: string) => (
-                              <span
-                                key={interest}
-                                className='rounded-full border border-indigo-100/50 bg-indigo-50 px-3 py-1 text-xs text-indigo-600 shadow-sm'
-                              >
-                                {interest}
-                              </span>
-                            ))}
-                          </div>
-                        ) : (
-                          <span className='text-slate-400 italic'>
-                            No interests
-                          </span>
-                        )
-                      }
-                    />
-                  )
-                }
-                if (field.key === 'receiveNewsletter') {
-                  return (
-                    <ProfileInfoCard
-                      key={field.key}
-                      icon={field.icon}
-                      label={field.label}
-                      value={
-                        user.receiveNewsletter ? (
-                          <span className='rounded-full border border-green-100/50 bg-green-50 px-3 py-1 text-xs text-green-600 shadow-sm'>
-                            Yes
-                          </span>
-                        ) : (
-                          <span className='rounded-full border border-slate-100/50 bg-slate-50 px-3 py-1 text-xs text-slate-500 shadow-sm'>
-                            No
-                          </span>
-                        )
-                      }
-                    />
-                  )
-                }
-                return (
-                  <ProfileInfoCard
-                    key={field.key}
-                    icon={field.icon}
-                    label={field.label}
-                    isSpoiler={field.isSpoiler}
-                    spoilerLabel={field.spoilerLabel}
-                    value={
-                      field.render
-                        ? field.render(user)
-                        : user[field.key as keyof User]
-                    }
-                  />
+            <div className='mb-6 space-y-4'>
+              {userInfoConfig
+                .filter(
+                  (field) => !['id', 'fullName', 'email'].includes(field.key),
                 )
-              })}
+                .map((field) => {
+                  // Special rendering for gender, interests, and receiveNewsletter
+                  if (field.key === 'gender') {
+                    return (
+                      <ProfileInfoCard
+                        key={field.key}
+                        icon={field.icon}
+                        label={field.label}
+                        value={
+                          user.gender ? (
+                            user.gender.charAt(0).toUpperCase() +
+                            user.gender.slice(1)
+                          ) : (
+                            <span className='text-slate-400 italic'>
+                              No gender specified
+                            </span>
+                          )
+                        }
+                      />
+                    )
+                  }
+                  if (field.key === 'interests') {
+                    return (
+                      <ProfileInfoCard
+                        key={field.key}
+                        icon={field.icon}
+                        label={field.label}
+                        value={
+                          Array.isArray(user.interests) &&
+                          user.interests.length > 0 ? (
+                            <div className='flex flex-wrap gap-2'>
+                              {user.interests.map((interest: string) => (
+                                <span
+                                  key={interest}
+                                  className='rounded-full border border-indigo-100/50 bg-indigo-50 px-3 py-1 text-xs text-indigo-600 shadow-sm'
+                                >
+                                  {interest}
+                                </span>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className='text-slate-400 italic'>
+                              No interests
+                            </span>
+                          )
+                        }
+                      />
+                    )
+                  }
+                  if (field.key === 'receiveNewsletter') {
+                    return (
+                      <ProfileInfoCard
+                        key={field.key}
+                        icon={field.icon}
+                        label={field.label}
+                        value={
+                          user.receiveNewsletter ? (
+                            <span className='rounded-full border border-green-100/50 bg-green-50 px-3 py-1 text-xs text-green-600 shadow-sm'>
+                              Yes
+                            </span>
+                          ) : (
+                            <span className='rounded-full border border-slate-100/50 bg-slate-50 px-3 py-1 text-xs text-slate-500 shadow-sm'>
+                              No
+                            </span>
+                          )
+                        }
+                      />
+                    )
+                  }
+                  return (
+                    <ProfileInfoCard
+                      key={field.key}
+                      icon={field.icon}
+                      label={field.label}
+                      isSpoiler={field.isSpoiler}
+                      spoilerLabel={field.spoilerLabel}
+                      value={
+                        field.render
+                          ? field.render(user)
+                          : user[field.key as keyof User]
+                      }
+                    />
+                  )
+                })}
+            </div>
           </div>
-        )}
+        </div>
 
         {/* Action Buttons */}
         <div className='mt-2 flex justify-end gap-3'>

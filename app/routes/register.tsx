@@ -2,7 +2,7 @@ import { useState } from 'react'
 import InputField from '../components/InputField'
 import { validateRegisterForm } from '../utils/validation'
 import { hashPassword } from '../utils/hash'
-import Toast from '../components/Toast'
+import { useToast } from '../hooks/useToast'
 import { useNavigate } from 'react-router'
 import { faker } from '@faker-js/faker'
 import { Checkbox, Radio } from '../components/CheckboxRadio'
@@ -42,9 +42,9 @@ export default function Register() {
   })
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
-  const [showToast, setShowToast] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const { showToast } = useToast()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -101,10 +101,12 @@ export default function Register() {
     users.push(newUser)
     localStorage.setItem('users', JSON.stringify(users))
 
-    setShowToast(true)
+    showToast('Registration successful!', {
+      variant: 'success',
+      duration: 1500,
+    })
     setLoading(true)
     setTimeout(() => {
-      setShowToast(false)
       setLoading(false)
       navigate(`/login?email=${encodeURIComponent(formData.email)}`)
     }, 1800)
@@ -149,13 +151,6 @@ export default function Register() {
 
   return (
     <div className='my-8 flex items-center justify-center'>
-      <Toast
-        message='Registration successful!'
-        show={showToast}
-        onClose={() => setShowToast(false)}
-        duration={1500}
-        variant='success'
-      />
       <div className='relative w-full max-w-md overflow-hidden rounded-3xl border border-white/70 bg-gradient-to-b from-white/90 to-white/80 p-8 shadow-xl backdrop-blur-md'>
         {/* Decorative Elements */}
         <div className='pointer-events-none absolute -top-20 -left-20 h-48 w-48 rounded-full bg-indigo-200/30 blur-3xl'></div>
