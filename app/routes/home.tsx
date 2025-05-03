@@ -75,8 +75,8 @@ export default function Home() {
 
             {/* Primary Action Buttons - Skeuomorphic */}
             <div className='mt-auto flex w-full max-w-xs flex-col gap-4 sm:flex-row'>
-              <a
-                href='/register'
+              <NavLink
+                to='/register'
                 className='text-md group flex items-center justify-center rounded-xl border border-indigo-400/30 bg-gradient-to-br from-indigo-500 to-indigo-600 px-6 py-3 font-bold text-white shadow-lg transition-all hover:translate-y-[-2px] hover:shadow-xl focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:outline-none'
               >
                 <UserPlus2
@@ -84,9 +84,9 @@ export default function Home() {
                   size={20}
                 />
                 <span>Register</span>
-              </a>
-              <a
-                href='/login'
+              </NavLink>
+              <NavLink
+                to='/login'
                 className='text-md group flex items-center justify-center rounded-xl border border-indigo-200 bg-white/80 px-6 py-3 font-bold text-indigo-600 shadow backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:bg-white hover:shadow-md focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:outline-none'
               >
                 <LogIn
@@ -94,7 +94,7 @@ export default function Home() {
                   size={20}
                 />
                 <span>Sign In</span>
-              </a>
+              </NavLink>
             </div>
 
             {/* GitHub Link - Skeuomorphic */}
@@ -119,8 +119,8 @@ export default function Home() {
 
         {/* Register Card - Skeuomorphic */}
         <div className='group relative col-span-full row-span-1 flex items-center overflow-hidden rounded-3xl border border-indigo-400/30 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
-          <a
-            href='/register'
+          <NavLink
+            to='/register'
             className='flex h-full w-full items-center p-6'
             aria-label='Register'
           >
@@ -145,7 +145,7 @@ export default function Home() {
                 className='text-white transition-transform group-hover:translate-x-1'
               />
             </div>
-          </a>
+          </NavLink>
           <div className='absolute -top-10 -right-10 h-32 w-32 rounded-full bg-indigo-400/30 blur-2xl'></div>
         </div>
 

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router'
+import { useNavigate, useLocation, NavLink } from 'react-router'
 import InputField from '../components/InputField'
 import { verifyPassword } from '../utils/hash'
 import { Checkbox } from '../components/CheckboxRadio'
 import Button from '../components/Button'
 import { Fingerprint, LogIn, Mail, Lock } from 'lucide-react'
+import { useToast } from '../hooks/useToast'
 
 interface User {
   id: string
@@ -20,6 +21,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const toast = useToast()
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -185,22 +187,27 @@ export default function Login() {
 
             {/* Additional Links - Skeuomorphic */}
             <div className='text-center'>
-              <a
-                href='/reset-password'
-                className='text-sm text-indigo-600 transition-colors hover:text-indigo-800'
+              <button
+                type='button'
+                onClick={() =>
+                  toast.showToast('Password reset is not implemented yet.', {
+                    variant: 'info',
+                  })
+                }
+                className='text-sm text-indigo-600 underline transition-colors hover:text-indigo-800'
               >
                 Forgot password?
-              </a>
+              </button>
               <div className='mt-2 flex items-center justify-center gap-2'>
                 <span className='text-sm text-slate-600'>
                   Don't have an account?
                 </span>
-                <a
-                  href='/register'
+                <NavLink
+                  to='/register'
                   className='text-sm font-medium text-indigo-600 transition-colors hover:text-indigo-800'
                 >
                   Register
-                </a>
+                </NavLink>
               </div>
             </div>
           </form>

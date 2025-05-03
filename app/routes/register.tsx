@@ -3,7 +3,7 @@ import InputField from '../components/InputField'
 import { validateRegisterForm } from '../utils/validation'
 import { hashPassword } from '../utils/hash'
 import { useToast } from '../hooks/useToast'
-import { useNavigate } from 'react-router'
+import { useNavigate, NavLink } from 'react-router'
 import { faker } from '@faker-js/faker'
 import { Checkbox, Radio } from '../components/CheckboxRadio'
 import Button from '../components/Button'
@@ -356,12 +356,12 @@ export default function Register() {
             <div className='text-center'>
               <p className='text-sm text-slate-600'>
                 Already have an account?{' '}
-                <a
-                  href='/login'
+                <NavLink
+                  to='/login'
                   className='font-medium text-indigo-600 transition-colors hover:text-indigo-800'
                 >
                   Sign in
-                </a>
+                </NavLink>
               </p>
             </div>
           </form>
