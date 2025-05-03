@@ -17,6 +17,7 @@ export default function Users() {
   const [users, setUsers] = useState<User[]>([])
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [loading, setLoading] = useState(true)
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const usersPerPage = 5
@@ -24,6 +25,7 @@ export default function Users() {
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
     setUsers(storedUsers)
+    setTimeout(() => setLoading(false), 500) // Simulate loading
   }, [])
 
   useEffect(() => {
@@ -65,7 +67,7 @@ export default function Users() {
 
   return (
     <div className='my-8 flex items-center justify-center'>
-      <div className='relative w-full max-w-4xl overflow-hidden rounded-3xl border border-white/70 bg-gradient-to-b from-white/90 to-white/80 p-8 shadow-xl backdrop-blur-md'>
+      <div className='relative w-full max-w-4xl overflow-hidden rounded-3xl border border-white/70 bg-gradient-to-b from-white/90 to-white/80 shadow-xl backdrop-blur-md'>
         {/* Decorative Elements */}
         <div className='pointer-events-none absolute -top-20 -left-20 h-48 w-48 rounded-full bg-indigo-200/30 blur-3xl'></div>
         <div className='pointer-events-none absolute -right-20 -bottom-20 h-48 w-48 rounded-full bg-indigo-300/20 blur-3xl'></div>
@@ -75,7 +77,17 @@ export default function Users() {
         <div className='absolute top-0 right-0 left-0 h-20 rounded-t-3xl bg-gradient-to-b from-white/60 to-transparent'></div>
 
         {/* Content */}
-        <div className='relative z-10'>
+        <div className='relative z-10 p-8'>
+          {/* Loading Spinner Overlay */}
+          {loading && (
+            <div className='absolute inset-0 z-20 flex items-center justify-center bg-white/70 backdrop-blur-sm'>
+              <div className='relative h-10 w-10'>
+                <div className='absolute inset-0 rounded-full border-4 border-indigo-100 opacity-80'></div>
+                <div className='absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-indigo-600'></div>
+              </div>
+            </div>
+          )}
+
           {/* Header Section */}
           <div className='mb-8 flex flex-col items-center'>
             <div className='mb-4 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-200 via-white to-indigo-100 p-4 shadow-lg backdrop-blur-sm'>
@@ -112,6 +124,25 @@ export default function Users() {
               />
             </div>
           </div>
+
+          {/* Delete All Users Button */}
+          {users.length > 0 && (
+            <div className='mb-6 flex justify-end'>
+              <Button
+                variant='danger'
+                size='sm'
+                className='transition-transform duration-150 hover:scale-105 hover:shadow-lg active:scale-95'
+                onClick={() => {
+                  if (confirm('Are you sure you want to delete ALL users?')) {
+                    localStorage.removeItem('users')
+                    setUsers([])
+                  }
+                }}
+              >
+                Delete All Users
+              </Button>
+            </div>
+          )}
 
           {/* Users List */}
           <div className='space-y-6'>

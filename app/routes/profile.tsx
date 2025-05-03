@@ -71,7 +71,7 @@ export default function Profile() {
   return (
     <>
       {loading ? (
-        <div className='flex h-screen items-center justify-center'>
+        <div className='flex h-[calc(100vh-200px)] items-center justify-center'>
           <div className='flex flex-col items-center'>
             <div className='relative h-8 w-8'>
               <div className='absolute inset-0 rounded-full border-4 border-indigo-100 opacity-80'></div>
@@ -85,15 +85,21 @@ export default function Profile() {
       ) : !user ? null : (
         <div className='my-8 flex items-center justify-center'>
           <div className='relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/70 bg-gradient-to-b from-white/90 to-white/80 p-8 shadow-xl backdrop-blur-md'>
-            {/* Decorative Elements */}
-            <div className='pointer-events-none absolute -top-20 -left-20 h-48 w-48 rounded-full bg-indigo-200/30 blur-3xl'></div>
-            <div className='pointer-events-none absolute -right-20 -bottom-20 h-48 w-48 rounded-full bg-indigo-300/20 blur-3xl'></div>
-
-            {/* Top Highlight - Skeuomorphic Effect */}
-            <div className='absolute top-0 right-0 left-0 h-20 rounded-t-3xl bg-gradient-to-b from-white/60 to-transparent'></div>
-
-            {/* Profile Card Content */}
-            <div className='relative z-10 flex flex-col items-center'>
+            {/* Loading Overlay with Fade and Pointer Events Block */}
+            {loading && (
+              <div className='pointer-events-auto absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-white/80 opacity-100 backdrop-blur-sm transition-opacity duration-300'>
+                <div className='relative h-10 w-10'>
+                  <div className='absolute inset-0 rounded-full border-4 border-indigo-100 opacity-80'></div>
+                  <div className='absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-indigo-600'></div>
+                </div>
+              </div>
+            )}
+            {/* Card Content with pointer-events-none when loading */}
+            <div
+              className={
+                loading ? 'pointer-events-none opacity-60 select-none' : ''
+              }
+            >
               {/* Welcome Message */}
               <h1 className='mb-6 bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-2xl font-extrabold text-transparent drop-shadow-sm'>
                 {(() => {
