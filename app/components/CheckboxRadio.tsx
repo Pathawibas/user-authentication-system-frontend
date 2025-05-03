@@ -33,7 +33,7 @@ export function Checkbox({
             error
               ? 'border-red-400 bg-red-50/50 peer-focus:ring-2 peer-focus:ring-red-300'
               : `border-indigo-200 bg-white/80 shadow-inner backdrop-blur-sm peer-checked:border-indigo-500 peer-checked:bg-gradient-to-b peer-checked:from-indigo-400/90 peer-checked:to-indigo-500/90 peer-hover:border-indigo-300 peer-focus:ring-2 peer-focus:ring-indigo-300 peer-focus:ring-offset-1 peer-active:translate-y-[0.5px] peer-active:shadow-inner`
-          }`}
+          } peer-checked:scale-110 peer-checked:transition-transform peer-checked:duration-150`}
         >
           {/* Top Highlight - More subtle now */}
           <span className='pointer-events-none absolute inset-x-0 top-0 h-[35%] rounded-t-sm bg-white/30 opacity-70'></span>
@@ -59,7 +59,7 @@ export function Checkbox({
       {error && (
         <span
           id={`${props.id || props.name}-error`}
-          className='mt-2 block flex items-center text-xs text-red-600'
+          className='animate-fade-in-slide mt-2 flex items-center text-xs text-red-600 transition-all duration-300'
         >
           <svg
             className='mr-1 h-3 w-3'
@@ -106,7 +106,7 @@ export function Radio({ label, className = '', error, ...props }: RadioProps) {
             error
               ? 'border-red-400 bg-red-50/50 peer-focus:ring-2 peer-focus:ring-red-300'
               : `border-indigo-200 bg-white/80 shadow-inner backdrop-blur-sm peer-checked:border-indigo-500 peer-checked:bg-gradient-to-b peer-checked:from-indigo-400/90 peer-checked:to-indigo-500/90 peer-hover:border-indigo-300 peer-focus:ring-2 peer-focus:ring-indigo-300 peer-focus:ring-offset-1 peer-active:translate-y-[0.5px] peer-active:shadow-inner`
-          }`}
+          } peer-checked:scale-110 peer-checked:transition-transform peer-checked:duration-150`}
         >
           {/* Top Highlight - More subtle now */}
           <span className='pointer-events-none absolute inset-x-0 top-0 h-[35%] rounded-t-full bg-white/30 opacity-70'></span>
@@ -128,7 +128,7 @@ export function Radio({ label, className = '', error, ...props }: RadioProps) {
       {error && (
         <span
           id={`${props.id || props.name}-error`}
-          className='mt-2 block flex items-center text-xs text-red-600'
+          className='animate-fade-in-slide mt-2 flex items-center text-xs text-red-600 transition-all duration-300'
         >
           <svg
             className='mr-1 h-3 w-3'

@@ -59,7 +59,7 @@ export default function Toast({
 
   return (
     <div
-      className={`animate-fade-in-up pointer-events-auto fixed z-50 ${positionStyles[position]} rounded-xl px-6 py-3 text-white opacity-100 shadow-lg transition-all duration-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none ${variantStyles[variant]}`}
+      className={`pointer-events-auto fixed z-50 ${positionStyles[position]} rounded-xl px-6 py-3 text-white shadow-lg transition-all duration-300 focus:ring-2 focus:ring-indigo-300 focus:outline-none ${variantStyles[variant]} ${show ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
       style={{
         minWidth: 220,
         maxWidth: 320,
@@ -67,6 +67,7 @@ export default function Toast({
         fontWeight: 600,
         fontSize: '1rem',
         letterSpacing: '0.01em',
+        transform: show ? 'scale(1)' : 'scale(0.95)',
       }}
       tabIndex={0}
       aria-live='polite'

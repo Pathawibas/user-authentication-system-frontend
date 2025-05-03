@@ -97,11 +97,11 @@ export default function InputField({
         <div className='pointer-events-none absolute inset-x-0 top-0 h-[30%] rounded-t-xl bg-white/30'></div>
       </div>
 
-      {/* Error Message - Enhanced */}
+      {/* Error Message - Enhanced with animation */}
       {error && (
         <p
           id={`${name}-error`}
-          className='mt-2 flex items-center text-xs text-red-600'
+          className='animate-fade-in-slide mt-2 flex items-center text-xs text-red-600 transition-all duration-300'
         >
           <svg
             className='mr-1 h-3 w-3'

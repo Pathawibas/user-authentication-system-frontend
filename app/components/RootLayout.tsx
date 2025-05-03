@@ -18,11 +18,13 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   const [navOpen, setNavOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [hasHydrated, setHasHydrated] = useState(false)
 
   useEffect(() => {
     const token =
       sessionStorage.getItem('authToken') || localStorage.getItem('authToken')
     setIsLoggedIn(!!token)
+    setHasHydrated(true)
   }, [])
 
   return (
@@ -118,11 +120,13 @@ export default function RootLayout({ children }: LayoutProps) {
       </header>
 
       {/* Mobile Navigation rendered outside header for proper overlay */}
-      <MobileNav
-        isLoggedIn={isLoggedIn}
-        navOpen={navOpen}
-        setNavOpen={setNavOpen}
-      />
+      {hasHydrated && (
+        <MobileNav
+          isLoggedIn={isLoggedIn}
+          navOpen={navOpen}
+          setNavOpen={setNavOpen}
+        />
+      )}
 
       {/* Main Content with Skeuomorphic Card Effect */}
       <main

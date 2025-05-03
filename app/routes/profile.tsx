@@ -96,7 +96,32 @@ export default function Profile() {
             <div className='relative z-10 flex flex-col items-center'>
               {/* Welcome Message */}
               <h1 className='mb-6 bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-2xl font-extrabold text-transparent drop-shadow-sm'>
-                Welcome back, {user.fullName?.split(' ')[0] || 'User'}!
+                {(() => {
+                  // Remove common prefixes and use first real name
+                  const prefixes = [
+                    'mr',
+                    'ms',
+                    'mrs',
+                    'dr',
+                    'miss',
+                    'sir',
+                    'madam',
+                    'prof',
+                    'rev',
+                  ]
+                  const parts = user.fullName?.trim().split(/\s+/) || []
+                  let firstName = parts[0] || 'User'
+                  if (
+                    parts.length > 1 &&
+                    prefixes.includes(
+                      firstName.toLowerCase().replace(/\./g, ''),
+                    )
+                  )
+                    firstName = parts[1]
+                  // Fallback if prefix only
+                  if (!firstName) firstName = 'User'
+                  return `Welcome back, ${firstName}!`
+                })()}
               </h1>
 
               {/* Avatar & Change Profile Picture at the top */}
