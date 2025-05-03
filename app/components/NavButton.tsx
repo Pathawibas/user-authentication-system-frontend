@@ -24,7 +24,7 @@ export default memo(function NavButton({
         `group relative flex items-center gap-2 overflow-hidden rounded-xl px-2 py-2 font-medium transition-all duration-300 ${
           isActive
             ? 'border border-indigo-200/40 bg-gradient-to-br from-indigo-300/50 via-indigo-200/70 to-indigo-100/60 text-indigo-900 shadow-inner backdrop-blur-sm'
-            : 'text-slate-700 hover:border hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md hover:backdrop-blur-sm'
+            : 'border border-transparent text-slate-700 hover:border-indigo-100/30 hover:bg-white/60 hover:shadow-md hover:backdrop-blur-sm'
         }`
       }
       onMouseEnter={() => setHovered(true)}
