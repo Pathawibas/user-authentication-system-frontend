@@ -96,6 +96,7 @@ export default function Register() {
       gender: formData.gender,
       interests: formData.interests,
       receiveNewsletter: formData.receiveNewsletter,
+      createdAt: new Date().toISOString(),
     }
 
     users.push(newUser)

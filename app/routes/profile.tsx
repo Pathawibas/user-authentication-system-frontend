@@ -230,6 +230,7 @@ export default function Profile() {
                                 </span>
                               )
                             }
+                            showCopy={field.showCopy}
                           />
                         )
                       }
@@ -258,7 +259,7 @@ export default function Profile() {
                                 </span>
                               )
                             }
-                            showCopy={false}
+                            showCopy={field.showCopy}
                           />
                         )
                       }
@@ -279,7 +280,7 @@ export default function Profile() {
                                 </span>
                               )
                             }
-                            showCopy={false}
+                            showCopy={field.showCopy}
                           />
                         )
                       }
@@ -301,6 +302,7 @@ export default function Profile() {
                             spoilerLabel={field.spoilerLabel}
                             value={rendered.value}
                             copyValue={rendered.copyValue}
+                            showCopy={field.showCopy}
                           />
                         )
                       }
@@ -312,6 +314,7 @@ export default function Profile() {
                           isSpoiler={field.isSpoiler}
                           spoilerLabel={field.spoilerLabel}
                           value={rendered ?? user[field.key as keyof User]}
+                          showCopy={field.showCopy}
                         />
                       )
                     })}

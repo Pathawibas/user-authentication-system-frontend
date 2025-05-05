@@ -13,4 +13,5 @@ export interface User {
   interests?: string[]
   receiveNewsletter?: boolean
   acceptTerms?: boolean
+  createdAt: string // ISO date string
 }

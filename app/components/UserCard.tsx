@@ -116,6 +116,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                             </span>
                           )
                         }
+                        showCopy={field.showCopy}
                       />
                     )
                   }
@@ -125,7 +126,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                         key={field.key}
                         icon={field.icon}
                         label={field.label}
-                        showCopy={false}
+                        showCopy={field.showCopy}
                         value={
                           Array.isArray(user.interests) &&
                           user.interests.length > 0 ? (
@@ -184,6 +185,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                         spoilerLabel={field.spoilerLabel}
                         value={rendered.value}
                         copyValue={rendered.copyValue}
+                        showCopy={field.showCopy}
                       />
                     )
                   }
@@ -194,6 +196,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                       label={field.label}
                       isSpoiler={field.isSpoiler}
                       spoilerLabel={field.spoilerLabel}
+                      showCopy={field.showCopy}
                       value={rendered ?? user[field.key as keyof User]}
                     />
                   )

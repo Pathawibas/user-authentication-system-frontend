@@ -3,15 +3,7 @@ import UserCard from '../components/UserCard'
 import InputField from '../components/InputField'
 import Button from '../components/Button'
 import { Search, Users as UsersIcon } from 'lucide-react'
-
-interface User {
-  id: string
-  fullName: string
-  email: string
-  password: string
-  phone?: string
-  bio?: string
-}
+import type { User } from '~/types/User'
 
 export default function Users() {
   const [users, setUsers] = useState<User[]>([])
