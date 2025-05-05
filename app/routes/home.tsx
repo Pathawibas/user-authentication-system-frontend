@@ -150,12 +150,12 @@ export default function Home() {
         </div>
 
         {/* Bento Grid Cards - Skeuomorphic */}
-        <div className='group col-span-full row-span-2 flex flex-col overflow-hidden rounded-3xl border border-indigo-100/50 bg-white/80 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-3'>
-          <a
-            href='/users'
-            className='flex h-full flex-col items-center justify-center p-6 text-center'
-          >
-            {/* UPDATED: Changed to circular icon container */}
+        <div className='group relative col-span-full row-span-2 flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 shadow-xl backdrop-blur-lg transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-3'>
+          {/* Decorative Elements for skeuomorphic effect */}
+          <div className='absolute top-0 left-0 z-0 h-full w-full bg-white/40 backdrop-blur-xl'></div>
+          <div className='absolute top-0 left-0 z-0 h-full w-full bg-gradient-to-br from-white/10 to-indigo-100/20'></div>
+          <div className='absolute -top-10 -right-10 z-0 h-24 w-24 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
+          <div className='relative z-10 flex h-full flex-col items-center justify-center p-6 text-center'>
             <div className='mb-4 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white p-4 shadow-inner'>
               <Users
                 size={32}
@@ -175,15 +175,15 @@ export default function Home() {
                 className='ml-1 transition-transform group-hover:translate-x-1'
               />
             </div>
-          </a>
+          </div>
         </div>
 
-        <div className='group col-span-full row-span-2 flex flex-col overflow-hidden rounded-3xl border border-indigo-100/50 bg-white/80 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-3'>
-          <a
-            href='/profile'
-            className='flex h-full flex-col items-center justify-center p-6 text-center'
-          >
-            {/* UPDATED: Changed to circular icon container */}
+        <div className='group relative col-span-full row-span-2 flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 shadow-xl backdrop-blur-lg transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-3'>
+          {/* Decorative Elements for skeuomorphic effect */}
+          <div className='absolute top-0 left-0 z-0 h-full w-full bg-white/40 backdrop-blur-xl'></div>
+          <div className='absolute top-0 left-0 z-0 h-full w-full bg-gradient-to-br from-white/10 to-indigo-100/20'></div>
+          <div className='absolute -top-10 -right-10 z-0 h-24 w-24 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
+          <div className='relative z-10 flex h-full flex-col items-center justify-center p-6 text-center'>
             <div className='mb-4 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white p-4 shadow-inner'>
               <Contact2
                 size={32}
@@ -203,7 +203,7 @@ export default function Home() {
                 className='ml-1 transition-transform group-hover:translate-x-1'
               />
             </div>
-          </a>
+          </div>
         </div>
 
         <div className='group relative col-span-full row-span-1 flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-indigo-100/80 to-white/90 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
@@ -246,7 +246,6 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -top-12 -right-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              {/* UPDATED: Changed to circular icon container */}
               <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <Shield
                   size={28}
@@ -268,7 +267,6 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              {/* UPDATED: Changed to circular icon container */}
               <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <Code
                   size={28}
@@ -290,7 +288,6 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -top-12 -left-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              {/* UPDATED: Changed to circular icon container */}
               <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <UserCog
                   size={28}
@@ -312,7 +309,6 @@ export default function Home() {
           <div className='group relative col-span-full flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 to-indigo-50/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:translate-y-[-2px] hover:shadow-xl md:col-span-6'>
             <div className='absolute -right-12 -bottom-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl transition-colors duration-500 group-hover:bg-indigo-300/30'></div>
             <div className='relative z-10'>
-              {/* UPDATED: Changed to circular icon container */}
               <div className='mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-50 to-white shadow-inner'>
                 <Contact2
                   size={28}
