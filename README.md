@@ -2,7 +2,12 @@
 
 A simple frontend authentication system built with **React Router v7**, **Vite**, **TypeScript**, **Tailwind CSS**, and **localStorage**.
 
-This project is designed for training frontend developers to understand core authentication workflows like register, login, and protected routes.
+---
+
+## 🌐 Live Demo
+
+Check out the live demo of the project here:
+[User Authentication System](https://user-authentication-system-frontend-alpha.vercel.app/)
 
 ---
 
@@ -98,13 +103,6 @@ This project features a **Modern Skeuomorphism** design:
 - Modern, accessible color palette and smooth transitions
 
 > The UI is inspired by the latest skeuomorphic trends, blending realism and minimalism for a delightful user experience.
-
----
-
-## 🌐 Live Demo
-
-Check out the live demo of the project here:
-[User Authentication System](https://user-authentication-system-frontend-alpha.vercel.app/)
 
 ---
 
