@@ -1,6 +1,7 @@
 // app/components/Toast.tsx
 import { useEffect } from 'react'
 import { Check, X, Info, AlertTriangle, AlertCircle } from 'lucide-react'
+import { tv } from 'tailwind-variants'
 
 interface ToastProps {
   message: string
@@ -17,21 +18,39 @@ interface ToastProps {
     | 'top-center'
 }
 
-const variantStyles = {
-  success: 'from-green-500 to-green-600 border-green-400/30',
-  danger: 'from-red-500 to-red-600 border-red-400/30',
-  info: 'from-blue-500 to-blue-600 border-blue-400/30',
-  warning: 'from-amber-500 to-amber-600 border-amber-400/30',
-  default: 'from-indigo-500 to-indigo-600 border-indigo-400/30',
-}
+const toastContainer = tv({
+  base: [
+    'relative overflow-hidden rounded-xl border bg-gradient-to-b backdrop-blur-sm',
+  ],
+  variants: {
+    variant: {
+      success: 'from-green-500 to-green-600 border-green-400/30',
+      danger: 'from-red-500 to-red-600 border-red-400/30',
+      info: 'from-blue-500 to-blue-600 border-blue-400/30',
+      warning: 'from-amber-500 to-amber-600 border-amber-400/30',
+      default: 'from-indigo-500 to-indigo-600 border-indigo-400/30',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+})
 
-const variantIconBg = {
-  success: 'from-green-400 to-green-500',
-  danger: 'from-red-400 to-red-500',
-  info: 'from-blue-400 to-blue-500',
-  warning: 'from-amber-400 to-amber-500',
-  default: 'from-indigo-400 to-indigo-500',
-}
+const toastIconBg = tv({
+  base: 'mr-3 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-b',
+  variants: {
+    variant: {
+      success: 'from-green-400 to-green-500',
+      danger: 'from-red-400 to-red-500',
+      info: 'from-blue-400 to-blue-500',
+      warning: 'from-amber-400 to-amber-500',
+      default: 'from-indigo-400 to-indigo-500',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+})
 
 const variantIcons = {
   success: <Check size={18} className='text-white' />,
@@ -78,10 +97,10 @@ export default function Toast({
     >
       {/* Glass Container */}
       <div
-        className={`relative overflow-hidden rounded-xl border bg-gradient-to-b ${variantStyles[variant]} backdrop-blur-sm`}
+        className={toastContainer({ variant })}
         style={{
-          minWidth: '240px', // reduced from 280px
-          maxWidth: '280px', // reduced from 320px
+          minWidth: '240px',
+          maxWidth: '280px',
           boxShadow:
             '0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 -1px 0 0 rgba(0, 0, 0, 0.1) inset',
           transform: 'perspective(1000px) rotateX(0deg)',
@@ -99,17 +118,8 @@ export default function Toast({
         <div className='relative'>
           {/* Icon and message container */}
           <div className='flex items-center p-3'>
-            {' '}
-            {/* reduced padding from p-4 to p-3 */}
-            <div
-              className={`mr-3 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-b ${variantIconBg[variant]}`}
-            >
-              {' '}
-              {/* reduced h-9 w-9 to h-8 w-8 */}
-              <div className='rounded-full p-1'>
-                {variantIcons[variant]}
-              </div>{' '}
-              {/* reduced p-1.5 to p-1 */}
+            <div className={toastIconBg({ variant })}>
+              <div className='rounded-full p-1'>{variantIcons[variant]}</div>
             </div>
             <div className='flex-1'>
               <p className='text-sm font-medium text-white drop-shadow-sm'>
@@ -148,7 +158,6 @@ export default function Toast({
           }}
         ></div>
       </div>
-
       <style>{`
         @keyframes shrink {
           from { width: 100%; }

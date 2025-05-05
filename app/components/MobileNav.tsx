@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router' // Import useNavigate instead of NavLink
+import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router'
 import { Home, UserPlus2, LogIn, Users, Contact2, X } from 'lucide-react'
 
 export default function MobileNav({
@@ -12,9 +12,8 @@ export default function MobileNav({
   setNavOpen: (open: boolean) => void
 }) {
   const navRef = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate() // Initialize the navigate function
+  const navigate = useNavigate()
 
-  // Navigation handler function
   const handleNavigation = (path: string) => {
     navigate(path)
     setNavOpen(false)

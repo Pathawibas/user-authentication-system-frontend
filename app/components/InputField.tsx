@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import { tv } from 'tailwind-variants'
 
 interface InputFieldProps {
   label: string
@@ -13,6 +14,32 @@ interface InputFieldProps {
   error?: string
   icon?: React.ReactNode
 }
+
+const inputField = tv({
+  base: [
+    'block w-full rounded-xl border bg-white/80 py-3 text-slate-900 shadow-inner backdrop-blur transition-all duration-200 placeholder:text-slate-400/70 focus:outline-none',
+  ],
+  variants: {
+    withIcon: {
+      true: 'pl-10',
+      false: 'pl-4',
+    },
+    withPassword: {
+      true: 'pr-10',
+      false: 'pr-4',
+    },
+    error: {
+      true: 'border-red-300 bg-red-50/40 focus:border-red-400 focus:ring-2 focus:ring-red-200',
+      false:
+        'border-indigo-100/80 focus:border-indigo-400 focus:bg-white/90 focus:ring-2 focus:ring-indigo-200/60',
+    },
+  },
+  defaultVariants: {
+    withIcon: false,
+    withPassword: false,
+    error: false,
+  },
+})
 
 export default function InputField({
   label,
@@ -50,7 +77,11 @@ export default function InputField({
           name={name}
           type={inputType}
           placeholder={placeholder}
-          className={`block w-full rounded-xl border bg-white/80 py-3 ${icon ? 'pl-10' : 'pl-4'} ${type === 'password' ? 'pr-10' : 'pr-4'} text-slate-900 shadow-inner backdrop-blur transition-all duration-200 placeholder:text-slate-400/70 focus:outline-none ${error ? 'border-red-300 bg-red-50/40 focus:border-red-400 focus:ring-2 focus:ring-red-200' : 'border-indigo-100/80 focus:border-indigo-400 focus:bg-white/90 focus:ring-2 focus:ring-indigo-200/60'}`}
+          className={inputField({
+            withIcon: !!icon,
+            withPassword: type === 'password',
+            error: !!error,
+          })}
           value={value}
           onChange={onChange}
           autoComplete={autoComplete}
