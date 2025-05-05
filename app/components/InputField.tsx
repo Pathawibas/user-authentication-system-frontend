@@ -8,11 +8,15 @@ interface InputFieldProps {
   name: string
   placeholder?: string
   value: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void
   withAsterisk?: boolean
   autoComplete?: string
   error?: string
   icon?: React.ReactNode
+  textarea?: boolean
+  maxLength?: number
 }
 
 const inputField = tv({
@@ -52,6 +56,8 @@ export default function InputField({
   autoComplete,
   error,
   icon,
+  textarea = false,
+  maxLength,
 }: InputFieldProps) {
   const [showPassword, setShowPassword] = useState(false)
   const inputType = type === 'password' && showPassword ? 'text' : type
@@ -72,30 +78,50 @@ export default function InputField({
 
       {/* Input Container - Modern Skeuomorphic */}
       <div className='relative'>
-        <input
-          id={name}
-          name={name}
-          type={inputType}
-          placeholder={placeholder}
-          className={inputField({
-            withIcon: !!icon,
-            withPassword: type === 'password',
-            error: !!error,
-          })}
-          value={value}
-          onChange={onChange}
-          autoComplete={autoComplete}
-          aria-invalid={!!error}
-          aria-describedby={error ? `${name}-error` : undefined}
-        />
+        {textarea ? (
+          <textarea
+            id={name}
+            name={name}
+            placeholder={placeholder}
+            className={
+              inputField({
+                withIcon: !!icon,
+                error: !!error,
+              }) + ' min-h-[60px] resize-none py-2'
+            }
+            value={value}
+            onChange={onChange}
+            maxLength={maxLength}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${name}-error` : undefined}
+          />
+        ) : (
+          <input
+            id={name}
+            name={name}
+            type={inputType}
+            placeholder={placeholder}
+            className={inputField({
+              withIcon: !!icon,
+              withPassword: type === 'password',
+              error: !!error,
+            })}
+            value={value}
+            onChange={onChange}
+            autoComplete={autoComplete}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${name}-error` : undefined}
+            maxLength={maxLength}
+          />
+        )}
 
         {/* Left Icon */}
-        {icon && (
+        {icon && !textarea && (
           <div className='absolute top-1/2 left-3 -translate-y-1/2'>{icon}</div>
         )}
 
         {/* Password Toggle Icon */}
-        {type === 'password' && (
+        {type === 'password' && !textarea && (
           <button
             type='button'
             onClick={togglePasswordVisibility}
@@ -112,6 +138,11 @@ export default function InputField({
         )}
         <div className='pointer-events-none absolute inset-x-0 top-0 h-[30%] rounded-t-xl bg-white/30'></div>
       </div>
+      {textarea && maxLength && (
+        <div className='mt-1 text-right text-xs text-slate-400'>
+          {value.length}/{maxLength}
+        </div>
+      )}
       {error && (
         <p
           id={`${name}-error`}

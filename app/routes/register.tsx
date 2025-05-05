@@ -66,6 +66,12 @@ export default function Register() {
     } else {
       setFormData({ ...formData, [name]: value })
     }
+    // Correctly remove the error property for this field
+    if (formErrors[name]) {
+      const newErrors = { ...formErrors }
+      delete newErrors[name]
+      setFormErrors(newErrors)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -251,6 +257,19 @@ export default function Register() {
               onChange={handleChange}
               error={formErrors.phone}
               icon={<Phone size={18} className='text-indigo-500' />}
+            />
+
+            {/* Bio (Optional) */}
+            <InputField
+              label='Bio (Optional)'
+              name='bio'
+              type='text'
+              placeholder='Tell us a little about yourself (max 150 characters)'
+              value={formData.bio}
+              onChange={handleChange}
+              textarea
+              maxLength={150}
+              error={formErrors.bio}
             />
 
             {/* Gender Selection */}
