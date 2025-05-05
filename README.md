@@ -68,8 +68,8 @@ For the full project brief, requirements, and training task details, see the Not
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-org/your-repo.git
-cd user-authentication-system
+git clone https://github.com/Pathawibas/user-authentication-system-frontend.git
+cd user-authentication-system-frontend
 ````
 
 ### 2. Install Dependencies
@@ -83,6 +83,8 @@ npm install
 ```bash
 npm run dev
 ```
+
+By default, your app will be running at [http://localhost:5173](http://localhost:5173)
 
 ---
 
