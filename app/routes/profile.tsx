@@ -101,7 +101,7 @@ export default function Profile() {
               }
             >
               {/* Welcome Message */}
-              <h1 className='mb-6 bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-2xl font-extrabold text-transparent drop-shadow-sm'>
+              <h1 className='mb-6 bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-center text-2xl font-extrabold text-transparent drop-shadow-sm'>
                 {(() => {
                   // Remove common prefixes and use first real name
                   const prefixes = [
@@ -208,132 +208,90 @@ export default function Profile() {
                 </div>
               </div>
 
-              {/* Basic User Information - Full Name and Email */}
-              <div className='mb-6 w-full'>
-                <div className='flex flex-col gap-4'>
-                  {/* Full Name */}
-                  <ProfileInfoCard
-                    icon={<UserCircle size={22} className='text-indigo-500' />}
-                    label='Full Name'
-                    value={
-                      user.fullName || (
-                        <span className='text-slate-400 italic'>
-                          Not provided
-                        </span>
-                      )
-                    }
-                  />
-
-                  {/* Email */}
-                  <ProfileInfoCard
-                    icon={<Mail size={22} className='text-indigo-500' />}
-                    label='Email'
-                    value={user.email}
-                  />
-                </div>
-              </div>
-
               {/* User Details */}
               <div className='w-full space-y-4'>
                 <div className='w-full space-y-4'>
                   {user &&
-                    userInfoConfig
-                      .filter(
-                        (field) =>
-                          !['id', 'fullName', 'email'].includes(field.key),
-                      )
-                      .map((field) => {
-                        // Special rendering for gender, interests, and receiveNewsletter
-                        if (field.key === 'gender') {
-                          return (
-                            <ProfileInfoCard
-                              key={field.key}
-                              icon={field.icon}
-                              label={field.label}
-                              value={
-                                user.gender ? (
-                                  user.gender.charAt(0).toUpperCase() +
-                                  user.gender.slice(1)
-                                ) : (
-                                  <span className='text-slate-400 italic'>
-                                    No gender specified
-                                  </span>
-                                )
-                              }
-                            />
-                          )
-                        }
-                        if (field.key === 'interests') {
-                          return (
-                            <ProfileInfoCard
-                              key={field.key}
-                              icon={field.icon}
-                              label={field.label}
-                              value={
-                                Array.isArray(user.interests) &&
-                                user.interests.length > 0 ? (
-                                  <div className='flex flex-wrap gap-2'>
-                                    {user.interests.map((interest: string) => (
-                                      <span
-                                        key={interest}
-                                        className='rounded-full border border-indigo-100/50 bg-indigo-50 px-3 py-1 text-xs text-indigo-600 shadow-sm'
-                                      >
-                                        {interest}
-                                      </span>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <span className='text-slate-400 italic'>
-                                    No interests
-                                  </span>
-                                )
-                              }
-                              showCopy={false}
-                            />
-                          )
-                        }
-                        if (field.key === 'receiveNewsletter') {
-                          return (
-                            <ProfileInfoCard
-                              key={field.key}
-                              icon={field.icon}
-                              label={field.label}
-                              value={
-                                user.receiveNewsletter ? (
-                                  <span className='rounded-full border border-green-100/50 bg-green-50 px-3 py-1 text-xs text-green-600 shadow-sm'>
-                                    Yes
-                                  </span>
-                                ) : (
-                                  <span className='rounded-full border border-slate-100/50 bg-slate-50 px-3 py-1 text-xs text-slate-500 shadow-sm'>
-                                    No
-                                  </span>
-                                )
-                              }
-                              showCopy={false}
-                            />
-                          )
-                        }
-                        // Handle fields with custom render returning { value, copyValue }
-                        const rendered = field.render
-                          ? field.render(user)
-                          : undefined
-                        if (
-                          rendered &&
-                          typeof rendered === 'object' &&
-                          'value' in rendered
-                        ) {
-                          return (
-                            <ProfileInfoCard
-                              key={field.key}
-                              icon={field.icon}
-                              label={field.label}
-                              isSpoiler={field.isSpoiler}
-                              spoilerLabel={field.spoilerLabel}
-                              value={rendered.value}
-                              copyValue={rendered.copyValue}
-                            />
-                          )
-                        }
+                    userInfoConfig.map((field) => {
+                      // Special rendering for gender, interests, and receiveNewsletter
+                      if (field.key === 'gender') {
+                        return (
+                          <ProfileInfoCard
+                            key={field.key}
+                            icon={field.icon}
+                            label={field.label}
+                            value={
+                              user.gender ? (
+                                user.gender.charAt(0).toUpperCase() +
+                                user.gender.slice(1)
+                              ) : (
+                                <span className='text-slate-400 italic'>
+                                  No gender specified
+                                </span>
+                              )
+                            }
+                          />
+                        )
+                      }
+                      if (field.key === 'interests') {
+                        return (
+                          <ProfileInfoCard
+                            key={field.key}
+                            icon={field.icon}
+                            label={field.label}
+                            value={
+                              Array.isArray(user.interests) &&
+                              user.interests.length > 0 ? (
+                                <div className='flex flex-wrap gap-2'>
+                                  {user.interests.map((interest: string) => (
+                                    <span
+                                      key={interest}
+                                      className='rounded-full border border-indigo-100/50 bg-indigo-50 px-3 py-1 text-xs text-indigo-600 shadow-sm'
+                                    >
+                                      {interest}
+                                    </span>
+                                  ))}
+                                </div>
+                              ) : (
+                                <span className='text-slate-400 italic'>
+                                  No interests
+                                </span>
+                              )
+                            }
+                            showCopy={false}
+                          />
+                        )
+                      }
+                      if (field.key === 'receiveNewsletter') {
+                        return (
+                          <ProfileInfoCard
+                            key={field.key}
+                            icon={field.icon}
+                            label={field.label}
+                            value={
+                              user.receiveNewsletter ? (
+                                <span className='rounded-full border border-green-100/50 bg-green-50 px-3 py-1 text-xs text-green-600 shadow-sm'>
+                                  Yes
+                                </span>
+                              ) : (
+                                <span className='rounded-full border border-slate-100/50 bg-slate-50 px-3 py-1 text-xs text-slate-500 shadow-sm'>
+                                  No
+                                </span>
+                              )
+                            }
+                            showCopy={false}
+                          />
+                        )
+                      }
+                      // Handle fields with custom render returning { value, copyValue }
+                      const rendered = field.render
+                        ? field.render(user)
+                        : undefined
+                      if (
+                        rendered &&
+                        typeof rendered === 'object' &&
+                        'value' in rendered
+                      ) {
                         return (
                           <ProfileInfoCard
                             key={field.key}
@@ -341,10 +299,22 @@ export default function Profile() {
                             label={field.label}
                             isSpoiler={field.isSpoiler}
                             spoilerLabel={field.spoilerLabel}
-                            value={rendered ?? user[field.key as keyof User]}
+                            value={rendered.value}
+                            copyValue={rendered.copyValue}
                           />
                         )
-                      })}
+                      }
+                      return (
+                        <ProfileInfoCard
+                          key={field.key}
+                          icon={field.icon}
+                          label={field.label}
+                          isSpoiler={field.isSpoiler}
+                          spoilerLabel={field.spoilerLabel}
+                          value={rendered ?? user[field.key as keyof User]}
+                        />
+                      )
+                    })}
                 </div>
               </div>
 

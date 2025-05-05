@@ -86,7 +86,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
         </div>
         <div
           className={`overflow-hidden transition-all duration-300 ease-out ${
-            expanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            expanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           <div
@@ -97,9 +97,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
             <div className='my-3 h-px w-full bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent'></div>
             <div className='mb-6 space-y-4'>
               {userInfoConfig
-                .filter(
-                  (field) => !['id', 'fullName', 'email'].includes(field.key),
-                )
+                .filter((field) => !['fullName', 'email'].includes(field.key))
                 .map((field) => {
                   const rendered = field.render ? field.render(user) : undefined
                   if (field.key === 'gender') {
@@ -172,7 +170,11 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                     )
                   }
                   // Handle fields with custom render returning { value, copyValue }
-                  if (rendered && typeof rendered === 'object' && 'value' in rendered) {
+                  if (
+                    rendered &&
+                    typeof rendered === 'object' &&
+                    'value' in rendered
+                  ) {
                     return (
                       <ProfileInfoCard
                         key={field.key}
