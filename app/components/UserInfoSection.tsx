@@ -1,4 +1,3 @@
-// app/components/UserInfoSection.tsx
 import { useState } from 'react'
 import ProfileInfoCard from './ProfileInfoCard'
 import { userInfoConfig } from './userInfoConfig'
@@ -33,13 +32,10 @@ export default function UserInfoSection({
             if (e.key === 'Enter' || e.key === ' ') setExpanded(true)
           }}
         >
-          {/* Light reflection effect at the top */}
           <div className='pointer-events-none absolute inset-x-0 top-0 h-[30%] bg-white/30'></div>
-
           <div className='flex items-center justify-between'>
             {/* User Info with Profile Image */}
             <div className='flex min-w-0 flex-grow items-center gap-4'>
-              {/* Enhanced Profile Image Container */}
               <div className='h-12 w-12 flex-shrink-0 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 p-0.5 shadow-lg'>
                 <div className='flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white'>
                   {user.profileImageUrl ? (
@@ -66,7 +62,6 @@ export default function UserInfoSection({
                   )}
                 </div>
               </div>
-
               <div className='flex min-w-0 flex-col overflow-hidden'>
                 <span className='truncate bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-lg font-bold text-transparent'>
                   {user.fullName}
@@ -76,8 +71,6 @@ export default function UserInfoSection({
                 </span>
               </div>
             </div>
-
-            {/* Show Details Button */}
             <button
               type='button'
               className='group relative ml-4 flex flex-shrink-0 items-center gap-2 rounded-xl border border-indigo-300/30 bg-gradient-to-b from-indigo-400/90 to-indigo-500/90 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:translate-y-[-1px] hover:shadow focus:ring-2 focus:ring-indigo-300 focus:ring-offset-1 focus:outline-none active:translate-y-[0.5px] active:shadow-inner'
@@ -99,9 +92,7 @@ export default function UserInfoSection({
         <>
           {/* Header with Hide Details Button - With Profile Image */}
           <div className='flex items-center justify-between rounded-xl border border-white/70 bg-gradient-to-b from-indigo-50/60 to-white/60 p-5 shadow-sm backdrop-blur-sm'>
-            {/* User Info with Profile Image */}
             <div className='flex min-w-0 flex-grow items-center gap-4'>
-              {/* Enhanced Profile Image Container */}
               <div className='h-12 w-12 flex-shrink-0 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 p-0.5 shadow-lg'>
                 <div className='flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white'>
                   {user.profileImageUrl ? (
@@ -128,7 +119,6 @@ export default function UserInfoSection({
                   )}
                 </div>
               </div>
-
               <div className='flex min-w-0 flex-col overflow-hidden'>
                 <span className='truncate bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-lg font-bold text-transparent'>
                   {user.fullName}
@@ -166,7 +156,6 @@ export default function UserInfoSection({
             {userInfoConfig
               .filter((field) => field.key !== 'id')
               .map((field) => {
-                // Special rendering for gender, interests, and receiveNewsletter
                 if (field.key === 'gender') {
                   return (
                     <ProfileInfoCard

@@ -4,7 +4,7 @@ import InputField from '../components/InputField'
 import { verifyPassword } from '../utils/hash'
 import { Checkbox } from '../components/CheckboxRadio'
 import Button from '../components/Button'
-import { Fingerprint, LogIn, Mail, Lock } from 'lucide-react'
+import { Fingerprint, Mail, Lock } from 'lucide-react'
 import { useToast } from '../hooks/useToast'
 
 interface User {

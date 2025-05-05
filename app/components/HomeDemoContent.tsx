@@ -1,4 +1,3 @@
-// app/components/HomeDemoContent.tsx
 import { UserCog, Users, LogIn, UserPlus2, Contact2 } from 'lucide-react'
 import { NavLink } from 'react-router'
 

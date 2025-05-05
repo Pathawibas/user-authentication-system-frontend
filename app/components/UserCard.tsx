@@ -23,18 +23,12 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
 
   return (
     <div className='relative overflow-hidden rounded-3xl border border-white/70 bg-gradient-to-b from-white/95 to-white/85 p-6 shadow-lg backdrop-blur-sm transition-all duration-200 hover:shadow-xl'>
-      {/* Decorative Elements */}
       <div className='pointer-events-none absolute -top-20 -left-20 h-32 w-32 rounded-full bg-indigo-200/30 blur-3xl'></div>
       <div className='pointer-events-none absolute -right-20 -bottom-20 h-32 w-32 rounded-full bg-indigo-300/20 blur-3xl'></div>
-
-      {/* Top Highlight */}
       <div className='pointer-events-none absolute inset-x-0 top-0 h-[20%] bg-white/30'></div>
-
       <div className='relative z-10'>
-        {/* User Header with Profile Image */}
         <div className='mb-4 flex items-center justify-between'>
           <div className='flex min-w-0 flex-grow items-center gap-4'>
-            {/* Enhanced Profile Image Container */}
             <div className='h-14 w-14 flex-shrink-0 rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-100 via-white to-indigo-50 p-0.5 shadow-lg'>
               <div className='flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white'>
                 {user.profileImageUrl ? (
@@ -61,7 +55,6 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                 )}
               </div>
             </div>
-
             <div className='flex min-w-0 flex-col overflow-hidden'>
               <span className='truncate bg-gradient-to-b from-indigo-700 to-indigo-900 bg-clip-text text-lg font-bold text-transparent'>
                 {user.fullName}
@@ -71,8 +64,6 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
               </span>
             </div>
           </div>
-
-          {/* Toggle Details Button */}
           <button
             type='button'
             className='group relative ml-4 flex flex-shrink-0 items-center gap-2 rounded-xl border border-indigo-300/30 bg-gradient-to-b from-indigo-400/90 to-indigo-500/90 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:translate-y-[-1px] hover:shadow focus:ring-2 focus:ring-indigo-300 focus:ring-offset-1 focus:outline-none active:translate-y-[0.5px] active:shadow-inner'
@@ -93,8 +84,6 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
             )}
           </button>
         </div>
-
-        {/* User Details with Animation - Improved */}
         <div
           className={`overflow-hidden transition-all duration-300 ease-out ${
             expanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
@@ -106,14 +95,12 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
             }`}
           >
             <div className='my-3 h-px w-full bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent'></div>
-
             <div className='mb-6 space-y-4'>
               {userInfoConfig
                 .filter(
                   (field) => !['id', 'fullName', 'email'].includes(field.key),
                 )
                 .map((field) => {
-                  // Special rendering for gender, interests, and receiveNewsletter
                   if (field.key === 'gender') {
                     return (
                       <ProfileInfoCard
@@ -199,8 +186,6 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
             </div>
           </div>
         </div>
-
-        {/* Action Buttons */}
         <div className='mt-2 flex justify-end gap-3'>
           <Button
             onClick={() =>

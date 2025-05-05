@@ -26,44 +26,31 @@ export default function InputField({
   error,
   icon,
 }: InputFieldProps) {
-  // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false)
-
-  // Determine the actual input type (for password fields)
   const inputType = type === 'password' && showPassword ? 'text' : type
 
-  // Function to toggle password visibility
-  const togglePasswordVisibility = () => setShowPassword(!showPassword)
+  const togglePasswordVisibility = () => setShowPassword((v) => !v)
 
   return (
-    <div className='w-full'>
-      {/* Label - Enhanced styling */}
-      <label
-        className={`mb-2 block text-sm font-medium drop-shadow-sm ${
-          error ? 'text-red-600' : 'text-slate-700'
-        }`}
-        htmlFor={name}
-      >
-        {label} {withAsterisk && <span className='text-red-500'>*</span>}
-      </label>
+    <div className='relative'>
+      {label && (
+        <label
+          htmlFor={name}
+          className='mb-1 block text-sm font-semibold text-slate-700'
+        >
+          {label}
+          {withAsterisk && <span className='ml-1 text-red-500'>*</span>}
+        </label>
+      )}
 
       {/* Input Container - Modern Skeuomorphic */}
       <div className='relative'>
-        {/* Input Field with enhanced styling */}
         <input
           id={name}
           name={name}
           type={inputType}
           placeholder={placeholder}
-          className={`block w-full rounded-xl border bg-white/80 py-3 ${
-            icon ? 'pl-10' : 'pl-4'
-          } ${
-            type === 'password' ? 'pr-10' : 'pr-4'
-          } text-slate-900 shadow-inner backdrop-blur transition-all duration-200 placeholder:text-slate-400/70 focus:outline-none ${
-            error
-              ? 'border-red-300 bg-red-50/40 focus:border-red-400 focus:ring-2 focus:ring-red-200'
-              : 'border-indigo-100/80 focus:border-indigo-400 focus:bg-white/90 focus:ring-2 focus:ring-indigo-200/60'
-          }`}
+          className={`block w-full rounded-xl border bg-white/80 py-3 ${icon ? 'pl-10' : 'pl-4'} ${type === 'password' ? 'pr-10' : 'pr-4'} text-slate-900 shadow-inner backdrop-blur transition-all duration-200 placeholder:text-slate-400/70 focus:outline-none ${error ? 'border-red-300 bg-red-50/40 focus:border-red-400 focus:ring-2 focus:ring-red-200' : 'border-indigo-100/80 focus:border-indigo-400 focus:bg-white/90 focus:ring-2 focus:ring-indigo-200/60'}`}
           value={value}
           onChange={onChange}
           autoComplete={autoComplete}
@@ -92,12 +79,8 @@ export default function InputField({
             )}
           </button>
         )}
-
-        {/* Top inset highlight for skeuomorphic effect */}
         <div className='pointer-events-none absolute inset-x-0 top-0 h-[30%] rounded-t-xl bg-white/30'></div>
       </div>
-
-      {/* Error Message - Enhanced with animation */}
       {error && (
         <p
           id={`${name}-error`}

@@ -1,4 +1,3 @@
-// app/components/MobileNav.tsx
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router' // Import useNavigate instead of NavLink
 import { Home, UserPlus2, LogIn, Users, Contact2, X } from 'lucide-react'
@@ -132,7 +131,7 @@ export default function MobileNav({
         >
           {/* Top Section with Close Button */}
           <div className='mb-8 flex items-center justify-between'>
-            <div className='bg-gradient-to-b from-indigo-700 to-indigo-800 bg-clip-text text-xl font-bold text-indigo-700 text-transparent'>
+            <div className='bg-gradient-to-b from-indigo-700 to-indigo-800 bg-clip-text text-xl font-bold text-transparent'>
               Menu
             </div>
             <button
