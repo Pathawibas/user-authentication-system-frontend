@@ -13,7 +13,7 @@ type UserInfoField = {
   key: keyof User | string
   label: string
   icon: React.ReactNode
-  render?: (user: User) => React.ReactNode
+  render?: (user: User) => React.ReactNode | { value: React.ReactNode; copyValue: string }
   isSpoiler?: boolean
   spoilerLabel?: string
 }
@@ -74,10 +74,13 @@ export const userInfoConfig: UserInfoField[] = [
     icon: <FileText size={20} className='text-indigo-600' />,
     isSpoiler: true,
     spoilerLabel: 'Show password hash',
-    render: (user: User) => (
-      <code className='rounded bg-slate-100 p-1 font-mono text-xs'>
-        {user.password?.substring(0, 25)}...
-      </code>
-    ),
+    render: (user: User) => ({
+      value: (
+        <code className='rounded bg-slate-100 p-1 font-mono text-xs'>
+          {user.password?.substring(0, 25)}...
+        </code>
+      ),
+      copyValue: user.password || '',
+    }),
   },
 ]

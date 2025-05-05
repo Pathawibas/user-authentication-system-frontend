@@ -288,6 +288,7 @@ export default function Profile() {
                                   </span>
                                 )
                               }
+                              showCopy={false}
                             />
                           )
                         }
@@ -308,6 +309,28 @@ export default function Profile() {
                                   </span>
                                 )
                               }
+                              showCopy={false}
+                            />
+                          )
+                        }
+                        // Handle fields with custom render returning { value, copyValue }
+                        const rendered = field.render
+                          ? field.render(user)
+                          : undefined
+                        if (
+                          rendered &&
+                          typeof rendered === 'object' &&
+                          'value' in rendered
+                        ) {
+                          return (
+                            <ProfileInfoCard
+                              key={field.key}
+                              icon={field.icon}
+                              label={field.label}
+                              isSpoiler={field.isSpoiler}
+                              spoilerLabel={field.spoilerLabel}
+                              value={rendered.value}
+                              copyValue={rendered.copyValue}
                             />
                           )
                         }
@@ -318,11 +341,7 @@ export default function Profile() {
                             label={field.label}
                             isSpoiler={field.isSpoiler}
                             spoilerLabel={field.spoilerLabel}
-                            value={
-                              field.render
-                                ? field.render(user)
-                                : user[field.key as keyof User]
-                            }
+                            value={rendered ?? user[field.key as keyof User]}
                           />
                         )
                       })}

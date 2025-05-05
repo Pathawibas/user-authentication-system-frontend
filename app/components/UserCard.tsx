@@ -101,6 +101,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                   (field) => !['id', 'fullName', 'email'].includes(field.key),
                 )
                 .map((field) => {
+                  const rendered = field.render ? field.render(user) : undefined
                   if (field.key === 'gender') {
                     return (
                       <ProfileInfoCard
@@ -126,6 +127,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                         key={field.key}
                         icon={field.icon}
                         label={field.label}
+                        showCopy={false}
                         value={
                           Array.isArray(user.interests) &&
                           user.interests.length > 0 ? (
@@ -154,6 +156,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                         key={field.key}
                         icon={field.icon}
                         label={field.label}
+                        showCopy={false}
                         value={
                           user.receiveNewsletter ? (
                             <span className='rounded-full border border-green-100/50 bg-green-50 px-3 py-1 text-xs text-green-600 shadow-sm'>
@@ -168,6 +171,20 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                       />
                     )
                   }
+                  // Handle fields with custom render returning { value, copyValue }
+                  if (rendered && typeof rendered === 'object' && 'value' in rendered) {
+                    return (
+                      <ProfileInfoCard
+                        key={field.key}
+                        icon={field.icon}
+                        label={field.label}
+                        isSpoiler={field.isSpoiler}
+                        spoilerLabel={field.spoilerLabel}
+                        value={rendered.value}
+                        copyValue={rendered.copyValue}
+                      />
+                    )
+                  }
                   return (
                     <ProfileInfoCard
                       key={field.key}
@@ -175,11 +192,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
                       label={field.label}
                       isSpoiler={field.isSpoiler}
                       spoilerLabel={field.spoilerLabel}
-                      value={
-                        field.render
-                          ? field.render(user)
-                          : user[field.key as keyof User]
-                      }
+                      value={rendered ?? user[field.key as keyof User]}
                     />
                   )
                 })}
