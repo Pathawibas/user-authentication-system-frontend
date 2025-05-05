@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import UserCard from '../components/UserCard'
 import InputField from '../components/InputField'
 import Button from '../components/Button'
-import { Search, Users as UsersIcon } from 'lucide-react'
+import { Search, Users as UsersIcon, ArrowDown, ArrowUp } from 'lucide-react'
 import type { User } from '~/types/User'
 
 export default function Users() {
@@ -12,6 +12,7 @@ export default function Users() {
   const [loading, setLoading] = useState(true)
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
   const usersPerPage = 5
 
   useEffect(() => {
@@ -38,9 +39,19 @@ export default function Users() {
     )
   })
 
+  // Sorting logic
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    if (!a.createdAt || !b.createdAt) return 0
+    if (sortOrder === 'asc') {
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    } else {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    }
+  })
+
   // Pagination logic
-  const totalPages = Math.ceil(filteredUsers.length / usersPerPage)
-  const displayedUsers = filteredUsers.slice(
+  const totalPages = Math.ceil(sortedUsers.length / usersPerPage)
+  const displayedUsers = sortedUsers.slice(
     (currentPage - 1) * usersPerPage,
     currentPage * usersPerPage,
   )
@@ -117,9 +128,32 @@ export default function Users() {
             </div>
           </div>
 
-          {/* Delete All Users Button */}
+          {/* Delete All Users Button and Sort Button */}
           {users.length > 0 && (
-            <div className='mb-6 flex justify-end'>
+            <div className='mb-6 flex items-center justify-between'>
+              <div className='flex items-center gap-2'>
+                <Button
+                  type='button'
+                  variant='secondary'
+                  className='flex items-center justify-center px-2 py-1.5'
+                  onClick={() =>
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+                  }
+                  title={`Sort by created date (${sortOrder === 'asc' ? 'Oldest' : 'Newest'})`}
+                >
+                  {sortOrder === 'asc' ? (
+                    <ArrowUp size={16} className='text-indigo-500' />
+                  ) : (
+                    <ArrowDown size={16} className='text-indigo-500' />
+                  )}
+                </Button>
+                <span className='text-xs text-slate-500'>
+                  Sort by Created Date:{' '}
+                  <span className='font-medium text-indigo-600'>
+                    {sortOrder === 'asc' ? 'Oldest first' : 'Newest first'}
+                  </span>
+                </span>
+              </div>
               <Button
                 variant='danger'
                 size='sm'

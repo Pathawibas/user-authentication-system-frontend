@@ -5,7 +5,7 @@ interface ProfileInfoCardProps {
   icon: React.ReactNode
   label: string
   value: React.ReactNode
-  copyValue?: string // Add this prop for full value
+  copyValue?: string
   children?: React.ReactNode
   className?: string
   isSpoiler?: boolean
@@ -17,7 +17,7 @@ export default memo(function ProfileInfoCard({
   icon,
   label,
   value,
-  copyValue, // Add to destructure
+  copyValue,
   children,
   className = '',
   isSpoiler = false,
