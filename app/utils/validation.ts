@@ -5,6 +5,7 @@ export const validateRegisterForm = (formData: {
   confirmPassword: string
   phone?: string
   bio?: string
+  acceptTerms?: boolean
 }) => {
   const errors: Record<string, string> = {}
 
@@ -30,6 +31,10 @@ export const validateRegisterForm = (formData: {
 
   if (formData.bio && formData.bio.length > 150) {
     errors.bio = 'Bio cannot exceed 150 characters.'
+  }
+
+  if ('acceptTerms' in formData && !formData.acceptTerms) {
+    errors.acceptTerms = 'You must accept the terms and conditions.'
   }
 
   return errors

@@ -1,87 +1,142 @@
-# Welcome to React Router!
+# 🧑‍💻 User Authentication System
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A simple frontend authentication system built with **React Router v7**, **Vite**, **TypeScript**, **Tailwind CSS**, and **localStorage**.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+---
 
-## Features
+## 🌐 Live Demo
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+Check out the live demo of the project here:
+[User Authentication System](https://user-authentication-system-frontend-alpha.vercel.app/)
 
-## Getting Started
+---
 
-### Installation
+## 📄 Project Reference & Task Details
 
-Install the dependencies:
+For the full project brief, requirements, and training task details, see the Notion page:
+
+[Trainee Frontend Web Developer Training Task — User Authentication Management System](https://clammy-mat-7f0.notion.site/Train-Frontend-Web-Developer-Training-Task-User-Authentication-Management-System-1e7fa5964bf9800cb9b4f7c17e734240)
+
+---
+
+## 🚀 Tech Stack
+
+- **Frontend Framework**: React (with Vite + TypeScript)
+- **Routing**: React Router v7
+- **Styling**: Tailwind CSS v4
+- **Password Hashing**: bcryptjs
+- **Data Storage**: localStorage (simulating backend)
+- **Token Handling**: Base64 token stored in `localStorage`
+
+---
+
+## 📁 Branches Structure
+
+| Branch Name        | Purpose                        |
+|--------------------|--------------------------------|
+| `develop`          | Main development branch        |
+| `1-initial-project`| Vite + Tailwind + Routing base |
+| `2-register`       | Registration form + validation |
+| `3-users`          | User list + search + delete    |
+| `4-login`          | Login + token storage          |
+| `5-profile`        | Protected profile + logout     |
+
+---
+
+## 📸 Pages Overview
+
+### `/register`
+- Full form with required + optional fields
+- Validates input
+- Hashes password before storing
+- Stores user in localStorage
+
+### `/users`
+- Displays all registered users
+- Supports search and pagination
+- Allows deleting users
+
+### `/login`
+- Email + password login
+- Verifies hash
+- Stores token on success
+
+### `/profile`
+- Protected route (checks for token)
+- Displays current user's data
+- Logout functionality
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the Repo
+
+```bash
+git clone https://github.com/Pathawibas/user-authentication-system-frontend.git
+cd user-authentication-system-frontend
+````
+
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Development
-
-Start the development server with HMR:
+### 3. Start Dev Server
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+By default, your app will be running at [http://localhost:5173](http://localhost:5173)
 
 ---
 
-Built with ❤️ using React Router.
+## 🎨 Modern Skeuomorphism UI
+
+This project features a **Modern Skeuomorphism** design:
+
+- Soft, rounded containers with glassy, blurred backgrounds
+- Layered gradients and floating, blurred shapes for depth
+- Subtle inner and outer shadows for a tactile, interactive feel
+- Modern, accessible color palette and smooth transitions
+
+> The UI is inspired by the latest skeuomorphic trends, blending realism and minimalism for a delightful user experience.
+
+---
+
+## ✨ Training Focus Areas
+
+* React component structure and forms
+* State and validation management
+* Controlled components
+* Password hashing and security awareness
+* Auth token-based access control
+* Routing and page protection
+
+---
+
+## ✅ Suggested Next Steps
+
+* Add form libraries (e.g. React Hook Form + Zod)
+* Replace localStorage with real API calls (Node/Firebase)
+* Add role-based authorization
+* Use Context or Zustand for global auth state
+
+---
+
+## 🧑‍🏫 Created for Internal Training
+
+This project is used to train junior frontend developers in building real-world login systems without a backend to understand the fundamentals first.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
+
+> Built with ❤️
+
