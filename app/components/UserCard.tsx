@@ -19,9 +19,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
       <p className='text-sm text-gray-600'>{user.email}</p>
       {user.phone && <p className='text-sm text-gray-600'>📞 {user.phone}</p>}
       {user.bio && <p className='text-sm text-gray-600 italic'>"{user.bio}"</p>}
-      <p className='mt-2 text-xs break-all text-gray-500'>
-        Hashed Password: <code>{user.password}</code>
-      </p>
+      {/* Password information removed for security reasons */}
       <button
         onClick={() => onDelete(user.id)}
         className='absolute top-2 right-2 cursor-pointer rounded bg-red-500 px-2 py-1 text-xs text-white select-none hover:bg-red-600'
