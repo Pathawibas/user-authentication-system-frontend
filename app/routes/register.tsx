@@ -77,7 +77,7 @@ export default function Register() {
           placeholder='Your full name'
           value={formData.fullName}
           onChange={handleChange}
-          withAsterisk
+          isRequired
         />
         {formErrors.fullName && (
           <p className='text-sm text-red-500'>{formErrors.fullName}</p>
@@ -90,7 +90,7 @@ export default function Register() {
           placeholder='you@example.com'
           value={formData.email}
           onChange={handleChange}
-          withAsterisk
+          isRequired
         />
         {formErrors.email && (
           <p className='text-sm text-red-500'>{formErrors.email}</p>
@@ -103,7 +103,7 @@ export default function Register() {
           placeholder='Enter password'
           value={formData.password}
           onChange={handleChange}
-          withAsterisk
+          isRequired
         />
         {formErrors.password && (
           <p className='text-sm text-red-500'>{formErrors.password}</p>
@@ -116,7 +116,7 @@ export default function Register() {
           placeholder='Confirm your password'
           value={formData.confirmPassword}
           onChange={handleChange}
-          withAsterisk
+          isRequired
         />
         {formErrors.confirmPassword && (
           <p className='text-sm text-red-500'>{formErrors.confirmPassword}</p>

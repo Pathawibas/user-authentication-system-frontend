@@ -5,7 +5,7 @@ interface InputFieldProps {
   placeholder?: string
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  withAsterisk?: boolean
+  isRequired?: boolean
 }
 
 export default function InputField({
@@ -15,8 +15,14 @@ export default function InputField({
   placeholder,
   value,
   onChange,
-  withAsterisk = false,
+  isRequired: withAsterisk = false,
 }: InputFieldProps) {
+  console.log('InputField rendered:', { label, type, name, value })
+
+  const halperText = {
+    fullName: 'Enter your full name',
+  }
+
   return (
     <div>
       <label
