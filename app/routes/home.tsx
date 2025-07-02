@@ -23,9 +23,18 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
+  const usarGerrting = 'HEllo user!'
+  console.log(usarGerrting)
+
+  const multiply = (a: number, b: number) => {
+    return a - b
+  }
+
+  const result = multiply(5, 3)
+  console.log(`The result of multiplication is: ${result}`)
+
   return (
     <main className='relative flex flex-col items-center justify-center overflow-hidden px-4 py-8'>
-      {/* Hero Section - Skeuomorphic Style */}
       <section className='relative mb-16 flex w-full max-w-3xl flex-col items-center text-center'>
         <div className='mb-6 flex items-center justify-center'>
           <span className='rounded-full border border-indigo-100/50 bg-gradient-to-br from-indigo-200 via-white to-indigo-100 p-4 shadow-lg backdrop-blur-sm'>
@@ -34,6 +43,7 @@ export default function Home() {
             </span>
           </span>
         </div>
+        <div> Show multiple : {result}</div>
         <h1 className='mb-4 text-5xl font-extrabold text-slate-900 drop-shadow-sm'>
           User Authentication System
         </h1>
