@@ -26,7 +26,23 @@ For the full project brief, requirements, and training task details, see the Not
 - **Styling**: Tailwind CSS v4
 - **Password Hashing**: bcryptjs
 - **Data Storage**: localStorage (simulating backend)
-- **Token Handling**: Base64 token stored in `localStorage`
+- **Token Handling**: JWT-style tokens with auth utilities
+
+---
+
+## 🔧 Recent Changes
+
+### Security Improvements
+- Added new authentication utilities in `app/utils/auth.ts`
+- Enhanced token generation and validation
+- Improved user profile management
+
+### New Components
+- `UserProfile.tsx` - Enhanced user profile editing
+- Configuration management in `app/config/app.ts`
+
+### Testing
+- Added test utilities for authentication functions
 
 ---
 

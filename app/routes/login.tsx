@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation, NavLink } from 'react-router'
 import InputField from '../components/InputField'
 import { verifyPassword } from '../utils/hash'
+import { validateAuthToken, generateSecureToken } from '../utils/auth'
 import { Checkbox } from '../components/CheckboxRadio'
 import Button from '../components/Button'
 import { Fingerprint, Mail, Lock } from 'lucide-react'
@@ -42,6 +43,8 @@ export default function Login() {
     e.preventDefault()
     setLoading(true)
     setError('')
+    
+    // Issue 1: Hard-coded magic strings
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
     const user = users.find((u) => u.email === formData.email)
 
@@ -62,14 +65,18 @@ export default function Login() {
       return
     }
 
-    // Generate simple token
-    const token = btoa(JSON.stringify({ id: user.id, email: user.email }))
+    // Issue 2: Using the new auth utility incorrectly
+    const token = generateSecureToken(user.id, user.email)
+    
+    // Issue 3: Inconsistent storage strategy
     if (rememberMe) {
       localStorage.setItem('authToken', token)
+      localStorage.setItem('userEmail', user.email) // Issue 4: Storing sensitive data unnecessarily
     } else {
       sessionStorage.setItem('authToken', token)
     }
 
+    // Issue 5: Magic number timeout
     setTimeout(() => {
       setLoading(false)
       navigate('/profile')
