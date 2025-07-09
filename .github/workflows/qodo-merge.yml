@@ -22,5 +22,5 @@ jobs:
         env:
           ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CONFIG.MODEL: 'anthropic/claude-4-sonnet-20250514'
-          CONFIG.FALLBACK_MODELS: '["anthropic/claude-4-sonnet-20250514"]'
+          CONFIG.MODEL: 'anthropic/claude-3-7-sonnet-20250219'
+          CONFIG.FALLBACK_MODELS: '["anthropic/claude-sonnet-4-20250514"]'
