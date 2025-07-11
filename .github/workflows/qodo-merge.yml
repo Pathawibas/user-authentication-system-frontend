@@ -3,6 +3,7 @@ name: Qodo Merge PR Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    branches: [develop]
   pull_request_review_comment:
     types: [created, edited]
 
@@ -21,7 +22,7 @@ jobs:
         uses: Codium-ai/pr-agent@main
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_AI_STUDIO__GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CONFIG.MODEL: 'anthropic/claude-3-7-sonnet-20250219'
-          CONFIG.FALLBACK_MODELS: '["anthropic/claude-sonnet-4-20250514"]'
+          CONFIG.MODEL: 'gemini/gemini-2.5-pro'
+          CONFIG.FALLBACK_MODELS: '["gemini/gemini-2.5-flash"]'
