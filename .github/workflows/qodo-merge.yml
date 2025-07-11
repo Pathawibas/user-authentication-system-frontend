@@ -21,8 +21,9 @@ jobs:
         id: reviewdog
         uses: Codium-ai/pr-agent@main
         env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           GOOGLE_AI_STUDIO__GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONFIG.MODEL: 'gemini/gemini-2.5-pro'
           CONFIG.FALLBACK_MODELS: '["gemini/gemini-2.5-flash"]'
+          PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 6
+          PR_REVIEWER.REQUIRE_TESTS_REVIEW: 'false'
