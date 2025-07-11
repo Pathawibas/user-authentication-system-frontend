@@ -1,0 +1,29 @@
+name: Qodo Merge PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [develop]
+  pull_request_review_comment:
+    types: [created, edited]
+
+jobs:
+  pr_agent_job:
+    if: ${{ github.event.sender.type != 'Bot' }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
+    name: Run Qodo Merge on PR
+    steps:
+      - name: PR Reviewer
+        id: reviewdog
+        uses: Codium-ai/pr-agent@main
+        env:
+          GOOGLE_AI_STUDIO__GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG.MODEL: 'gemini/gemini-2.5-pro'
+          CONFIG.FALLBACK_MODELS: '["gemini/gemini-2.5-flash"]'
+          PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 6
+          PR_REVIEWER.REQUIRE_TESTS_REVIEW: 'false'
